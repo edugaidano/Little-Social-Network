@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "logs/logs.h" // on utils folder
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class LoginWidget; }
 QT_END_NAMESPACE
@@ -12,7 +14,7 @@ class LoginWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit LoginWidget(QWidget *parent = nullptr);
+    explicit LoginWidget(LOG_T &logger, QWidget *parent = nullptr);
     ~LoginWidget();
 
 signals:
@@ -24,6 +26,7 @@ private slots:
     void onRegisterButtonClicked();
 
 private:
+    LOG_T &logger;
     Ui::LoginWidget *ui;
 };
 

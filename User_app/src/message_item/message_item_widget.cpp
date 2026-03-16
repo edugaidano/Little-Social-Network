@@ -1,9 +1,10 @@
 #include "message_item_widget.h"
 #include "ui_message_item_widget.h"
 
-MessageItemWidget::MessageItemWidget(const uint32_t messageId, bool seen, const QString &date, const QString &sender, const QString &subject, QWidget *parent)
-    : QWidget(parent), 
-    ui(new Ui::MessageItemWidget), 
+MessageItemWidget::MessageItemWidget(LOG_T &logger, bool seen, const uint32_t messageId, const QString &date, const QString &sender, const QString &subject, QWidget *parent) :
+    QWidget(parent),
+    logger(logger),
+    ui(new Ui::MessageItemWidget),
     messageId(messageId)
 {
     ui->setupUi(this);
@@ -11,6 +12,8 @@ MessageItemWidget::MessageItemWidget(const uint32_t messageId, bool seen, const 
     ui->dateLabel->setText(date);
     ui->subjectLabel->setText(subject);
     ui->seenBox->setChecked(seen);
+
+    LOG_DEBUG(logger, "MessageItemWidget initialized with ID: " + std::to_string(messageId));
 }
 
 MessageItemWidget::~MessageItemWidget() {

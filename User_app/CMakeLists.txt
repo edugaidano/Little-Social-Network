@@ -5,6 +5,8 @@ find_package(Qt6 6.10 REQUIRED COMPONENTS Core Widgets)
 
 qt_standard_project_setup()
 
+add_subdirectory(../Utils utils_build)
+
 qt_add_executable(User_app
     WIN32
     src/main.cpp
@@ -53,6 +55,7 @@ target_link_libraries(User_app
     PRIVATE
         Qt::Core
         Qt::Widgets
+        utils
 )
 
 include(GNUInstallDirs)

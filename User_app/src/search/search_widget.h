@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "logs/logs.h" // on utils folder
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class SearchWidget; }
 QT_END_NAMESPACE
@@ -12,7 +14,7 @@ class SearchWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit SearchWidget(QWidget *parent = nullptr);
+    explicit SearchWidget(LOG_T &logger, QWidget *parent = nullptr);
     ~SearchWidget();
 
 signals:
@@ -20,9 +22,11 @@ signals:
     void backToMainMenu();
 
 private slots:
-    void on_searchButton_clicked();
+    void onSearchButtonClicked();
+    void onBackButtonClicked();
 
 private:
+    LOG_T &logger;
     Ui::SearchWidget *ui;
 };
 

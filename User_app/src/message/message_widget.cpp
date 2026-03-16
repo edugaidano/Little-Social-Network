@@ -1,8 +1,9 @@
 #include "message_widget.h"
 #include "ui_message_widget.h"
 
-MessageWidget::MessageWidget(const uint32_t id, const QString &date, const QString &sender, const QString &subject, const QString &content, QWidget *parent) :
+MessageWidget::MessageWidget(LOG_T &logger, const uint32_t id, const QString &date, const QString &sender, const QString &subject, const QString &content, QWidget *parent) :
     QWidget(parent),
+    logger(logger),
     ui(new Ui::MessageWidget),
     messageId(id)
 {
@@ -12,10 +13,22 @@ MessageWidget::MessageWidget(const uint32_t id, const QString &date, const QStri
     ui->subjectLabel->setText(subject);
     ui->contentLabel->setText(content);
 
-    connect(ui->backButton, &QPushButton::clicked, this, [this]() { emit backButtonClicked(); });
-    connect(ui->deleteButton, &QPushButton::clicked, this, [this]() { emit deleteButtonClicked(messageId); });
+    connect(ui->backButton, &QPushButton::clicked, this, &MessageWidget::onBackButtonClicked);
+    connect(ui->deleteButton, &QPushButton::clicked, this, &MessageWidget::onDeleteButtonClicked);
+
+    LOG_DEBUG(logger, "MessageWidget initialized with ID: " + std::to_string(messageId));
 }
 
 MessageWidget::~MessageWidget() {
     delete ui;
+}
+
+void MessageWidget::onBackButtonClicked() {
+    LOG_INFO(logger, "Back button clicked on message " + std::to_string(messageId));
+    emit backButtonClicked();
+}
+
+void MessageWidget::onDeleteButtonClicked() {
+    LOG_INFO(logger, "Delete button clicked on message " + std::to_string(messageId));
+    emit deleteButtonClicked(messageId);
 }

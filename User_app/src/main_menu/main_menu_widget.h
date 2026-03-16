@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "logs/logs.h" // on utils folder
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainMenuWidget; }
 QT_END_NAMESPACE
@@ -12,7 +14,7 @@ class MainMenuWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit MainMenuWidget(QWidget *parent = nullptr);
+    explicit MainMenuWidget(LOG_T &logger, QWidget *parent = nullptr);
     ~MainMenuWidget();
 
 signals:
@@ -22,7 +24,15 @@ signals:
     void sendMessageRequested();
     void logoutRequested();    
 
+private slots:
+    void onViewProfileButtonClicked();
+    void onSearchProfileButtonClicked();
+    void onViewMessagesButtonClicked();
+    void onSendMessageButtonClicked();
+    void onLogoutButtonClicked();
+
 private:
+    LOG_T &logger;
     Ui::MainMenuWidget *ui;
 };
 

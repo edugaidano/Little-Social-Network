@@ -1,8 +1,9 @@
 #include "profile_editor_widget.h"
 #include "ui_profile_editor_widget.h"
 
-ProfileEditorWidget::ProfileEditorWidget(const QString &username, const QString &profileContent, QWidget *parent) :
+ProfileEditorWidget::ProfileEditorWidget(LOG_T &logger, const QString &username, const QString &profileContent, QWidget *parent) :
     QWidget(parent),
+    logger(logger),
     ui(new Ui::ProfileEditorWidget)
 {
     ui->setupUi(this);
@@ -11,7 +12,9 @@ ProfileEditorWidget::ProfileEditorWidget(const QString &username, const QString 
     ui->profileContentLabel->setText(profileContent);
 
     connect(ui->saveButton, &QPushButton::clicked, this, &ProfileEditorWidget::onSaveButtonClicked);
-    connect(ui->cancelButton, &QPushButton::clicked, this, [this]() {emit backToMenuRequested();});
+    connect(ui->cancelButton, &QPushButton::clicked, this, &ProfileEditorWidget::onBackButtonClicked);
+
+    LOG_DEBUG(logger, "ProfileEditorWidget initialized for user");
 }
 
 ProfileEditorWidget::~ProfileEditorWidget() {
@@ -19,8 +22,12 @@ ProfileEditorWidget::~ProfileEditorWidget() {
 }
 
 void ProfileEditorWidget::onSaveButtonClicked() {
+    LOG_INFO(logger, "Save button clicked on the Profile Editor");
     QString profileContent = ui->profileContentTextEdit->toPlainText();
     emit saveProfileRequested(profileContent);
 }
 
-
+void ProfileEditorWidget::onBackButtonClicked() {
+    LOG_INFO(logger, "Back button clicked on the Profile Editor");
+    emit backToMenuRequested();
+}

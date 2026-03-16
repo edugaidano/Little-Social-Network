@@ -13,20 +13,32 @@
 #include "../message/message_widget.h"
 #include "../send_message/send_message_widget.h"
 
+#include "logs/logs.h" // on utils folder
+
 class AppController : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit AppController(QWidget *parent = nullptr);
+    explicit AppController(LOG_T &logger, QWidget *parent = nullptr);
 
 private:
+    LOG_T &logger;
+
     QStackedWidget *stack;
 
     LoginWidget*login;
     MainMenuWidget *mainMenu;
 
-    void setupConnections();
+    void connectionsForLogin();
+    void connectionsForMainMenu();
+
+    void connectionsForSearch(SearchWidget *search);
+    void connectionsForOtherProfile(ProfileWidget *profile);
+    void connectionsForProfileEditor(ProfileEditorWidget *editor);
+    void connectionsForMessagesInterface(MessagesInterfaceWidget *messagesInterface);
+    void connectionsForMessage(MessageWidget *message);
+    void connectionsForSendMessage(SendMessageWidget *sendMessageWidget);
 };
 
 #endif
