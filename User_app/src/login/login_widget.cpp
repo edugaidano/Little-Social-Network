@@ -8,8 +8,9 @@ LoginWidget::LoginWidget(LOG_T &logger, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->loginButton, &QPushButton::clicked, this, &LoginWidget::onLoginButtonClicked);
-    connect(ui->registerButton, &QPushButton::clicked, this, &LoginWidget::onRegisterButtonClicked);
+    connect(ui->mainButton, &QPushButton::clicked, this, &LoginWidget::onMainButtonClicked);
+    connect(ui->secondaryButton, &QPushButton::clicked, this, &LoginWidget::onSecondaryButtonClicked);
+    connect(ui->configButton, &QPushButton::clicked, this, &LoginWidget::onConfigButtonClicked);
 
     LOG_DEBUG(logger, "LoginWidget initialized");
 }
@@ -18,20 +19,37 @@ LoginWidget::~LoginWidget() {
     delete ui;
 }
 
-void LoginWidget::onLoginButtonClicked() {
-    LOG_INFO(logger, "Login button clicked");
+void LoginWidget::onMainButtonClicked() {
     QString user = ui->lineEdit->text();
-
-    //TODO: Validar usuario
-
-    emit loginRequested(user);
+    //TODO: Validar usuario   
+    if (isLoginMode) {
+        LOG_INFO(logger, "Login button clicked");
+        emit loginRequested(user);
+    } else {
+        LOG_INFO(logger, "Register button clicked");
+        emit registerRequested(user);
+    }
 }
 
-void LoginWidget::onRegisterButtonClicked() {
-    LOG_INFO(logger, "Register button clicked");
-    QString user = ui->lineEdit->text();
+void LoginWidget::onSecondaryButtonClicked() {
+    if(isLoginMode) {
+        LOG_INFO(logger, "Switching to register mode");
+        ui->titleLabel->setText(tr("Create a new account"));
+        ui->mainButton->setText(tr("Register"));
+        ui->secondaryLabel->setText(tr("Already have an account?"));
+        ui->secondaryButton->setText(tr("Login"));
+        isLoginMode = false;
+    } else {
+        LOG_INFO(logger, "Switching to login mode");
+        ui->titleLabel->setText(tr("Access your account"));
+        ui->mainButton->setText(tr("Login"));
+        ui->secondaryLabel->setText(tr("Don't have an account?"));
+        ui->secondaryButton->setText(tr("Register"));
+        isLoginMode = true;
+    }
+}
 
-    //TODO: Validar usuario
-
-    emit registerRequested(user);
+void LoginWidget::onConfigButtonClicked() {
+    LOG_INFO(logger, "Config button clicked");
+    emit configRequested();
 }

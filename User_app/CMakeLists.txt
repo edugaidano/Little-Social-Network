@@ -49,6 +49,10 @@ qt_add_executable(User_app
     src/send_message/send_message_widget.cpp
     src/send_message/send_message_widget.h
     src/send_message/send_message_widget.ui
+
+    src/config/config_widget.cpp
+    src/config/config_widget.h
+    src/config/config_widget.ui
 )
 
 target_link_libraries(User_app
@@ -59,6 +63,17 @@ target_link_libraries(User_app
 )
 
 include(GNUInstallDirs)
+
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/../utils/config/config_file.conf
+    ${CMAKE_CURRENT_BINARY_DIR}/config_file.conf
+    COPYONLY
+)
+
+install(FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/../utils/config/config_file.conf
+    DESTINATION .
+)
 
 install(TARGETS User_app
     BUNDLE  DESTINATION .

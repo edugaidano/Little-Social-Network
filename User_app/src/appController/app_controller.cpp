@@ -1,9 +1,10 @@
 #include "app_controller.h"
 #include <QVBoxLayout>
 
-AppController::AppController(LOG_T &logger, QWidget *parent) :
+AppController::AppController(LOG_T &logger, CONFIG_D &config, QWidget *parent) :
     QWidget(parent), 
-    logger(logger)
+    logger(logger),
+    config(config)
 {
     stack = new QStackedWidget();
 
@@ -33,6 +34,20 @@ void AppController::connectionsForLogin() {
         Q_UNUSED(user);
         LOG_DEBUG(logger, "Register requested for user: " + user.toStdString());
         stack->setCurrentWidget(mainMenu);
+    });
+
+    connect(login, &LoginWidget::configRequested, this, [this]() {
+        LOG_DEBUG(logger, "Config requested");
+        ConfigWidget *configWidget = new ConfigWidget(logger, config);
+        stack->addWidget(configWidget);
+        stack->setCurrentWidget(configWidget);
+
+        connect(configWidget, &ConfigWidget::backRequested, this, [this, configWidget]() {
+            LOG_DEBUG(logger, "Back requested from config");
+            stack->setCurrentWidget(login);
+            stack->removeWidget(configWidget);
+            configWidget->deleteLater();
+        });
     });
 }
 

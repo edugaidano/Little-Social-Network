@@ -2,11 +2,9 @@
 #define UTILS_LOGS_H
 
 #include <sstream>
-//#include <chrono>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-//#include <map>
 
 typedef enum LOG_LEVEL {
     LEVEL_DEBUG,

@@ -1,17 +1,20 @@
 #include <QApplication>
 
 #include "appController/app_controller.h"
-#include "logs/logs.h" // on utils folder
+// on utils folder
+#include "logs/logs.h"
+#include "config/config.h"
 
 int main(int argc, char *argv[])
 {
-    LOG_T logger = log_init(LEVEL_DEBUG, "app.log");
-    LOG_DEBUG(logger, "Application started");
-    //TODO: add option to change log level and file name from a config file
+    CONFIG_D config = get_config_dictionary("config_file.conf");
+    LOG_LEVEL log_level = level_from_string(config["LOG_LEVEL"]);
+    LOG_T logger = log_init(log_level, "app.log");
+    LOG_INFO(logger, "Application started");
 
     QApplication a(argc, argv);
 
-    AppController app(logger);
+    AppController app(logger, config);
     app.show();
 
     return a.exec();

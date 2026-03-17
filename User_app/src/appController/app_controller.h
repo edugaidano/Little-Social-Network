@@ -12,18 +12,22 @@
 #include "../messages_interface/messages_interface_widget.h"
 #include "../message/message_widget.h"
 #include "../send_message/send_message_widget.h"
+#include "../config/config_widget.h"
 
-#include "logs/logs.h" // on utils folder
+// on utils folder
+#include "logs/logs.h"
+#include "config/config.h"
 
 class AppController : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit AppController(LOG_T &logger, QWidget *parent = nullptr);
+    explicit AppController(LOG_T &logger, CONFIG_D &config, QWidget *parent = nullptr);
 
 private:
     LOG_T &logger;
+    CONFIG_D &config;
 
     QStackedWidget *stack;
 

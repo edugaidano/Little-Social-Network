@@ -20,13 +20,16 @@ public:
 signals:
     void loginRequested(QString user);
     void registerRequested(QString user);
+    void configRequested();
 
 private slots:
-    void onLoginButtonClicked();
-    void onRegisterButtonClicked();
+    void onMainButtonClicked();
+    void onSecondaryButtonClicked();
+    void onConfigButtonClicked();
 
 private:
     LOG_T &logger;
+    bool isLoginMode = true; // true: login mode, false: register mode
     Ui::LoginWidget *ui;
 };
 
