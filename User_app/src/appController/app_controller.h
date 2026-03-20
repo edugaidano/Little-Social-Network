@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QStackedWidget>
 
+// Widgets
 #include "../login/login_widget.h"
 #include "../main_menu/main_menu_widget.h"
 #include "../profile/profile_widget.h"
@@ -14,7 +15,10 @@
 #include "../send_message/send_message_widget.h"
 #include "../config/config_widget.h"
 
-// on utils folder
+// Comunication
+#include "../communicationController/communication_controller.h"
+
+// Utils -> on utils folder
 #include "logs/logs.h"
 #include "config/config.h"
 
@@ -28,6 +32,7 @@ public:
 private:
     LOG_T &logger;
     CONFIG_D &config;
+    CommunicationController* comController = NULL;
 
     QStackedWidget *stack;
 

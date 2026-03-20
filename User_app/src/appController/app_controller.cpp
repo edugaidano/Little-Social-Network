@@ -27,12 +27,19 @@ void AppController::connectionsForLogin() {
     connect(login, &LoginWidget::loginRequested, this, [this](QString user) {
         Q_UNUSED(user);
         LOG_DEBUG(logger, "Login requested for user: " + user.toStdString());
+        if (!comController) {
+            comController = new CommunicationController(logger, config["SERVER_IP"].c_str(), config["SERVER_PORT"].c_str());
+        }
+        
         stack->setCurrentWidget(mainMenu);
     });
 
     connect(login, &LoginWidget::registerRequested, this, [this](QString user) {
         Q_UNUSED(user);
         LOG_DEBUG(logger, "Register requested for user: " + user.toStdString());
+        if (!comController) {
+            comController = new CommunicationController(logger, config["SERVER_IP"].c_str(), config["SERVER_PORT"].c_str());
+        }
         stack->setCurrentWidget(mainMenu);
     });
 
@@ -54,6 +61,11 @@ void AppController::connectionsForLogin() {
 void AppController::connectionsForMainMenu() {
     connect(mainMenu, &MainMenuWidget::logoutRequested, this, [this]() {
         LOG_DEBUG(logger, "Logout requested");
+        if (comController) {
+            delete comController;
+            comController = NULL;
+        }
+        
         stack->setCurrentWidget(login);
     });
 

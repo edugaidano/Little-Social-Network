@@ -1,11 +1,8 @@
-cmake_minimum_required(VERSION 4.2)
-project(User_app LANGUAGES CXX)
+project(User_app)
 
 find_package(Qt6 6.10 REQUIRED COMPONENTS Core Widgets)
 
 qt_standard_project_setup()
-
-add_subdirectory(../Utils utils_build)
 
 qt_add_executable(User_app
     WIN32
@@ -13,6 +10,12 @@ qt_add_executable(User_app
     
     src/appController/app_controller.cpp
     src/appController/app_controller.h
+
+    src/connect_server/connect_server.cpp
+    src/connect_server/connect_server.h
+
+    src/communicationController/communication_controller.cpp
+    src/communicationController/communication_controller.h
 
     src/login/login_widget.cpp
     src/login/login_widget.h
@@ -60,6 +63,7 @@ target_link_libraries(User_app
         Qt::Core
         Qt::Widgets
         utils
+        ws2_32
 )
 
 include(GNUInstallDirs)
