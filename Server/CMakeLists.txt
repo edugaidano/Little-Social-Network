@@ -2,8 +2,9 @@ project(Server)
 
 file(GLOB_RECURSE SRC_FILES
     src/main.cpp
-
     src/start_server/start_server.cpp
+    src/user_manager/user_manager.cpp
+    src/check_login_register/check_login_register.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})

@@ -1,9 +1,8 @@
 #include "start_server/start_server.h"
+#include "user_manager/user_manager.h"
 
 // on utils folder
-#include "logs/logs.h"
 #include "config/config.h"
-#include "communication/communication.h"
 
 int main (int argc, char *argv[]) {
     CONFIG_D config = get_config_dictionary("config_file.conf");
@@ -22,29 +21,11 @@ int main (int argc, char *argv[]) {
         }   
 
         LOG_DEBUG(logger, "new connection acepted");
-        
-        PACKAGE_T* pkg = recvPackage(logger, clientSocket);
-        if (pkg->code != HANDSHAKE) {
-            LOG_ERROR(logger, "Package received different to HANDSHAKE");
-            closesocket(clientSocket);
-            exit(EXIT_FAILURE);
-        }
+        ThreadData* data = new ThreadData{clientSocket, &logger};
 
-        //TODO: use info of pkg
-        freePackage(pkg);
-        
-        LOG_INFO(logger, "HANDSHAKE received");
-        PACKAGE_T* retPkg = createPackage(RESULT_HANDSHAKE);
-        addItem(retPkg, (void*)"Todo OK", 8);
-        sendPackage(logger, clientSocket, retPkg);
-        freePackage(retPkg);
-
-
-        /*
         pthread_t pthread;
-        pthread_create(&pthread, NULL, manage_user, socket);
+        pthread_create(&pthread, NULL, userManager, data);
         pthread_detach(pthread);
-        */
     }
 
     return 0;

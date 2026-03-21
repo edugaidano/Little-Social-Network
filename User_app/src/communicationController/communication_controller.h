@@ -12,8 +12,8 @@ public:
     CommunicationController(LOG_T& logger, const char* ip, const char* port);
     ~CommunicationController();
 
-    void loginRequest();
-    void registerRequest();
+    int loginRequest(const std::string& user);
+    int registerRequest(const std::string& user);
     void searchRequest();
     void updateRequest();
     void messagesRequest();
@@ -22,7 +22,10 @@ public:
 
 private:
     SOCKET serverConnection;
+
     LOG_T& logger;
+    std::string username;
+
     void doHandshake();
 };
 

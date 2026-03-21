@@ -21,7 +21,12 @@ LoginWidget::~LoginWidget() {
 
 void LoginWidget::onMainButtonClicked() {
     QString user = ui->lineEdit->text();
-    //TODO: Validar usuario   
+    if (user.isEmpty()) {
+        LOG_WARNING(logger, "User is empty");
+        //Todo: emit warning
+        return;
+    }
+      
     if (isLoginMode) {
         LOG_INFO(logger, "Login button clicked");
         emit loginRequested(user);

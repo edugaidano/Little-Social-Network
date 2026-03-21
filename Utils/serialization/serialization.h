@@ -6,8 +6,20 @@
 #include <cstring>
 
 typedef enum CODE_CONTENT : uint32_t {
-    HANDSHAKE,
-    RESULT_HANDSHAKE
+    LOGIN,
+    LOGIN_REPLY,
+    REGISTER,
+    REGISTER_REPLY,
+    SEARCH_PROFILE,
+    PROFILE,
+    SAVE_PROFILE,
+    SAVE_REPLY,
+    MESSAGES_REQUEST,
+    MESSAGES,
+    MESSAGE_REQUEST,
+    MESSAGE,
+    SEND_MESSAGE,
+    SEND_REPLY
 } CODE_CONTENT;
 
 typedef struct PACKAGE_T {

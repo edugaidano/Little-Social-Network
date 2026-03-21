@@ -25,21 +25,26 @@ AppController::AppController(LOG_T &logger, CONFIG_D &config, QWidget *parent) :
 
 void AppController::connectionsForLogin() {
     connect(login, &LoginWidget::loginRequested, this, [this](QString user) {
-        Q_UNUSED(user);
         LOG_DEBUG(logger, "Login requested for user: " + user.toStdString());
         if (!comController) {
             comController = new CommunicationController(logger, config["SERVER_IP"].c_str(), config["SERVER_PORT"].c_str());
         }
-        
+        if (comController->loginRequest(user.toStdString()) != 0) {
+            //TODO: show an error
+            exit(EXIT_FAILURE);
+        }        
         stack->setCurrentWidget(mainMenu);
     });
 
     connect(login, &LoginWidget::registerRequested, this, [this](QString user) {
-        Q_UNUSED(user);
         LOG_DEBUG(logger, "Register requested for user: " + user.toStdString());
         if (!comController) {
             comController = new CommunicationController(logger, config["SERVER_IP"].c_str(), config["SERVER_PORT"].c_str());
         }
+        if (comController->registerRequest(user.toStdString()) != 0) {
+            //TODO: show an error
+            exit(EXIT_FAILURE);
+        } 
         stack->setCurrentWidget(mainMenu);
     });
 
@@ -48,6 +53,11 @@ void AppController::connectionsForLogin() {
         ConfigWidget *configWidget = new ConfigWidget(logger, config);
         stack->addWidget(configWidget);
         stack->setCurrentWidget(configWidget);
+
+        if (comController) {
+            delete comController;
+            comController = NULL;
+        }
 
         connect(configWidget, &ConfigWidget::backRequested, this, [this, configWidget]() {
             LOG_DEBUG(logger, "Back requested from config");

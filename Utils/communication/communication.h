@@ -23,7 +23,7 @@
     #define SOCKET_T int
 #endif // __linux__
 
-void sendPackage(LOG_T& logger, SOCKET_T socket, PACKAGE_T* package);
+int sendPackage(LOG_T& logger, SOCKET_T socket, PACKAGE_T* package);
 PACKAGE_T* recvPackage(LOG_T& logger, SOCKET_T socket);
 
 #endif // COMMUNICATION_H

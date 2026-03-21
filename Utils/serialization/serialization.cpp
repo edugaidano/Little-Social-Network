@@ -36,9 +36,13 @@ void* getItem(PACKAGE_T* pkg) {
     uint32_t totalSize = size + sizeof(uint32_t);
     pkg->bufferSize -= totalSize;
 
-    memmove(pkg->buffer, (char*)pkg->buffer + totalSize, pkg->bufferSize);
-
-    pkg->buffer = realloc(pkg->buffer, pkg->bufferSize);
+    if (pkg->bufferSize == 0) {
+        memmove(pkg->buffer, (char*)pkg->buffer + totalSize, pkg->bufferSize);
+        pkg->buffer = realloc(pkg->buffer, pkg->bufferSize);
+    } else {
+        free(pkg->buffer);
+        pkg->buffer = NULL;
+    }
 
     return item;
 }
