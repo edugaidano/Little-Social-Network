@@ -24,7 +24,7 @@ public:
     PROFILE_S* searchRequest(const std::string& user);
     PROFILE_S* myProfileRequest();
 
-    void updateRequest();
+    void updateRequest(const std::string& newContent);
     void messagesRequest();
     void messageRequest();
     void sendRequest();

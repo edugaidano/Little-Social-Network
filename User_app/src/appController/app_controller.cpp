@@ -195,8 +195,10 @@ void AppController::connectionsForProfileEditor(ProfileEditorWidget *editor) {
     });
 
     connect(editor, &ProfileEditorWidget::saveProfileRequested, this, [this, editor](QString profileContent) {
-        Q_UNUSED(profileContent);
         LOG_DEBUG(logger, "Save profile requested");
+
+        comController->updateRequest(profileContent.toStdString());
+
         stack->setCurrentWidget(mainMenu);
         stack->removeWidget(editor);
         editor->deleteLater();

@@ -1,6 +1,6 @@
 #include "search_profile.h"
 
-int search_profile(LOG_T& logger, PACKAGE_T* searchPkg, SOCKET socket) {
+int searchProfile(LOG_T& logger, PACKAGE_T* searchPkg, SOCKET socket) {
     char* username = (char*)getItem(searchPkg);
     // Check if the username exist
     bool exist = true;

@@ -17,9 +17,10 @@ void* userManager(void* threadData) {
             lastOpRet = checkRegister(*data->logger, pkg, data->clientSocket);
             break;
         case SEARCH_PROFILE:
-            lastOpRet = search_profile(*data->logger, pkg, data->clientSocket);
+            lastOpRet = searchProfile(*data->logger, pkg, data->clientSocket);
             break;
-        case SAVE_PROFILE:
+            case UPDATE_PROFILE:
+            lastOpRet = updateProfile(*data->logger, pkg, data->clientSocket);
             break;
         case MESSAGES_REQUEST:
             break;

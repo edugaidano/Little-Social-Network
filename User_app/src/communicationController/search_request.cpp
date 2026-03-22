@@ -5,11 +5,9 @@ PROFILE_S* CommunicationController::searchRequest(const std::string& user) {
     addItem(searchPkg, (void*)user.c_str(), user.size() + 1);
     int retVal = sendPackage(logger, serverConnection, searchPkg);
     if (retVal != 0) {
-        if (retVal != 0) {
         Dialog d("ERROR", "Something went wrong at sending the search request.");
         d.exec();
         return NULL;
-        }
     }
 
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);

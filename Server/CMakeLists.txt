@@ -6,6 +6,7 @@ file(GLOB_RECURSE SRC_FILES
     src/user_manager/user_manager.cpp
     src/check_login_register/check_login_register.cpp
     src/search_profile/search_profile.cpp
+    src/update_profile/update_profile.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})
