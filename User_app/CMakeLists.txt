@@ -14,7 +14,10 @@ qt_add_executable(User_app
     src/connect_server/connect_server.cpp
     src/connect_server/connect_server.h
 
-    src/communicationController/communication_controller.cpp
+    src/communicationController/communication_controller_general.cpp
+    src/communicationController/login_request.cpp
+    src/communicationController/register_request.cpp
+    src/communicationController/search_request.cpp
     src/communicationController/communication_controller.h
 
     src/dialog/dialog.cpp
