@@ -25,6 +25,9 @@ void addItem(PACKAGE_T* pkg, void* data, uint32_t size) {
 }
 
 void* getItem(PACKAGE_T* pkg) {
+    if (pkg->bufferSize == 0)
+        return NULL;
+
     uint32_t size;
 
     memcpy(&size, pkg->buffer, sizeof(uint32_t));
@@ -36,7 +39,7 @@ void* getItem(PACKAGE_T* pkg) {
     uint32_t totalSize = size + sizeof(uint32_t);
     pkg->bufferSize -= totalSize;
 
-    if (pkg->bufferSize == 0) {
+    if (pkg->bufferSize > 0) {
         memmove(pkg->buffer, (char*)pkg->buffer + totalSize, pkg->bufferSize);
         pkg->buffer = realloc(pkg->buffer, pkg->bufferSize);
     } else {

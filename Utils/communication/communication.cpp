@@ -8,7 +8,6 @@ int sendPackage(LOG_T& logger, SOCKET socket, PACKAGE_T* package) {
     if (send(socket, (char*)serializedPkg, totalSize, 0) <= 0) {
         LOG_ERROR(logger, "Failed to send the package");
         closesocket(socket);
-        freePackage(package);
         free(serializedPkg);
         return -1;
     }

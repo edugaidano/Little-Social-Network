@@ -8,6 +8,11 @@
 #include "logs/logs.h"
 #include "communication/communication.h"
 
+typedef struct PROFILE_S {
+    char* username;
+    char* content;
+} PROFILE_S;
+
 class CommunicationController {
 public:
     CommunicationController(LOG_T& logger, const char* ip, const char* port);
@@ -15,7 +20,10 @@ public:
     
     int loginRequest(const std::string& user);
     int registerRequest(const std::string& user);
-    void searchRequest();
+
+    PROFILE_S* searchRequest(const std::string& user);
+    PROFILE_S* myProfileRequest();
+
     void updateRequest();
     void messagesRequest();
     void messageRequest();

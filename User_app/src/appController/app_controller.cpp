@@ -88,23 +88,31 @@ void AppController::connectionsForMainMenu() {
 
     connect(mainMenu, &MainMenuWidget::viewProfileRequested, this, [this]() {
         LOG_DEBUG(logger, "View profile requested");
-        QString username = "Username"; //TODO: Get the actual username from the login widget
-        QString profileContent = "Profile content goes here."; //TODO: Get the actual profile content from the database
-        QString extraAction = "Editar Perfil";
-        ProfileWidget *profile = new ProfileWidget(logger, username, profileContent, extraAction);
+
+        PROFILE_S* p = comController->myProfileRequest();
+        if (p == NULL) 
+            return;
+        
+        ProfileWidget *profile = new ProfileWidget(logger, p->username, p->content, "Editar Perfil");
         stack->addWidget(profile);
         stack->setCurrentWidget(profile);
 
-        connect(profile, &ProfileWidget::backToMenuRequested, this, [this, profile]() {
+        connect(profile, &ProfileWidget::backToMenuRequested, this, [this, p, profile]() {
+            free(p->username);
+            free(p->content);
+            delete p;
             LOG_DEBUG(logger, "Back to menu requested from profile");
             stack->setCurrentWidget(mainMenu);
             stack->removeWidget(profile);
             profile->deleteLater();
         });
 
-        connect(profile, &ProfileWidget::actionRequested, this, [this, username, profileContent, profile]() {
+        connect(profile, &ProfileWidget::actionRequested, this, [this, p, profile]() {
             LOG_DEBUG(logger, "Action (edit profile) requested");
-            ProfileEditorWidget *editor = new ProfileEditorWidget(logger, username, profileContent);
+            ProfileEditorWidget *editor = new ProfileEditorWidget(logger, p->username, p->content);
+            free(p->username);
+            free(p->content);
+            delete p;
             stack->removeWidget(profile);
             profile->deleteLater();
             stack->addWidget(editor);
@@ -146,14 +154,18 @@ void AppController::connectionsForSearch(SearchWidget *search) {
 
     connect(search, &SearchWidget::searchProfile, this, [this, search](QString username) {
         LOG_DEBUG(logger, "Search profile requested for user: " + username.toStdString());
-        Q_UNUSED(username);
-        QString profileContent = "Profile content goes here."; //TODO: Get the actual profile content from the database
-        QString extraAction = "Buscar otro perfil";
-        ProfileWidget *profile = new ProfileWidget(logger, username, profileContent, extraAction);
+        PROFILE_S* p = comController->searchRequest(username.toStdString());
+        if (p == NULL) 
+            return;
+        
+        ProfileWidget *profile = new ProfileWidget(logger, p->username, p->content, "Buscar otro perfil");
+        free(p->username);
+        free(p->content);
+        delete p;            
         stack->addWidget(profile);
         stack->setCurrentWidget(profile);
 
-       connectionsForOtherProfile(profile);
+        connectionsForOtherProfile(profile);
     });
 
 }

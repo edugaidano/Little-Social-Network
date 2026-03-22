@@ -3,7 +3,8 @@
 int checkLogin(LOG_T& logger, PACKAGE_T* loginPkg, SOCKET socket) {
     char* username = (char*)getItem(loginPkg);
     // Check if the username exist
-    bool exist = false;
+    bool exist = true;
+    free(username);
     PACKAGE_T* pkg = createPackage(LOGIN_REPLY);
     if (exist) {
         addItem(pkg, (void*)"OK", 3);
@@ -18,7 +19,8 @@ int checkLogin(LOG_T& logger, PACKAGE_T* loginPkg, SOCKET socket) {
 int checkRegister(LOG_T& logger, PACKAGE_T* registerPkg, SOCKET socket) {
     char* username = (char*)getItem(registerPkg);
     // Check if the username exist
-    bool exist = true;
+    bool exist = false;
+    free(username);
     PACKAGE_T* pkg = createPackage(REGISTER_REPLY);
     if (!exist) {
         addItem(pkg, (void*)"OK", 3);
