@@ -17,6 +17,10 @@ qt_add_executable(User_app
     src/communicationController/communication_controller.cpp
     src/communicationController/communication_controller.h
 
+    src/dialog/dialog.cpp
+    src/dialog/dialog.h
+    src/dialog/dialog.ui
+
     src/login/login_widget.cpp
     src/login/login_widget.h
     src/login/login_widget.ui

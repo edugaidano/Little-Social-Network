@@ -30,8 +30,7 @@ void AppController::connectionsForLogin() {
             comController = new CommunicationController(logger, config["SERVER_IP"].c_str(), config["SERVER_PORT"].c_str());
         }
         if (comController->loginRequest(user.toStdString()) != 0) {
-            //TODO: show an error
-            exit(EXIT_FAILURE);
+            return;
         }        
         stack->setCurrentWidget(mainMenu);
     });
@@ -42,8 +41,7 @@ void AppController::connectionsForLogin() {
             comController = new CommunicationController(logger, config["SERVER_IP"].c_str(), config["SERVER_PORT"].c_str());
         }
         if (comController->registerRequest(user.toStdString()) != 0) {
-            //TODO: show an error
-            exit(EXIT_FAILURE);
+            return;
         } 
         stack->setCurrentWidget(mainMenu);
     });

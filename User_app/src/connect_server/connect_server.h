@@ -6,6 +6,8 @@
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 
+#include "../dialog/dialog.h"
+
 #include "logs/logs.h" // on utils folder
 
 SOCKET connectToServer(LOG_T &logger, const char *ip,const char *port);

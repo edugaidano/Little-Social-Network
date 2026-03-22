@@ -5,7 +5,7 @@ SOCKET connectToServer(LOG_T &logger, const char *ip, const char *port) {
 	int iResult = WSAStartup(MAKEWORD(2, 2), &wsa);
 	if (iResult != 0) {
 		LOG_ERROR(logger, "WSAStartup() failed: "+ std::to_string(iResult));
-		exit(EXIT_FAILURE);
+		return INVALID_SOCKET;
 	}
 	
 	struct addrinfo *result = NULL, *ptr = NULL, hints;
@@ -18,7 +18,7 @@ SOCKET connectToServer(LOG_T &logger, const char *ip, const char *port) {
 	if (iResult != 0) {
 		LOG_ERROR(logger, "getaddrinfo() failed: " + std::to_string(iResult));
 		WSACleanup();
-		exit(EXIT_FAILURE);
+		return INVALID_SOCKET;
 	}
 
 	SOCKET server_connection = INVALID_SOCKET;
@@ -29,7 +29,7 @@ SOCKET connectToServer(LOG_T &logger, const char *ip, const char *port) {
 		int err = WSAGetLastError();
 		LOG_ERROR(logger, "Error at socket(): " + std::to_string(err));
 		WSACleanup();
-		exit(EXIT_FAILURE);
+		return INVALID_SOCKET;
 	}
 	
 	iResult = connect(server_connection, ptr->ai_addr, (int)ptr->ai_addrlen);
@@ -37,7 +37,7 @@ SOCKET connectToServer(LOG_T &logger, const char *ip, const char *port) {
 		int err = WSAGetLastError();
 		LOG_ERROR(logger, "Connect error : " + std::to_string(err));
     	closesocket(server_connection);
-    	server_connection = INVALID_SOCKET;
+    	return INVALID_SOCKET;
 	}
 
 	freeaddrinfo(result);
@@ -45,7 +45,7 @@ SOCKET connectToServer(LOG_T &logger, const char *ip, const char *port) {
 	if (server_connection == INVALID_SOCKET) {
 		LOG_ERROR(logger, "Unable to connect to server!");
     	WSACleanup();
-		exit(EXIT_FAILURE);
+		return INVALID_SOCKET;
 	}
 
 	LOG_INFO(logger, "Successful connection to the server");

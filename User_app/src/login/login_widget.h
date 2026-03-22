@@ -3,7 +3,10 @@
 
 #include <QWidget>
 
-#include "logs/logs.h" // on utils folder
+#include "../dialog/dialog.h"
+
+// on utils folder
+#include "logs/logs.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class LoginWidget; }
