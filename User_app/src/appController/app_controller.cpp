@@ -126,10 +126,16 @@ void AppController::connectionsForMainMenu() {
         LOG_DEBUG(logger, "View messages requested");
         MessagesInterfaceWidget *messagesInterface = new MessagesInterfaceWidget(logger);
         stack->addWidget(messagesInterface);
-        //TODO: Get the actual messages from the database
-        messagesInterface->addMessageItem(1, false, "2024-06-01", "Alice", "Hello!");
-        messagesInterface->addMessageItem(2, true, "2024-06-02", "Bob", "How are you?");
         stack->setCurrentWidget(messagesInterface);
+
+        auto msgs = comController->messagesRequest();
+        
+        for (MESSAGE_ITEM& msg : msgs) {
+            messagesInterface->addMessageItem(msg.id, msg.seen, msg.date, msg.sender, msg.subject);
+            free(msg.date);
+            free(msg.sender);
+            free(msg.subject);
+        }        
 
         connectionsForMessagesInterface(messagesInterface);
     });

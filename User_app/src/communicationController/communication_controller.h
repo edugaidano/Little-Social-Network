@@ -13,6 +13,14 @@ typedef struct PROFILE_S {
     char* content;
 } PROFILE_S;
 
+typedef struct MESSAGE_ITEM {
+    uint32_t id;
+    bool seen;
+    char* date;
+    char* sender;
+    char* subject;
+} MESSAGE_ITEM;
+
 class CommunicationController {
 public:
     CommunicationController(LOG_T& logger, const char* ip, const char* port);
@@ -25,7 +33,9 @@ public:
     PROFILE_S* myProfileRequest();
 
     void updateRequest(const std::string& newContent);
-    void messagesRequest();
+
+    std::vector<MESSAGE_ITEM> messagesRequest();
+
     void messageRequest();
     void sendRequest();
     

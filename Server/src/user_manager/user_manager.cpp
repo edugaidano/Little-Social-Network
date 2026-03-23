@@ -22,7 +22,8 @@ void* userManager(void* threadData) {
             case UPDATE_PROFILE:
             lastOpRet = updateProfile(*data->logger, pkg, data->clientSocket);
             break;
-        case MESSAGES_REQUEST:
+            case MESSAGES_REQUEST:
+            lastOpRet = findMessagesList(*data->logger, pkg, data->clientSocket);
             break;
         case MESSAGE_REQUEST:
             break;

@@ -19,6 +19,7 @@ qt_add_executable(User_app
     src/communicationController/register_request.cpp
     src/communicationController/search_request.cpp
     src/communicationController/update_request.cpp
+    src/communicationController/messages_request.cpp
     src/communicationController/communication_controller.h
 
     src/dialog/dialog.cpp
