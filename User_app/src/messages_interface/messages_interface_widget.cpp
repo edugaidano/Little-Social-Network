@@ -42,3 +42,15 @@ MessageItemWidget* MessagesInterfaceWidget::findMessageById(uint32_t id) {
     }
     return nullptr;
 }
+
+void MessagesInterfaceWidget::removeMessage(uint32_t id) {
+    auto it = messageMap.find(id);
+    if (it != messageMap.end()) {
+        MessageItemWidget *item = it->second;
+
+        ui->messageAreaLayout->removeWidget(item);
+        messageMap.erase(it);
+
+        delete item;
+    }
+}

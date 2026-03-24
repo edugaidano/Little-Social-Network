@@ -15,6 +15,7 @@ class MessageItemWidget : public QWidget
 
 public:
     const uint32_t messageId;
+
     explicit MessageItemWidget(
         LOG_T &logger,
         bool seen, 
@@ -25,11 +26,14 @@ public:
         QWidget *parent = nullptr
     );
     ~MessageItemWidget();
+
     void mousePressEvent(QMouseEvent *event) override;
 
     const QString getDate();
     const QString getSender();
     const QString getSubject();
+
+    void markAsSeen();
 
 signals:
     void clicked(const uint32_t messageId);

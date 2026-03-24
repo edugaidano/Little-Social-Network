@@ -35,3 +35,7 @@ const QString MessageItemWidget::getSender() {
 const QString MessageItemWidget::getSubject() {
     return ui->subjectLabel->text();
 }
+
+void MessageItemWidget::markAsSeen() {
+    ui->seenBox->setChecked(true);
+}

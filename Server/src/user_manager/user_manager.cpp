@@ -19,14 +19,17 @@ void* userManager(void* threadData) {
         case SEARCH_PROFILE:
             lastOpRet = searchProfile(*data->logger, pkg, data->clientSocket);
             break;
-            case UPDATE_PROFILE:
+        case UPDATE_PROFILE:
             lastOpRet = updateProfile(*data->logger, pkg, data->clientSocket);
             break;
-            case MESSAGES_REQUEST:
+        case MESSAGES_REQUEST:
             lastOpRet = findMessagesList(*data->logger, pkg, data->clientSocket);
             break;
-            case MESSAGE_REQUEST:
+        case MESSAGE_REQUEST:
             lastOpRet = findMessage(*data->logger, pkg, data->clientSocket);
+            break;
+        case DELETE_MESSAGE_REQUEST:
+            lastOpRet = deleteMessage(*data->logger, pkg, data->clientSocket);
             break;
         case SEND_MESSAGE:
             break;

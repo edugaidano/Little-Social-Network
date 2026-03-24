@@ -227,24 +227,27 @@ void AppController::connectionsForMessagesInterface(MessagesInterfaceWidget *mes
             MessageWidget *messageWidget = new MessageWidget(logger, messageId, item->getDate(), item->getSender(), item->getSubject(), content);
             stack->addWidget(messageWidget);
             stack->setCurrentWidget(messageWidget);
+            item->markAsSeen();
             
-            connectionsForMessage(messageWidget);
+            connectionsForMessage(messagesInterface, messageWidget);
         }
     });
 }
 
-void AppController::connectionsForMessage(MessageWidget *message) {
-    connect(message, &MessageWidget::backButtonClicked, this, [this, message]() {
+void AppController::connectionsForMessage(MessagesInterfaceWidget *messagesInterface, MessageWidget *message) {
+    connect(message, &MessageWidget::backButtonClicked, this, [this, messagesInterface, message]() {
         LOG_DEBUG(logger, "Back button clicked on message");
-        stack->setCurrentIndex(stack->currentIndex() - 1); // Go back to the messages interface
+        stack->setCurrentWidget(messagesInterface);
         stack->removeWidget(message);
         message->deleteLater();
     });
 
-    connect(message, &MessageWidget::deleteButtonClicked, this, [this, message](const uint32_t id) {
+    connect(message, &MessageWidget::deleteButtonClicked, this, [this, messagesInterface, message](const uint32_t messageId) {
         LOG_DEBUG(logger, "Delete button clicked on message");
-        Q_UNUSED(id);
-        stack->setCurrentIndex(stack->currentIndex() - 1); // Go back to the messages interface
+        if (comController->deleteRequest(messageId) == 0) {
+            messagesInterface->removeMessage(messageId);
+        }
+        stack->setCurrentWidget(messagesInterface);
         stack->removeWidget(message);
         message->deleteLater();
     });

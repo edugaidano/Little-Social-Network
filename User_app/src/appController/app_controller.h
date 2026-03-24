@@ -46,7 +46,7 @@ private:
     void connectionsForOtherProfile(ProfileWidget *profile);
     void connectionsForProfileEditor(ProfileEditorWidget *editor);
     void connectionsForMessagesInterface(MessagesInterfaceWidget *messagesInterface);
-    void connectionsForMessage(MessageWidget *message);
+    void connectionsForMessage(MessagesInterfaceWidget *messagesInterface, MessageWidget *message);
     void connectionsForSendMessage(SendMessageWidget *sendMessageWidget);
 };
 

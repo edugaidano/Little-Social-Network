@@ -8,7 +8,7 @@ int findMessagesList(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket) {
     PACKAGE_T* pkg = createPackage(MESSAGES);
     //Add all messages
     uint32_t messageId = 1;
-    uint8_t seen = 1;
+    uint8_t seen = 0;
     addItem(pkg, &messageId, sizeof(uint32_t));
     addItem(pkg, &seen, sizeof(uint8_t));
     addItem(pkg, (void*)"20-03-2026", 11);

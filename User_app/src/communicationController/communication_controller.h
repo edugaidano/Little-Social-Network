@@ -38,6 +38,8 @@ public:
 
     char* messageRequest(uint32_t messageId);
 
+    int deleteRequest(uint32_t messageId);
+
     void sendRequest();
     
     private:

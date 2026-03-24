@@ -6,6 +6,7 @@
 #include "../update_profile/update_profile.h"
 #include "../find_messages_list/find_messages_list.h"
 #include "../find_message/find_message.h"
+#include "../delete_message/delete_message.h"
 
 // on utils folder
 #include "communication/communication.h"

@@ -20,6 +20,7 @@ public:
     ~MessagesInterfaceWidget();
     void addMessageItem(const uint32_t messageId, bool seen, const QString &date, const QString &sender, const QString &subject);
     MessageItemWidget* findMessageById(uint32_t id);
+    void removeMessage(uint32_t id);
 
 signals:
     void backToMainMenu();
