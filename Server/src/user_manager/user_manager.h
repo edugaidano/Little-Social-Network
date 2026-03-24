@@ -7,6 +7,7 @@
 #include "../find_messages_list/find_messages_list.h"
 #include "../find_message/find_message.h"
 #include "../delete_message/delete_message.h"
+#include "../send_message/send_message.h"
 
 // on utils folder
 #include "communication/communication.h"

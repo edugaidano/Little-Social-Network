@@ -7,7 +7,6 @@ int sendPackage(LOG_T& logger, SOCKET socket, PACKAGE_T* package) {
 
     if (send(socket, (char*)serializedPkg, totalSize, 0) <= 0) {
         LOG_ERROR(logger, "Failed to send the package");
-        closesocket(socket);
         free(serializedPkg);
         return -1;
     }
@@ -23,7 +22,6 @@ PACKAGE_T* recvPackage(LOG_T& logger, SOCKET socket) {
 
     if (recv(socket, (char*)&size, sizeof(uint32_t), MSG_WAITALL) <= 0) {     
         LOG_ERROR(logger, "Failed to receive package size");
-        closesocket(socket);
         return NULL;
     }
 
@@ -33,7 +31,6 @@ PACKAGE_T* recvPackage(LOG_T& logger, SOCKET socket) {
 
     if (recv(socket, (char*)sPkg, size, MSG_WAITALL) <= 0) {
         LOG_ERROR(logger, "Failed to receive package data");
-        closesocket(socket);
         free(sPkg);
         return NULL;
     }

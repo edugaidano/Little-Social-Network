@@ -10,6 +10,7 @@ file(GLOB_RECURSE SRC_FILES
     src/find_messages_list/find_messages_list.cpp
     src/find_message/find_message.cpp
     src/delete_message/delete_message.cpp
+    src/send_message/send_message.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})

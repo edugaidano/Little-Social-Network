@@ -263,9 +263,9 @@ void AppController::connectionsForSendMessage(SendMessageWidget *sendMessageWidg
 
     connect(sendMessageWidget, &SendMessageWidget::sendMessage, this, [this, sendMessageWidget](const QString &destinatary, const QString &subject, const QString &content) {
         LOG_DEBUG(logger, "Send message requested");
-        Q_UNUSED(destinatary);
-        Q_UNUSED(subject);
-        Q_UNUSED(content);
+        
+        comController->sendRequest(destinatary.toStdString(), subject.toStdString(), content.toStdString());
+
         stack->setCurrentWidget(mainMenu);
         stack->removeWidget(sendMessageWidget);
         sendMessageWidget->deleteLater();

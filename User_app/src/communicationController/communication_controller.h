@@ -40,12 +40,13 @@ public:
 
     int deleteRequest(uint32_t messageId);
 
-    void sendRequest();
+    void sendRequest(const std::string& destinatary, const std::string& subject, const std::string& content);
     
-    private:
+private:
     SOCKET serverConnection;
     
     LOG_T& logger;
+    
     std::string username;
     
     bool serverConectionIsOk();

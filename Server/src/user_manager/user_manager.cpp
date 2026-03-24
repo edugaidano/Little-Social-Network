@@ -32,13 +32,18 @@ void* userManager(void* threadData) {
             lastOpRet = deleteMessage(*data->logger, pkg, data->clientSocket);
             break;
         case SEND_MESSAGE:
+            lastOpRet = sendMessage(*data->logger, pkg, data->clientSocket);
             break;
         default:
+            LOG_ERROR(*data->logger, "The pkg code is not defined");
+            lastOpRet = -1;
             break;
         } 
         freePackage(pkg);
     }
 
+    LOG_INFO(*data->logger, "Closing socket: " + std::to_string(data->clientSocket));
+    closesocket(data->clientSocket);
     delete data;
     return NULL;
 }
