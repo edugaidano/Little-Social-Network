@@ -27,6 +27,10 @@ public:
     ~MessageItemWidget();
     void mousePressEvent(QMouseEvent *event) override;
 
+    const QString getDate();
+    const QString getSender();
+    const QString getSubject();
+
 signals:
     void clicked(const uint32_t messageId);
 

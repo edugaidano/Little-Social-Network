@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "../message_item/message_item_widget.h"
+
 #include "logs/logs.h" // on utils folder
 
 QT_BEGIN_NAMESPACE
@@ -17,6 +19,7 @@ public:
     explicit MessagesInterfaceWidget(LOG_T &logger, QWidget *parent = nullptr);
     ~MessagesInterfaceWidget();
     void addMessageItem(const uint32_t messageId, bool seen, const QString &date, const QString &sender, const QString &subject);
+    MessageItemWidget* findMessageById(uint32_t id);
 
 signals:
     void backToMainMenu();
@@ -28,6 +31,7 @@ private slots:
 
 private:
     LOG_T &logger;
+    std::unordered_map<uint32_t, MessageItemWidget*> messageMap;
     Ui::MessagesInterfaceWidget *ui;
 };
 

@@ -219,17 +219,17 @@ void AppController::connectionsForMessagesInterface(MessagesInterfaceWidget *mes
         messagesInterface->deleteLater();
     });
 
-    connect(messagesInterface, &MessagesInterfaceWidget::messageSelected, this, [this](const uint32_t messageId) {
+    connect(messagesInterface, &MessagesInterfaceWidget::messageSelected, this, [this, messagesInterface](const uint32_t messageId) {
         LOG_DEBUG(logger, "Message selected");
-        QString date = "2024-06-01"; //TODO: Get the actual date from the database
-        QString sender = "Alice"; //TODO: Get the actual sender from the database
-        QString subject = "Hello!"; //TODO: Get the actual subject from the database
-        QString content = "This is the content of the message."; //TODO: Get the actual content from the database
-        MessageWidget *messageWidget = new MessageWidget(logger, messageId, date, sender, subject, content);
-        stack->addWidget(messageWidget);
-        stack->setCurrentWidget(messageWidget);
-
-        connectionsForMessage(messageWidget);
+        MessageItemWidget* item = messagesInterface->findMessageById(messageId);
+        char* content = comController->messageRequest(messageId);
+        if (content != NULL) {
+            MessageWidget *messageWidget = new MessageWidget(logger, messageId, item->getDate(), item->getSender(), item->getSubject(), content);
+            stack->addWidget(messageWidget);
+            stack->setCurrentWidget(messageWidget);
+            
+            connectionsForMessage(messageWidget);
+        }
     });
 }
 

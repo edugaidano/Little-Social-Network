@@ -8,6 +8,7 @@ file(GLOB_RECURSE SRC_FILES
     src/search_profile/search_profile.cpp
     src/update_profile/update_profile.cpp
     src/find_messages_list/find_messages_list.cpp
+    src/find_message/find_message.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})

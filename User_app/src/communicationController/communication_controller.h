@@ -36,7 +36,8 @@ public:
 
     std::vector<MESSAGE_ITEM> messagesRequest();
 
-    void messageRequest();
+    char* messageRequest(uint32_t messageId);
+
     void sendRequest();
     
     private:

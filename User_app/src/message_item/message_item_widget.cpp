@@ -23,3 +23,15 @@ MessageItemWidget::~MessageItemWidget() {
 void MessageItemWidget::mousePressEvent(QMouseEvent *event) {
     emit clicked(messageId);
 }
+
+const QString MessageItemWidget::getDate() {
+    return ui->dateLabel->text();
+}
+
+const QString MessageItemWidget::getSender() {
+    return ui->senderLabel->text();
+}
+
+const QString MessageItemWidget::getSubject() {
+    return ui->subjectLabel->text();
+}

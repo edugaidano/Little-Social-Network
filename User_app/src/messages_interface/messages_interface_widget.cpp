@@ -1,6 +1,5 @@
 #include "messages_interface_widget.h"
 #include "ui_messages_interface_widget.h"
-#include "../message_item/message_item_widget.h"
 
 MessagesInterfaceWidget::MessagesInterfaceWidget(LOG_T &logger, QWidget *parent) :
     QWidget(parent),
@@ -31,5 +30,15 @@ void MessagesInterfaceWidget::onMessageItemClicked(const uint32_t messageId) {
 void MessagesInterfaceWidget::addMessageItem(const uint32_t messageId, bool seen, const QString &date, const QString &sender, const QString &subject) {
     MessageItemWidget *item = new MessageItemWidget(logger, seen, messageId, date, sender, subject);
     ui->messageAreaLayout->addWidget(item);
+    messageMap[messageId] = item;
+    
     connect(item, &MessageItemWidget::clicked, this, &MessagesInterfaceWidget::onMessageItemClicked);
+}
+
+MessageItemWidget* MessagesInterfaceWidget::findMessageById(uint32_t id) {
+    auto it = messageMap.find(id);
+    if (it != messageMap.end()) {
+        return it->second;
+    }
+    return nullptr;
 }
