@@ -14,8 +14,7 @@
 
 // on utils folder
 #include "logs/logs.h"
-#include "config/config.h"
 
-SOCKET startServer(LOG_T &logs, CONFIG_D &config);
+SOCKET startServer(LOG_T &logs, std::string& port);
 
 #endif // START_SERVER_H

@@ -81,13 +81,13 @@ target_link_libraries(User_app
 include(GNUInstallDirs)
 
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../utils/config/config_file.conf
-    ${CMAKE_CURRENT_BINARY_DIR}/config_file.conf
+    ${CMAKE_CURRENT_SOURCE_DIR}/../utils/config/User.conf
+    ${CMAKE_CURRENT_BINARY_DIR}/User.conf
     COPYONLY
 )
 
 install(FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/../utils/config/config_file.conf
+    ${CMAKE_CURRENT_SOURCE_DIR}/../utils/config/User.conf
     DESTINATION .
 )
 

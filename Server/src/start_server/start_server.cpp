@@ -1,6 +1,6 @@
 #include "start_server.h"
 
-SOCKET startServer(LOG_T &logger, CONFIG_D &config) {
+SOCKET startServer(LOG_T &logger, std::string &port) {
     WSADATA wsaData;
     int iResult;
 
@@ -22,7 +22,7 @@ SOCKET startServer(LOG_T &logger, CONFIG_D &config) {
     hints.ai_protocol = IPPROTO_TCP;
     hints.ai_flags = AI_PASSIVE;
 
-    iResult = getaddrinfo(NULL, config["SERVER_PORT"].c_str(), &hints, &result);
+    iResult = getaddrinfo(NULL, port.c_str(), &hints, &result);
     if ( iResult != 0 ) {
         LOG_ERROR(logger, "getaddrinfo() failed with error: " + std::to_string(iResult));
         WSACleanup();
@@ -58,7 +58,7 @@ SOCKET startServer(LOG_T &logger, CONFIG_D &config) {
         exit(EXIT_FAILURE);
     }
 
-    LOG_INFO(logger, "Server is listening on port " + config["SERVER_PORT"]);
+    LOG_INFO(logger, "Server is listening on port " + port);
     
     return listenSocket;
 }
