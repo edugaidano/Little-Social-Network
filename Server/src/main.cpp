@@ -11,6 +11,8 @@ int main (int argc, char *argv[]) {
     
     initStorage(config["STORAGE_PATH"]);
     
+    UserIndex index;
+
     SOCKET listenSocket = startServer(logger, config["SERVER_PORT"]);
     
     while (true) {
@@ -24,7 +26,7 @@ int main (int argc, char *argv[]) {
         }   
 
         LOG_DEBUG(logger, "new connection acepted");
-        ThreadData* data = new ThreadData{clientSocket, &logger};
+        ThreadData* data = new ThreadData{clientSocket, &logger, &index};
 
         pthread_t pthread;
         pthread_create(&pthread, NULL, userManager, data);

@@ -1,13 +1,20 @@
 #include "update_profile.h"
 
-int updateProfile(LOG_T& logger, PACKAGE_T* updatePkg, SOCKET socket) {
+int updateProfile(LOG_T& logger, PACKAGE_T* updatePkg, SOCKET socket, UserIndex index) {
     char* username = (char*)getItem(updatePkg);
-    char* newContent = (char*)getItem(updatePkg);
-    //TODO: save new content
+    UserId_t userId = index.findUser(username);
     free(username);
-    free(newContent);
-    PACKAGE_T* pkg = createPackage(UPDATE_REPLY);
+
     bool noProblems = true;
+    if (userId == 0) {
+        noProblems = false;
+    } else {    
+        char* newContent = (char*)getItem(updatePkg);
+        //TODO: save new content
+        free(newContent);
+    }
+
+    PACKAGE_T* pkg = createPackage(UPDATE_REPLY);
     if (noProblems) {
         addItem(pkg, (void*)"OK", 3);
     } else {

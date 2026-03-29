@@ -1,12 +1,19 @@
 #include "find_message.h"
 
-int findMessage(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket) {
+int findMessage(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket, UserIndex index) {
     char* username = (char*)getItem(requestPkg);
-    uint32_t* messageId = (uint32_t*)getItem(requestPkg);
-    //TODO: find the message
+    UserId_t userId = index.findUser(username);
     free(username);
-    free(messageId);
+
     bool noProblems = true;
+    if (userId == 0) {
+        noProblems = false;
+    } else {
+        uint32_t* messageId = (uint32_t*)getItem(requestPkg);
+        //TODO: find the message
+        free(messageId);
+    }
+    
     PACKAGE_T* pkg = createPackage(MESSAGE);
     if (noProblems) {
         addItem(pkg, (void*)"Content of the message selected", 32);

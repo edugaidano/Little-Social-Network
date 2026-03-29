@@ -9,12 +9,17 @@
 #include "../delete_message/delete_message.h"
 #include "../send_message/send_message.h"
 
+#include "../user_manager/user_manager.h"
+
+#include "../server_storage/server_storage.h"
+
 // on utils folder
 #include "communication/communication.h"
 
 struct ThreadData {
     SOCKET clientSocket;
     LOG_T* logger;
+    UserIndex* index;
 };
 
 void* userManager(void* usrSock);

@@ -11,28 +11,28 @@ void* userManager(void* threadData) {
         
         switch (pkg->code) {
         case LOGIN:
-            lastOpRet = checkLogin(*data->logger, pkg, data->clientSocket);
+            lastOpRet = checkLogin(*data->logger, pkg, data->clientSocket, *data->index);
             break;
         case REGISTER:
-            lastOpRet = checkRegister(*data->logger, pkg, data->clientSocket);
+            lastOpRet = checkRegister(*data->logger, pkg, data->clientSocket, *data->index);
             break;
         case SEARCH_PROFILE:
-            lastOpRet = searchProfile(*data->logger, pkg, data->clientSocket);
+            lastOpRet = searchProfile(*data->logger, pkg, data->clientSocket, *data->index);
             break;
         case UPDATE_PROFILE:
-            lastOpRet = updateProfile(*data->logger, pkg, data->clientSocket);
+            lastOpRet = updateProfile(*data->logger, pkg, data->clientSocket, *data->index);
             break;
         case MESSAGES_REQUEST:
-            lastOpRet = findMessagesList(*data->logger, pkg, data->clientSocket);
+            lastOpRet = findMessagesList(*data->logger, pkg, data->clientSocket, *data->index);
             break;
         case MESSAGE_REQUEST:
-            lastOpRet = findMessage(*data->logger, pkg, data->clientSocket);
+            lastOpRet = findMessage(*data->logger, pkg, data->clientSocket, *data->index);
             break;
         case DELETE_MESSAGE_REQUEST:
-            lastOpRet = deleteMessage(*data->logger, pkg, data->clientSocket);
+            lastOpRet = deleteMessage(*data->logger, pkg, data->clientSocket, *data->index);
             break;
         case SEND_MESSAGE:
-            lastOpRet = sendMessage(*data->logger, pkg, data->clientSocket);
+            lastOpRet = sendMessage(*data->logger, pkg, data->clientSocket, *data->index);
             break;
         default:
             LOG_ERROR(*data->logger, "The pkg code is not defined");

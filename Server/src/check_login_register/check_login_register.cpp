@@ -1,12 +1,11 @@
 #include "check_login_register.h"
 
-int checkLogin(LOG_T& logger, PACKAGE_T* loginPkg, SOCKET socket) {
+int checkLogin(LOG_T& logger, PACKAGE_T* loginPkg, SOCKET socket, UserIndex index) {
     char* username = (char*)getItem(loginPkg);
-    // Check if the username exist
-    bool exist = true;
+    UserId_t userId = index.findUser(username);
     free(username);
     PACKAGE_T* pkg = createPackage(LOGIN_REPLY);
-    if (exist) {
+    if (userId != 0) {
         addItem(pkg, (void*)"OK", 3);
     } else {
         addItem(pkg, (void*)"Not OK", 7);
@@ -16,13 +15,12 @@ int checkLogin(LOG_T& logger, PACKAGE_T* loginPkg, SOCKET socket) {
     return retVal;
 }
 
-int checkRegister(LOG_T& logger, PACKAGE_T* registerPkg, SOCKET socket) {
+int checkRegister(LOG_T& logger, PACKAGE_T* registerPkg, SOCKET socket, UserIndex index) {
     char* username = (char*)getItem(registerPkg);
-    // Check if the username exist
-    bool exist = false;
+    UserId_t userId = index.createUser(username);
     free(username);
     PACKAGE_T* pkg = createPackage(REGISTER_REPLY);
-    if (!exist) {
+    if (userId != 0) {
         addItem(pkg, (void*)"OK", 3);
     } else {
         addItem(pkg, (void*)"Not OK", 7);
