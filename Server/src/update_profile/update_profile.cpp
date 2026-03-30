@@ -2,7 +2,7 @@
 
 int updateProfile(LOG_T& logger, PACKAGE_T* updatePkg, SOCKET socket, UserIndex index) {
     char* username = (char*)getItem(updatePkg);
-    UserId_t userId = index.findUser(username);
+    ID_T userId = index.findUser(username);
     free(username);
 
     bool noProblems = true;
@@ -10,7 +10,10 @@ int updateProfile(LOG_T& logger, PACKAGE_T* updatePkg, SOCKET socket, UserIndex 
         noProblems = false;
     } else {    
         char* newContent = (char*)getItem(updatePkg);
-        //TODO: save new content
+        std::ofstream profile(storagePath / PROFILES_DIR / std::to_string(userId));
+        if (profile.is_open()) {
+            profile << newContent;
+        }
         free(newContent);
     }
 

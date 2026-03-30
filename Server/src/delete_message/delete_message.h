@@ -1,6 +1,7 @@
 #ifndef DELETE_MESSAGE_H
 #define DELETE_MESSAGE_H
 
+#include <vector>
 #include "../server_storage/server_storage.h"
 
 // on utils folder

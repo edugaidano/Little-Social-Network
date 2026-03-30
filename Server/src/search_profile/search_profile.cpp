@@ -2,13 +2,18 @@
 
 int searchProfile(LOG_T& logger, PACKAGE_T* searchPkg, SOCKET socket, UserIndex index) {
     char* username = (char*)getItem(searchPkg);
-    UserId_t userId = index.findUser(username);
+    ID_T userId = index.findUser(username);
     PACKAGE_T* profilePkg = createPackage(PROFILE);
     if (userId != 0) {
-        //TODO: use the real profile data
         addItem(profilePkg, username, std::string(username).size() + 1);
         free(username);
-        addItem(profilePkg, (void*)"", 1);
+        std::ifstream profile(storagePath / PROFILES_DIR / std::to_string(userId));
+        if (profile.is_open()) {
+            std::stringstream content;
+            content << profile.rdbuf();
+            profile.close();
+            addItem(profilePkg, (void*)content.str().c_str(), content.str().size() + 1);
+        }
     }
     int retVal = sendPackage(logger, socket, profilePkg);
     freePackage(profilePkg);

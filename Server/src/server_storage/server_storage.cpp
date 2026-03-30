@@ -14,13 +14,30 @@ void initStorage(std::filesystem::path path) {
     std::filesystem::path nextIdPath = path / NEXT_ID;
     if (!std::filesystem::exists(nextIdPath)) {
         std::ofstream index(nextIdPath);
-        index << (UserId_t)1;
+        index << (ID_T)1;
     }
 
     storagePath = path;
 }
 
-UserId_t UserIndex::findUserInFile(const std::string& username) {
+// Todo: add mutex
+ID_T getNextId(std::filesystem::path dirPath) {
+    ID_T id = 0;
+
+    std::ifstream inFile(dirPath / NEXT_ID);
+    if (inFile.is_open()) {
+        inFile >> id;
+        inFile.close();
+    }
+
+    std::ofstream outFile(dirPath / NEXT_ID, std::ios::trunc);
+    outFile << (id + 1);
+    outFile.close();
+
+    return id;
+}
+
+ID_T UserIndex::findUserInFile(const std::string& username) {
     std::ifstream file(storagePath / USERS_INDEX);
     if (!file.is_open()) return 0;
 
@@ -28,7 +45,7 @@ UserId_t UserIndex::findUserInFile(const std::string& username) {
     while (std::getline(file, line)) {
         std::stringstream ss(line);
         std::string fileUsername;
-        UserId_t id;
+        ID_T id;
 
         if (std::getline(ss, fileUsername, ':') && ss >> id) {
             if (fileUsername == username) {
@@ -40,30 +57,13 @@ UserId_t UserIndex::findUserInFile(const std::string& username) {
     return 0;
 }
 
-// Todo: add mutex
-UserId_t UserIndex::getNextId() {
-    UserId_t id = 0;
-
-    std::ifstream inFile(storagePath / NEXT_ID);
-    if (inFile.is_open()) {
-        inFile >> id;
-        inFile.close();
-    }
-
-    std::ofstream outFile(storagePath / NEXT_ID, std::ios::trunc);
-    outFile << (id + 1);
-    outFile.close();
-
-    return id;
-}
-
-UserId_t UserIndex::findUser(const std::string& username) {
+ID_T UserIndex::findUser(const std::string& username) {
     auto it = usernameToId.find(username);
     if (it != usernameToId.end()) {
         return it->second;
     }
 
-    UserId_t result = findUserInFile(username);
+    ID_T result = findUserInFile(username);
     if (result != 0) {
         usernameToId[username] = result;
     }
@@ -71,18 +71,23 @@ UserId_t UserIndex::findUser(const std::string& username) {
     return result;
 }
 
-void UserIndex::saveUser(const std::string& username, UserId_t id) {
+void UserIndex::saveUser(const std::string& username, ID_T id) {
     std::ofstream file(storagePath / USERS_INDEX, std::ios::app);
     file << username << ":" << id << "\n";
 }
 
-UserId_t UserIndex::createUser(const std::string& username) {
+ID_T UserIndex::createUser(const std::string& username) {
     if (findUser(username)) {
         return 0;
     }
 
-    UserId_t id = getNextId();
-    if (id != 0) {   
+    ID_T id = getNextId(storagePath);
+    if (id != 0) {
+        std::ofstream userProfile (storagePath / PROFILES_DIR / std::to_string(id));
+        std::filesystem::create_directories(storagePath / MESSAGES_DIR / std::to_string(id) / MESSAGES_DIR);
+        std::ofstream userMessages (storagePath / MESSAGES_DIR / std::to_string(id) / MESSAGES_INDEX);
+        std::ofstream index (storagePath / MESSAGES_DIR / std::to_string(id) / NEXT_ID, std::ios::binary);
+        index << (uint32_t)1;
         usernameToId[username] = id;
         saveUser(username, id);
     }

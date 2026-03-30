@@ -2,7 +2,7 @@
 
 int checkLogin(LOG_T& logger, PACKAGE_T* loginPkg, SOCKET socket, UserIndex index) {
     char* username = (char*)getItem(loginPkg);
-    UserId_t userId = index.findUser(username);
+    ID_T userId = index.findUser(username);
     free(username);
     PACKAGE_T* pkg = createPackage(LOGIN_REPLY);
     if (userId != 0) {
@@ -17,7 +17,7 @@ int checkLogin(LOG_T& logger, PACKAGE_T* loginPkg, SOCKET socket, UserIndex inde
 
 int checkRegister(LOG_T& logger, PACKAGE_T* registerPkg, SOCKET socket, UserIndex index) {
     char* username = (char*)getItem(registerPkg);
-    UserId_t userId = index.createUser(username);
+    ID_T userId = index.createUser(username);
     free(username);
     PACKAGE_T* pkg = createPackage(REGISTER_REPLY);
     if (userId != 0) {
