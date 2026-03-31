@@ -5,13 +5,16 @@ PROFILE_S* CommunicationController::searchRequest(const std::string& user) {
     addItem(searchPkg, (void*)user.c_str(), user.size() + 1);
     int retVal = sendPackage(logger, serverConnection, searchPkg);
     if (retVal != 0) {
-        Dialog d("ERROR", "Something went wrong at sending the search request.");
+        Dialog d(
+            "ERROR", 
+            QObject::tr("Something went wrong while sending the search request.")
+        );
         d.exec();
         return NULL;
     }
 
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
-    char recvErr[46]("Something went wrong at receiving the profile");
+    QString recvErr = QObject::tr("Something went wrong while receiving the profile.");
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
@@ -30,9 +33,11 @@ PROFILE_S* CommunicationController::searchRequest(const std::string& user) {
     char* p_username = (char*)getItem(pkg);
     if (p_username == NULL) {
         freePackage(pkg);
-        std::string errLog("The user " + user + " don't have a profile");
-        LOG_WARNING(logger, errLog);
-        Dialog d("WARNING", errLog.c_str());
+        QString warningLog = QObject::tr("The user ");
+        warningLog.append(user);
+        warningLog.append(QObject::tr(" does not have a profile"));
+        LOG_WARNING(logger, warningLog.toStdString());
+        Dialog d("WARNING", warningLog);
         d.exec();
         return NULL;
     }

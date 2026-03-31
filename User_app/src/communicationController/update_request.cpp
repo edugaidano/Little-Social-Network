@@ -6,13 +6,16 @@ void CommunicationController::updateRequest(const std::string& newContent) {
     addItem(updatePkg, (void*)newContent.c_str(), newContent.size() + 1);
     int retVal = sendPackage(logger, serverConnection, updatePkg);
     if (retVal != 0) {
-        Dialog d("ERROR", "Something went wrong at sending the update request.");
+        Dialog d(
+            "ERROR", 
+            QObject::tr("Something went wrong while sending the update request.")
+        );
         d.exec();
         return;
     }
 
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
-    char recvErr[51]("Something went wrong at receiving the update reply");
+    QString recvErr = QObject::tr("Something went wrong while receiving the update reply.");
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
@@ -34,12 +37,12 @@ void CommunicationController::updateRequest(const std::string& newContent) {
     if (item == std::string("OK")) {
         LOG_INFO(logger, "Profile updated");
     } else {
-        std::string logStr("Problem during update");
+        QString logStr = QObject::tr("Problem during update");
         if (item == std::string("Not OK")) {
-            logStr.append(": The profile isn't updated");
+            logStr.append(QObject::tr(": The profile was not updated"));
         }
-        LOG_ERROR(logger, logStr);
-        Dialog d("ERROR", logStr.c_str());
+        LOG_ERROR(logger, logStr.toStdString());
+        Dialog d("ERROR", logStr);
         d.exec();
     }
     free(item);

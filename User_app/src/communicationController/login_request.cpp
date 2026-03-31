@@ -9,13 +9,16 @@ int CommunicationController::loginRequest(const std::string& user) {
     int retVal = sendPackage(logger, serverConnection, pkgLogin);
     freePackage(pkgLogin);
     if (retVal != 0) {
-        Dialog d("ERROR", "Something went wrong at sending the login request.\nCheck is the configuration is correct");
+        Dialog d(
+            "ERROR", 
+            QObject::tr("Something went wrong while sending the login request.\nCheck if the configuration is correct")
+        );
         d.exec();
         return -1;
     }
 
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
-    char recvErr[50]("Something went wrong at receiving the login reply");
+    QString recvErr = QObject::tr("Something went wrong while receiving the login reply.");
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
@@ -40,12 +43,12 @@ int CommunicationController::loginRequest(const std::string& user) {
         free(item);
         return 0;
     } else {
-        std::string logStr("Login refdused");
+        QString logStr = QObject::tr("Login refused");
         if (item == std::string("Not OK")) {
-            logStr.append(": The user don't exist");
+            logStr.append(QObject::tr(": The user does not exist"));
         }
-        LOG_ERROR(logger, logStr);
-        Dialog d("ERROR", logStr.c_str());
+        LOG_ERROR(logger, logStr.toStdString());
+        Dialog d("ERROR", logStr);
         d.exec();
         free(item);
         return -1;

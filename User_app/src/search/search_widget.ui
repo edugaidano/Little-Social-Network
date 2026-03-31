@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -40,7 +40,7 @@
         <item>
          <widget class="QLineEdit" name="searchLine">
           <property name="placeholderText">
-           <string>Nombre de usuario a buscar</string>
+           <string>username to search</string>
           </property>
          </widget>
         </item>
@@ -54,7 +54,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Buscar</string>
+           <string>Search</string>
           </property>
          </widget>
         </item>
@@ -72,7 +72,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Regresar</string>
+           <string>Back</string>
           </property>
          </widget>
         </item>

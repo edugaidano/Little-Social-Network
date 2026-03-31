@@ -15,6 +15,25 @@ LoginWidget::LoginWidget(LOG_T &logger, QWidget *parent) :
     LOG_DEBUG(logger, "LoginWidget initialized");
 }
 
+void LoginWidget::changeEvent(QEvent *event) {
+    if (event->type() == QEvent::LanguageChange) {
+        ui->retranslateUi(this);
+
+        if (isLoginMode) {
+            ui->titleLabel->setText(tr("Access your account"));
+            ui->mainButton->setText(tr("Login"));
+            ui->secondaryLabel->setText(tr("Don't have an account?"));
+            ui->secondaryButton->setText(tr("Register"));
+        } else {
+            ui->titleLabel->setText(tr("Create a new account"));
+            ui->mainButton->setText(tr("Register"));
+            ui->secondaryLabel->setText(tr("Already have an account?"));
+            ui->secondaryButton->setText(tr("Login"));
+        }
+    }
+    QWidget::changeEvent(event);
+}
+
 LoginWidget::~LoginWidget() {
     delete ui;
 }
@@ -23,7 +42,7 @@ void LoginWidget::onMainButtonClicked() {
     QString user = ui->lineEdit->text();
     if (user.isEmpty()) {
         LOG_WARNING(logger, "User is empty");
-        Dialog d("WARNING", "User is empty");
+        Dialog d("WARNING", QObject::tr("User is empty"));
         d.exec();
         return;
     }

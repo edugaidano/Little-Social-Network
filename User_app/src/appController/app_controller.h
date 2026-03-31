@@ -1,6 +1,8 @@
 #ifndef APP_CONTROLLER_H
 #define APP_CONTROLLER_H
 
+#include <QApplication>
+#include <QTranslator>
 #include <QWidget>
 #include <QStackedWidget>
 
@@ -27,11 +29,13 @@ class AppController : public QWidget
     Q_OBJECT
 
 public:
-    explicit AppController(LOG_T &logger, CONFIG_D &config, QWidget *parent = nullptr);
+    explicit AppController(LOG_T &logger, CONFIG_D &config, QApplication &app, QWidget *parent = nullptr);
 
 private:
     LOG_T &logger;
     CONFIG_D &config;
+    QApplication &app;
+    QTranslator translator;
     CommunicationController* comController = NULL;
 
     QStackedWidget *stack;
@@ -41,6 +45,8 @@ private:
 
     void connectionsForLogin();
     void connectionsForMainMenu();
+
+    void setLanguage();
 
     void connectionsForSearch(SearchWidget *search);
     void connectionsForOtherProfile(ProfileWidget *profile);

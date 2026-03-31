@@ -12,9 +12,11 @@ int main(int argc, char *argv[])
     LOG_T logger = log_init(log_level, "app.log");
     LOG_INFO(logger, "Application started");
 
+    
     QApplication a(argc, argv);
+    
+    AppController app(logger, config, a);
 
-    AppController app(logger, config);
     app.show();
 
     return a.exec();

@@ -22,13 +22,13 @@ void CommunicationController::sendRequest(const std::string& destinatary, const 
     addItem(updatePkg, (void*)content.c_str(), content.size() + 1);
     int retVal = sendPackage(logger, serverConnection, updatePkg);
     if (retVal != 0) {
-        Dialog d("ERROR", "Something went wrong at sending the message.");
+        Dialog d("ERROR", QObject::tr("Something went wrong while sending the message."));
         d.exec();
         return;
     }
 
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
-    char recvErr[51]("Something went wrong at receiving the send reply");
+    QString recvErr = QObject::tr("Something went wrong while receiving the send reply.");
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
@@ -49,15 +49,15 @@ void CommunicationController::sendRequest(const std::string& destinatary, const 
     freePackage(pkg);
     if (item == std::string("OK")) {
         LOG_INFO(logger, "Message sended");
-        Dialog d("INFO", "Message sended");
+        Dialog d("INFO", QObject::tr("Message sent"));
         d.exec();
     } else {
-        std::string logStr("Problem at sending");
+        QString logStr = QObject::tr("Problem sending");
         if (item == std::string("Not OK")) {
-            logStr.append(": The message isn't sending");
+            logStr.append(QObject::tr(": The message was not sent"));
         }
-        LOG_ERROR(logger, logStr);
-        Dialog d("ERROR", logStr.c_str());
+        LOG_ERROR(logger, logStr.toStdString());
+        Dialog d("ERROR", logStr);
         d.exec();
     }
     free(item);

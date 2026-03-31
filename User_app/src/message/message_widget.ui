@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -41,7 +41,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Fecha:</string>
+           <string>Date:</string>
           </property>
          </widget>
         </item>
@@ -60,7 +60,7 @@
            </font>
           </property>
           <property name="text">
-           <string>TextLabel</string>
+           <string notr="true">TextLabel</string>
           </property>
          </widget>
         </item>
@@ -85,7 +85,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Remitente:</string>
+           <string>Sender:</string>
           </property>
          </widget>
         </item>
@@ -104,7 +104,7 @@
            </font>
           </property>
           <property name="text">
-           <string>TextLabel</string>
+           <string notr="true">TextLabel</string>
           </property>
          </widget>
         </item>
@@ -129,7 +129,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Asunto:</string>
+           <string>Subject:</string>
           </property>
          </widget>
         </item>
@@ -148,7 +148,7 @@
            </font>
           </property>
           <property name="text">
-           <string>TextLabel</string>
+           <string notr="true">TextLabel</string>
           </property>
          </widget>
         </item>
@@ -185,7 +185,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Content</string>
+             <string notr="true">Content</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
@@ -219,7 +219,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Regresar</string>
+             <string>Back</string>
             </property>
            </widget>
           </item>
@@ -239,7 +239,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Eliminar</string>
+             <string>Delete</string>
             </property>
            </widget>
           </item>

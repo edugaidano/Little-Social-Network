@@ -31,6 +31,8 @@ private slots:
     void onSendMessageButtonClicked();
     void onLogoutButtonClicked();
 
+    void changeEvent(QEvent *event);
+
 private:
     LOG_T &logger;
     Ui::MainMenuWidget *ui;

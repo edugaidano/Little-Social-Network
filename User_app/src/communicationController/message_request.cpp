@@ -6,13 +6,16 @@ char* CommunicationController::messageRequest(uint32_t messageId) {
     addItem(updatePkg, &messageId, sizeof(uint32_t));
     int retVal = sendPackage(logger, serverConnection, updatePkg);
     if (retVal != 0) {
-        Dialog d("ERROR", "Something went wrong at sending the message request.");
+        Dialog d(
+            "ERROR", 
+            QObject::tr("Something went wrong while sending the message request.")
+        );
         d.exec();
         return NULL;
     }
 
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
-    char recvErr[52]("Something went wrong at receiving the message reply");
+    QString recvErr = QObject::tr("Something went wrong while receiving the message reply.");
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();

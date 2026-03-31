@@ -17,6 +17,14 @@ MainMenuWidget::MainMenuWidget(LOG_T &logger, QWidget *parent) :
     LOG_DEBUG(logger, "MainMenuWidget initialized");
 }
 
+void MainMenuWidget::changeEvent(QEvent *event) {
+    if (event->type() == QEvent::LanguageChange) {
+        ui->retranslateUi(this);
+    }
+
+    QWidget::changeEvent(event);
+}
+
 MainMenuWidget::~MainMenuWidget() {
     delete ui;
 }

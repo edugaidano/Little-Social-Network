@@ -11,6 +11,7 @@ ConfigWidget::ConfigWidget(LOG_T &logger, CONFIG_D &config, QWidget *parent) :
     ui->ipLineEdit->setPlaceholderText(config["SERVER_IP"].c_str());
     ui->portLineEdit->setPlaceholderText(config["SERVER_PORT"].c_str());
     ui->logLevelLineEdit->setPlaceholderText(config["LOG_LEVEL"].c_str());
+    ui->languageLineEdit->setPlaceholderText(config["LANGUAGE"].c_str());
     
     connect(ui->saveButton, &QPushButton::clicked, this, &ConfigWidget::onSaveButtonClicked);
     connect(ui->cancelButton, &QPushButton::clicked, this, &ConfigWidget::onCancelButtonClicked);
@@ -39,6 +40,10 @@ void ConfigWidget::onSaveButtonClicked() {
     if (!ui->logLevelLineEdit->text().isEmpty()) {   
         config["LOG_LEVEL"] = ui->logLevelLineEdit->text().toStdString();
         logger.level = level_from_string(config["LOG_LEVEL"]);
+        edited = true;
+    }
+    if (!ui->languageLineEdit->text().isEmpty()) {   
+        config["LANGUAGE"] = ui->languageLineEdit->text().toStdString();
         edited = true;
     }
 

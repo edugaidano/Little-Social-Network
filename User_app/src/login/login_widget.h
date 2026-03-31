@@ -30,6 +30,8 @@ private slots:
     void onSecondaryButtonClicked();
     void onConfigButtonClicked();
 
+    void changeEvent(QEvent *event);
+
 private:
     LOG_T &logger;
     bool isLoginMode = true; // true: login mode, false: register mode

@@ -1,6 +1,6 @@
 project(User_app)
 
-find_package(Qt6 6.10 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 6.10 REQUIRED COMPONENTS Core Widgets LinguistTools)
 
 qt_standard_project_setup()
 
@@ -68,6 +68,14 @@ qt_add_executable(User_app
     src/config/config_widget.cpp
     src/config/config_widget.h
     src/config/config_widget.ui
+)
+
+set(TS_FILES
+    translations/app_ESP.ts
+)
+
+qt_add_translations(${PROJECT_NAME}
+    TS_FILES ${TS_FILES}
 )
 
 target_link_libraries(User_app

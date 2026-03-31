@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
@@ -39,7 +39,7 @@
          </font>
         </property>
         <property name="text">
-         <string>username_lavel</string>
+         <string notr="true">usernameLavel</string>
         </property>
        </widget>
       </item>
@@ -90,7 +90,7 @@
              <enum>QFrame::Shadow::Plain</enum>
             </property>
             <property name="text">
-             <string>content_lavel</string>
+             <string notr="true">contentLavel</string>
             </property>
             <property name="scaledContents">
              <bool>false</bool>
@@ -127,7 +127,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Regresar</string>
+             <string>Back</string>
             </property>
            </widget>
           </item>
@@ -147,7 +147,7 @@
              </font>
             </property>
             <property name="text">
-             <string>action_button</string>
+             <string notr="true">actionButton</string>
             </property>
            </widget>
           </item>

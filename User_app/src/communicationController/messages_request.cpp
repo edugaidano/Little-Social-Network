@@ -7,13 +7,16 @@ std::vector<MESSAGE_ITEM> CommunicationController::messagesRequest() {
     freePackage(requestPkg);
 
     if (retVal != 0) {
-        Dialog d("ERROR", "Something went wrong at sending the messages request.");
+        Dialog d(
+            "ERROR", 
+            QObject::tr("Something went wrong while sending the messages request.")
+        );
         d.exec();
         return {};
     }
 
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
-    char recvErr[47]("Something went wrong at receiving the messages");
+    QString recvErr = QObject::tr("Something went wrong while receiving the messages.");
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
@@ -32,7 +35,7 @@ std::vector<MESSAGE_ITEM> CommunicationController::messagesRequest() {
 
     if (pkg->bufferSize == 0) {
         LOG_INFO(logger, "The user don't have messages");
-        Dialog d("INFO", "You don't have messages");
+        Dialog d("INFO", QObject::tr("You do not have messages"));
         d.exec();
         return {};
     }

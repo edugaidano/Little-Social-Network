@@ -14,7 +14,10 @@ CommunicationController::~CommunicationController() {
 
 bool CommunicationController::serverConectionIsOk() {
     if (serverConnection == INVALID_SOCKET) {
-        Dialog d("ERROR", "You no have communication with the server.\nCheck is the configuration is correct");
+        Dialog d(
+            "ERROR", 
+            QObject::tr("You do not have communication with the server.\nCheck if the configuration is correct")
+        );
         d.exec();
         return false;
     }

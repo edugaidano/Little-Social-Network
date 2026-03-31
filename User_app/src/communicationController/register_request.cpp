@@ -9,13 +9,16 @@ int CommunicationController::registerRequest(const std::string& user) {
     int retVal = sendPackage(logger, serverConnection, pkgRegister);
     freePackage(pkgRegister);
     if (retVal != 0) {
-        Dialog d("ERROR", "Something went wrong at sending the register request.\nCheck is the configuration is correct");
+        Dialog d(
+            "ERROR", 
+            QObject::tr("Something went wrong while sending the register request.\nCheck if the configuration is correct")
+        );
         d.exec();
         return -1;
     }
 
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
-    char recvErr[53]("Something went wrong at receiving the register reply");
+    QString recvErr = QObject::tr("Something went wrong while receiving the register reply.");
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
@@ -40,12 +43,12 @@ int CommunicationController::registerRequest(const std::string& user) {
         free(item);
         return 0;
     } else {
-        std::string logStr("Register refdused");
+        QString logStr = QObject::tr("Register refused");
         if (item == std::string("Not OK")) {
-            logStr.append(": The user exist");
+            logStr.append(QObject::tr(": The user already exists"));
         }
-        LOG_ERROR(logger, logStr);
-        Dialog d("ERROR", logStr.c_str());
+        LOG_ERROR(logger, logStr.toStdString());
+        Dialog d("ERROR", logStr);
         d.exec();
         free(item);
         return -1;

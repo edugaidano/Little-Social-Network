@@ -6,13 +6,16 @@ int CommunicationController::deleteRequest(uint32_t messageId) {
     addItem(updatePkg, &messageId, sizeof(uint32_t));
     int retVal = sendPackage(logger, serverConnection, updatePkg);
     if (retVal != 0) {
-        Dialog d("ERROR", "Something went wrong at sending the delete request.");
+        Dialog d(
+            "ERROR", 
+            QObject::tr("Something went wrong while sending the delete request.")
+        );
         d.exec();
         return retVal;
     }
 
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
-    char recvErr[51]("Something went wrong at receiving the delete reply");
+    QString recvErr = QObject::tr("Something went wrong while receiving the delete reply.");
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
@@ -35,12 +38,12 @@ int CommunicationController::deleteRequest(uint32_t messageId) {
         LOG_INFO(logger, "Message deleted");
         retVal = 0;
     } else {
-        std::string logStr("Problem at deleting");
+        QString logStr = QObject::tr("Problem deleting");
         if (item == std::string("Not OK")) {
-            logStr.append(": The message isn't deleted");
+            logStr.append(QObject::tr(": The message was not deleted"));
         }
-        LOG_ERROR(logger, logStr);
-        Dialog d("ERROR", logStr.c_str());
+        LOG_ERROR(logger, logStr.toStdString());
+        Dialog d("ERROR", logStr);
         d.exec();
         retVal = -1;
     }

@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -85,7 +85,7 @@
          <enum>QFrame::Shape::NoFrame</enum>
         </property>
         <property name="text">
-         <string>Fecha</string>
+         <string notr="true">Date</string>
         </property>
        </widget>
       </item>
@@ -105,7 +105,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Remitente</string>
+         <string notr="true">Sender</string>
         </property>
        </widget>
       </item>
@@ -131,7 +131,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Asunto</string>
+         <string notr="true">Subject</string>
         </property>
        </widget>
       </item>

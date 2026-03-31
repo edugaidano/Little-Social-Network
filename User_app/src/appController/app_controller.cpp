@@ -1,10 +1,11 @@
 #include "app_controller.h"
 #include <QVBoxLayout>
 
-AppController::AppController(LOG_T &logger, CONFIG_D &config, QWidget *parent) :
+AppController::AppController(LOG_T &logger, CONFIG_D &config, QApplication &app, QWidget *parent) :
     QWidget(parent), 
     logger(logger),
-    config(config)
+    config(config),
+    app(app)
 {
     stack = new QStackedWidget();
 
@@ -19,8 +20,19 @@ AppController::AppController(LOG_T &logger, CONFIG_D &config, QWidget *parent) :
 
     connectionsForLogin();
     connectionsForMainMenu();
-    
+
+    setLanguage();
+
     LOG_DEBUG(logger, "AppController initialized");
+}
+
+void AppController::setLanguage() {
+    app.removeTranslator(&translator);
+
+    if (translator.load(("app_" + config["LANGUAGE"]).c_str())) {
+        app.installTranslator(&translator);
+        
+    }
 }
 
 void AppController::connectionsForLogin() {
@@ -59,6 +71,7 @@ void AppController::connectionsForLogin() {
 
         connect(configWidget, &ConfigWidget::backRequested, this, [this, configWidget]() {
             LOG_DEBUG(logger, "Back requested from config");
+            setLanguage();
             stack->setCurrentWidget(login);
             stack->removeWidget(configWidget);
             configWidget->deleteLater();
@@ -93,7 +106,7 @@ void AppController::connectionsForMainMenu() {
         if (p == NULL) 
             return;
         
-        ProfileWidget *profile = new ProfileWidget(logger, p->username, p->content, "Editar Perfil");
+        ProfileWidget *profile = new ProfileWidget(logger, p->username, p->content, tr("Edit Profile"));
         stack->addWidget(profile);
         stack->setCurrentWidget(profile);
 
@@ -164,7 +177,7 @@ void AppController::connectionsForSearch(SearchWidget *search) {
         if (p == NULL) 
             return;
         
-        ProfileWidget *profile = new ProfileWidget(logger, p->username, p->content, "Buscar otro perfil");
+        ProfileWidget *profile = new ProfileWidget(logger, p->username, p->content, tr("Continue Searching"));
         free(p->username);
         free(p->content);
         delete p;            
