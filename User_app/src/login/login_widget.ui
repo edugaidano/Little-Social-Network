@@ -99,6 +99,9 @@
           <pointsize>15</pointsize>
          </font>
         </property>
+        <property name="maxLength">
+         <number>30</number>
+        </property>
         <property name="placeholderText">
          <string>Username</string>
         </property>

@@ -111,6 +111,9 @@
             <bold>false</bold>
            </font>
           </property>
+          <property name="maxLength">
+           <number>30</number>
+          </property>
          </widget>
         </item>
        </layout>
@@ -138,6 +141,9 @@
             <family>Arial</family>
             <pointsize>15</pointsize>
            </font>
+          </property>
+          <property name="maxLength">
+           <number>60</number>
           </property>
          </widget>
         </item>

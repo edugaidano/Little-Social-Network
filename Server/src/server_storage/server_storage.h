@@ -8,7 +8,7 @@
 
 constexpr auto PROFILES_DIR = "Profiles";
 constexpr auto MESSAGES_DIR = "Messages";
-constexpr auto USERS_INDEX = "Users_Index.txt";
+constexpr auto USERS_INDEX = "Users_Index";
 constexpr auto NEXT_ID = "Next_ID.txt";
 constexpr auto MESSAGES_INDEX = "Messages_Index";
 
@@ -16,7 +16,7 @@ typedef uint32_t ID_T;
 
 #define DATE_SIZE 15
 #define SENDER_SIZE 31
-#define SUBJECT_SIZE 101
+#define SUBJECT_SIZE 61
 
 typedef struct MESSAGE_ITEM {
     ID_T id;

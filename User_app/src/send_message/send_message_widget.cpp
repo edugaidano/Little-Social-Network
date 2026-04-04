@@ -20,6 +20,12 @@ SendMessageWidget::~SendMessageWidget() {
 
 void SendMessageWidget::onSendButtonClicked() {
     LOG_INFO(logger, "Send button clicked");
+    if (ui->destinataryLineEdit->text().isEmpty()){
+        LOG_WARNING(logger, "Destinatary is empty");
+        Dialog d("WARNING", QObject::tr("Destinatary is empty"));
+        d.exec();
+        return;
+    }
     emit sendMessage(ui->destinataryLineEdit->text(), ui->subjectLineEdit->text(), ui->messageTextEdit->toPlainText());
 }
 

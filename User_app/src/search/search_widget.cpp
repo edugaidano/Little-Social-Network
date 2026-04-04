@@ -22,7 +22,12 @@ void SearchWidget::onSearchButtonClicked() {
     LOG_INFO(logger, "Search button clicked");
     QString username = ui->searchLine->text();
 
-    //TODO: Validar existencia del usuario
+    if (username.isEmpty()) {
+        LOG_WARNING(logger, "User is empty");
+        Dialog d("WARNING", QObject::tr("User is empty"));
+        d.exec();
+        return;
+    }
 
     emit searchProfile(username);
 }

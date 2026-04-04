@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "../dialog/dialog.h"
+
 #include "logs/logs.h" // on utils folder
 
 QT_BEGIN_NAMESPACE

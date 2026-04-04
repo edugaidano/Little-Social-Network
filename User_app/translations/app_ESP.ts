@@ -32,12 +32,12 @@
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="../src/config/config_widget.ui" line="175"/>
+        <location filename="../src/config/config_widget.ui" line="188"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../src/config/config_widget.ui" line="195"/>
+        <location filename="../src/config/config_widget.ui" line="208"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -45,19 +45,19 @@
 <context>
     <name>LoginWidget</name>
     <message>
-        <location filename="../src/login/login_widget.ui" line="74"/>
+        <location filename="../src/login/login_widget.ui" line="68"/>
         <location filename="../src/login/login_widget.cpp" line="23"/>
         <location filename="../src/login/login_widget.cpp" line="69"/>
         <source>Access your account</source>
         <translation>Accede a tu cuenta</translation>
     </message>
     <message>
-        <location filename="../src/login/login_widget.ui" line="109"/>
+        <location filename="../src/login/login_widget.ui" line="106"/>
         <source>Username</source>
         <translation>Nombre de usuario</translation>
     </message>
     <message>
-        <location filename="../src/login/login_widget.ui" line="129"/>
+        <location filename="../src/login/login_widget.ui" line="126"/>
         <location filename="../src/login/login_widget.cpp" line="24"/>
         <location filename="../src/login/login_widget.cpp" line="31"/>
         <location filename="../src/login/login_widget.cpp" line="65"/>
@@ -66,14 +66,14 @@
         <translation>Iniciar Sesión</translation>
     </message>
     <message>
-        <location filename="../src/login/login_widget.ui" line="144"/>
+        <location filename="../src/login/login_widget.ui" line="141"/>
         <location filename="../src/login/login_widget.cpp" line="25"/>
         <location filename="../src/login/login_widget.cpp" line="71"/>
         <source>Don&apos;t have an account?</source>
         <translation>¿No tienes una cuenta?</translation>
     </message>
     <message>
-        <location filename="../src/login/login_widget.ui" line="164"/>
+        <location filename="../src/login/login_widget.ui" line="161"/>
         <location filename="../src/login/login_widget.cpp" line="26"/>
         <location filename="../src/login/login_widget.cpp" line="29"/>
         <location filename="../src/login/login_widget.cpp" line="63"/>
@@ -82,7 +82,7 @@
         <translation>Registrarse</translation>
     </message>
     <message>
-        <location filename="../src/login/login_widget.ui" line="205"/>
+        <location filename="../src/login/login_widget.ui" line="202"/>
         <source>Configuration</source>
         <translation>Configuración</translation>
     </message>
@@ -102,27 +102,27 @@
 <context>
     <name>MainMenuWidget</name>
     <message>
-        <location filename="../src/main_menu/main_menu_widget.ui" line="66"/>
+        <location filename="../src/main_menu/main_menu_widget.ui" line="72"/>
         <source>Log Out</source>
         <translation>Cerrar Sesión</translation>
     </message>
     <message>
-        <location filename="../src/main_menu/main_menu_widget.ui" line="125"/>
+        <location filename="../src/main_menu/main_menu_widget.ui" line="205"/>
         <source>My Profile</source>
         <translation>Mi Perfil</translation>
     </message>
     <message>
-        <location filename="../src/main_menu/main_menu_widget.ui" line="160"/>
+        <location filename="../src/main_menu/main_menu_widget.ui" line="150"/>
         <source>Search Profile</source>
         <translation>Buscar Perfil</translation>
     </message>
     <message>
-        <location filename="../src/main_menu/main_menu_widget.ui" line="180"/>
+        <location filename="../src/main_menu/main_menu_widget.ui" line="176"/>
         <source>View Messages</source>
         <translation>Ver Mensajes</translation>
     </message>
     <message>
-        <location filename="../src/main_menu/main_menu_widget.ui" line="200"/>
+        <location filename="../src/main_menu/main_menu_widget.ui" line="124"/>
         <source>Send Message</source>
         <translation>Enviar Mensaje</translation>
     </message>
@@ -130,27 +130,27 @@
 <context>
     <name>MessageWidget</name>
     <message>
-        <location filename="../src/message/message_widget.ui" line="44"/>
+        <location filename="../src/message/message_widget.ui" line="104"/>
         <source>Date:</source>
         <translation>Fecha:</translation>
     </message>
     <message>
-        <location filename="../src/message/message_widget.ui" line="88"/>
+        <location filename="../src/message/message_widget.ui" line="148"/>
         <source>Sender:</source>
         <translation>Remitente:</translation>
     </message>
     <message>
-        <location filename="../src/message/message_widget.ui" line="132"/>
+        <location filename="../src/message/message_widget.ui" line="192"/>
         <source>Subject:</source>
         <translation>Asunto:</translation>
     </message>
     <message>
-        <location filename="../src/message/message_widget.ui" line="222"/>
+        <location filename="../src/message/message_widget.ui" line="86"/>
         <source>Back</source>
         <translation>Regresar</translation>
     </message>
     <message>
-        <location filename="../src/message/message_widget.ui" line="242"/>
+        <location filename="../src/message/message_widget.ui" line="66"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
@@ -158,7 +158,7 @@
 <context>
     <name>MessagesInterfaceWidget</name>
     <message>
-        <location filename="../src/messages_interface/messages_interface_widget.ui" line="57"/>
+        <location filename="../src/messages_interface/messages_interface_widget.ui" line="66"/>
         <source>Back</source>
         <translation>Regresar</translation>
     </message>
@@ -166,17 +166,17 @@
 <context>
     <name>ProfileEditorWidget</name>
     <message>
-        <location filename="../src/profile_editor/profile_editor_widget.ui" line="170"/>
+        <location filename="../src/profile_editor/profile_editor_widget.ui" line="193"/>
         <source>Write your new profile here</source>
         <translation>Escribe tu nuevo perfil aquí</translation>
     </message>
     <message>
-        <location filename="../src/profile_editor/profile_editor_widget.ui" line="194"/>
+        <location filename="../src/profile_editor/profile_editor_widget.ui" line="119"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../src/profile_editor/profile_editor_widget.ui" line="214"/>
+        <location filename="../src/profile_editor/profile_editor_widget.ui" line="139"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -184,7 +184,7 @@
 <context>
     <name>ProfileWidget</name>
     <message>
-        <location filename="../src/profile/profile_widget.ui" line="130"/>
+        <location filename="../src/profile/profile_widget.ui" line="86"/>
         <source>Back</source>
         <translation>Regresar</translation>
     </message>
@@ -347,6 +347,7 @@ Check if the configuration is correct</source>
     </message>
     <message>
         <location filename="../src/login/login_widget.cpp" line="45"/>
+        <location filename="../src/search/search_widget.cpp" line="27"/>
         <source>User is empty</source>
         <translation>El usuario está vacío</translation>
     </message>
@@ -357,21 +358,26 @@ Check if the configuration is correct</source>
         <translation>No tienes comunicación con el servidor.
 Verifica si la configuración es correcta</translation>
     </message>
+    <message>
+        <location filename="../src/send_message/send_message_widget.cpp" line="25"/>
+        <source>Destinatary is empty</source>
+        <translation>El destinatario está vacío</translation>
+    </message>
 </context>
 <context>
     <name>SearchWidget</name>
     <message>
-        <location filename="../src/search/search_widget.ui" line="43"/>
+        <location filename="../src/search/search_widget.ui" line="107"/>
         <source>username to search</source>
         <translation>Nombre de usuario a buscar</translation>
     </message>
     <message>
-        <location filename="../src/search/search_widget.ui" line="57"/>
+        <location filename="../src/search/search_widget.ui" line="127"/>
         <source>Search</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../src/search/search_widget.ui" line="75"/>
+        <location filename="../src/search/search_widget.ui" line="63"/>
         <source>Back</source>
         <translation>Regresar</translation>
     </message>
@@ -379,27 +385,27 @@ Verifica si la configuración es correcta</translation>
 <context>
     <name>SendMessageWidget</name>
     <message>
-        <location filename="../src/send_message/send_message_widget.ui" line="44"/>
+        <location filename="../src/send_message/send_message_widget.ui" line="101"/>
         <source>Destinatary:</source>
         <translation>Destinatario:</translation>
     </message>
     <message>
-        <location filename="../src/send_message/send_message_widget.ui" line="73"/>
+        <location filename="../src/send_message/send_message_widget.ui" line="133"/>
         <source>Subject:</source>
         <translation>Asunto:</translation>
     </message>
     <message>
-        <location filename="../src/send_message/send_message_widget.ui" line="94"/>
+        <location filename="../src/send_message/send_message_widget.ui" line="164"/>
         <source>Message:</source>
         <translation>Mensaje:</translation>
     </message>
     <message>
-        <location filename="../src/send_message/send_message_widget.ui" line="134"/>
+        <location filename="../src/send_message/send_message_widget.ui" line="63"/>
         <source>Send</source>
         <translation>Enviar</translation>
     </message>
     <message>
-        <location filename="../src/send_message/send_message_widget.ui" line="154"/>
+        <location filename="../src/send_message/send_message_widget.ui" line="83"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>

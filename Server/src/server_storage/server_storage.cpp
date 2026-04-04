@@ -38,19 +38,24 @@ ID_T getNextId(std::filesystem::path dirPath) {
 }
 
 ID_T UserIndex::findUserInFile(const std::string& username) {
-    std::ifstream file(storagePath / USERS_INDEX);
+    std::ifstream file(storagePath / USERS_INDEX, std::ios::binary);
     if (!file.is_open()) return 0;
 
-    std::string line;
-    while (std::getline(file, line)) {
-        std::stringstream ss(line);
-        std::string fileUsername;
-        ID_T id;
+    while (file) {
+        uint8_t size;
+        file.read(reinterpret_cast<char*>(&size), sizeof(uint8_t));
+        if (!file) break;
 
-        if (std::getline(ss, fileUsername, ':') && ss >> id) {
-            if (fileUsername == username) {
-                return id;
-            }
+        std::string fileUsername(size, '\0');
+        file.read(&fileUsername[0], size);
+
+        ID_T id;
+        file.read(reinterpret_cast<char*>(&id), sizeof(id));
+
+        if (!file) break;
+
+        if (fileUsername == username) {
+            return id;
         }
     }
 
@@ -72,8 +77,12 @@ ID_T UserIndex::findUser(const std::string& username) {
 }
 
 void UserIndex::saveUser(const std::string& username, ID_T id) {
-    std::ofstream file(storagePath / USERS_INDEX, std::ios::app);
-    file << username << ":" << id << "\n";
+    std::ofstream file(storagePath / USERS_INDEX, std::ios::binary | std::ios::app);
+
+    uint8_t size = username.size();
+    file.write(reinterpret_cast<const char*>(&size), sizeof(uint8_t));
+    file.write(username.data(), size);
+    file.write(reinterpret_cast<const char*>(&id), sizeof(id));
 }
 
 ID_T UserIndex::createUser(const std::string& username) {
