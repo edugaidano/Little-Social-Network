@@ -11,7 +11,7 @@ MessageWidget::MessageWidget(LOG_T &logger, const uint32_t id, const QString &da
     ui->dateLabel->setText(date);
     ui->senderLabel->setText(sender);
     ui->subjectLabel->setText(subject);
-    ui->contentLabel->setText(content);
+    ui->contentPlainText->setPlainText(content);
 
     connect(ui->backButton, &QPushButton::clicked, this, &MessageWidget::onBackButtonClicked);
     connect(ui->deleteButton, &QPushButton::clicked, this, &MessageWidget::onDeleteButtonClicked);

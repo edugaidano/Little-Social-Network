@@ -8,6 +8,8 @@ Dialog::Dialog(const QString& title, const QString& info, QWidget *parent) :
     ui->setupUi(this);
     ui->titleLabel->setText(title);
     ui->InfoLabel->setText(info);
+
+    setFixedSize(size());
 }
 
 Dialog::~Dialog() {

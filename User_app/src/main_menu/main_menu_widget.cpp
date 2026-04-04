@@ -12,7 +12,7 @@ MainMenuWidget::MainMenuWidget(LOG_T &logger, QWidget *parent) :
     connect(ui->searchProfilebutton, &QPushButton::clicked, this, &MainMenuWidget::onSearchProfileButtonClicked);
     connect(ui->viewMessagesButton, &QPushButton::clicked, this, &MainMenuWidget::onViewMessagesButtonClicked);
     connect(ui->sendMessageButton, &QPushButton::clicked, this, &MainMenuWidget::onSendMessageButtonClicked);
-    connect(ui->closeButton, &QPushButton::clicked, this, &MainMenuWidget::onLogoutButtonClicked);
+    connect(ui->logOutButton, &QPushButton::clicked, this, &MainMenuWidget::onLogoutButtonClicked);
 
     LOG_DEBUG(logger, "MainMenuWidget initialized");
 }

@@ -6,16 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>746</width>
-    <height>424</height>
+    <width>468</width>
+    <height>368</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string notr="true">Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="1">
+   <item row="0" column="0">
     <widget class="QFrame" name="generalFrame">
+     <property name="minimumSize">
+      <size>
+       <width>450</width>
+       <height>350</height>
+      </size>
+     </property>
      <property name="maximumSize">
       <size>
        <width>1000</width>
@@ -30,7 +36,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <layout class="QHBoxLayout" name="exitLayout">
+       <layout class="QHBoxLayout" name="logOutLayout" stretch="3,1">
         <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
@@ -45,7 +51,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="closeButton">
+         <widget class="QPushButton" name="logOutButton">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -55,7 +61,7 @@
           <property name="font">
            <font>
             <family>Arial</family>
-            <pointsize>10</pointsize>
+            <pointsize>15</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -77,6 +83,9 @@
         <property name="orientation">
          <enum>Qt::Orientation::Vertical</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Policy::Minimum</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
@@ -86,25 +95,96 @@
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="optionsLayout">
+       <layout class="QGridLayout" name="gridLayout_2">
         <property name="leftMargin">
          <number>0</number>
         </property>
-        <item>
-         <spacer name="lefthSpacer">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="sendMessageButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="sizeHint" stdset="0">
+          <property name="minimumSize">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>130</width>
+            <height>100</height>
            </size>
           </property>
-         </spacer>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>20</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Send Message</string>
+          </property>
+         </widget>
         </item>
-        <item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="searchProfilebutton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>115</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>20</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Search Profile</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="viewMessagesButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>115</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>20</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>View Messages</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
          <widget class="QPushButton" name="viewProfileButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>100</width>
@@ -114,7 +194,7 @@
           <property name="font">
            <font>
             <family>Arial</family>
-            <pointsize>12</pointsize>
+            <pointsize>20</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -141,85 +221,15 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QPushButton" name="searchProfilebutton">
-          <property name="minimumSize">
-           <size>
-            <width>115</width>
-            <height>100</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>12</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Search Profile</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="viewMessagesButton">
-          <property name="minimumSize">
-           <size>
-            <width>115</width>
-            <height>100</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>12</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>View Messages</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="sendMessageButton">
-          <property name="minimumSize">
-           <size>
-            <width>130</width>
-            <height>100</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>12</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Send Message</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="rigthSpacer">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
       </item>
       <item>
        <spacer name="bottomSpacer">
         <property name="orientation">
          <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Policy::Minimum</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>

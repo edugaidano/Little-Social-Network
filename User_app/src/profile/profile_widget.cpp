@@ -11,7 +11,7 @@ ProfileWidget::ProfileWidget(LOG_T &logger, const QString &username, const QStri
 {
     ui->setupUi(this);
     ui->usernameLabel->setText(username);
-    ui->contentLabel->setText(profileContent);
+    ui->profileContent->setPlainText(profileContent);
     ui->actionButton->setText(extraAction);
 
     connect(ui->backButton, &QPushButton::clicked, this, &ProfileWidget::onBackButtonClicked);

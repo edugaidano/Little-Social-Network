@@ -30,6 +30,7 @@ void MessagesInterfaceWidget::onMessageItemClicked(const uint32_t messageId) {
 void MessagesInterfaceWidget::addMessageItem(const uint32_t messageId, bool seen, const QString &date, const QString &sender, const QString &subject) {
     MessageItemWidget *item = new MessageItemWidget(logger, seen, messageId, date, sender, subject);
     ui->messageAreaLayout->addWidget(item);
+    ui->messageArea->adjustSize();
     messageMap[messageId] = item;
     
     connect(item, &MessageItemWidget::clicked, this, &MessagesInterfaceWidget::onMessageItemClicked);

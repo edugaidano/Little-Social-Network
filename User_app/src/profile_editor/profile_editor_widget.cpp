@@ -9,7 +9,7 @@ ProfileEditorWidget::ProfileEditorWidget(LOG_T &logger, const QString &username,
     ui->setupUi(this);
     ui->usernameLabel_1->setText(username);
     ui->usernameLabel_2->setText(username);
-    ui->profileContentLabel->setText(profileContent);
+    ui->profileContentPlain->setPlainText(profileContent);
 
     connect(ui->saveButton, &QPushButton::clicked, this, &ProfileEditorWidget::onSaveButtonClicked);
     connect(ui->cancelButton, &QPushButton::clicked, this, &ProfileEditorWidget::onBackButtonClicked);
