@@ -4,6 +4,7 @@
 #include <QWidget>
 
 #include "../message_item/message_item_widget.h"
+#include "../dialog/dialog.h"
 
 #include "logs/logs.h" // on utils folder
 
@@ -21,6 +22,7 @@ public:
     void addMessageItem(const uint32_t messageId, bool seen, const QString &date, const QString &sender, const QString &subject);
     MessageItemWidget* findMessageById(uint32_t id);
     void removeMessage(uint32_t id);
+    void checkMessagesToDisplay();
 
 signals:
     void backToMainMenu();

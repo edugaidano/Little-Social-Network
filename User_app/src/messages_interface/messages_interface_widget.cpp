@@ -53,5 +53,16 @@ void MessagesInterfaceWidget::removeMessage(uint32_t id) {
         messageMap.erase(it);
 
         delete item;
+
+        checkMessagesToDisplay();
+    }
+}
+
+void MessagesInterfaceWidget::checkMessagesToDisplay() {
+    if (messageMap.empty()) {
+        LOG_INFO(logger, "No messages to display");
+        Dialog d("INFO", QObject::tr("You do not have messages"));
+        d.exec();
+        emit backToMainMenu();
     }
 }

@@ -38,13 +38,10 @@ std::vector<MESSAGE_ITEM> CommunicationController::messagesRequest() {
 
     LOG_DEBUG(logger, "MESSAGES received");
 
-    if (pkg->bufferSize == 0) {
-        LOG_INFO(logger, "The user don't have messages");
-        Dialog d("INFO", QObject::tr("You do not have messages"));
-        d.exec();
+    // The user don't have messages
+    if (pkg->bufferSize == 0)
         return {};
-    }
-    
+
     std::vector<MESSAGE_ITEM> msgs;
     while (pkg->bufferSize != 0) {
         MESSAGE_ITEM msg;

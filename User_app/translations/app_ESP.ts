@@ -9,7 +9,7 @@
         <translation>Editar perfil</translation>
     </message>
     <message>
-        <location filename="../src/appController/app_controller.cpp" line="180"/>
+        <location filename="../src/appController/app_controller.cpp" line="181"/>
         <source>Continue Searching</source>
         <translation>Continuar búsqueda</translation>
     </message>
@@ -252,7 +252,7 @@
         <translation>Ocurrió un error al recibir los mensajes.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/messages_request.cpp" line="43"/>
+        <location filename="../src/messages_interface/messages_interface_widget.cpp" line="64"/>
         <source>You do not have messages</source>
         <translation>No tienes mensajes</translation>
     </message>

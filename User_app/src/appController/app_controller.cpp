@@ -140,6 +140,7 @@ void AppController::connectionsForMainMenu() {
         MessagesInterfaceWidget *messagesInterface = new MessagesInterfaceWidget(logger);
         stack->addWidget(messagesInterface);
         stack->setCurrentWidget(messagesInterface);
+        connectionsForMessagesInterface(messagesInterface);
 
         auto msgs = comController->messagesRequest();
         
@@ -148,9 +149,9 @@ void AppController::connectionsForMainMenu() {
             free(msg.date);
             free(msg.sender);
             free(msg.subject);
-        }        
-
-        connectionsForMessagesInterface(messagesInterface);
+        }
+        
+        messagesInterface->checkMessagesToDisplay();
     });
 
     connect(mainMenu, &MainMenuWidget::sendMessageRequested, this, [this]() {
