@@ -48,8 +48,13 @@ private:
     LOG_T& logger;
     
     std::string username;
+    std::string ip;
+    std::string port;
     
     bool serverConectionIsOk();
+
+    void reconectToServer();
+    void closeServerConection();
 };
 
 

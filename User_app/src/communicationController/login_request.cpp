@@ -1,8 +1,11 @@
 #include "communication_controller.h"
 
 int CommunicationController::loginRequest(const std::string& user) {
-    if (!serverConectionIsOk())
-        return -1;
+    if (serverConnection == INVALID_SOCKET) {
+        reconectToServer();   
+        if (!serverConectionIsOk())
+            return -1;
+    }
     
     PACKAGE_T* pkgLogin = createPackage(LOGIN);
     addItem(pkgLogin, (void*)user.c_str(), user.size() + 1);
@@ -11,9 +14,10 @@ int CommunicationController::loginRequest(const std::string& user) {
     if (retVal != 0) {
         Dialog d(
             "ERROR", 
-            QObject::tr("Something went wrong while sending the login request.\nCheck if the configuration is correct")
+            QObject::tr("Something went wrong while sending the login request.")
         );
         d.exec();
+        closeServerConection();
         return -1;
     }
 
@@ -22,6 +26,7 @@ int CommunicationController::loginRequest(const std::string& user) {
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
+        closeServerConection();
         return -1;
     }  
 

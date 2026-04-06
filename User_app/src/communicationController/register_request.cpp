@@ -1,9 +1,10 @@
 #include "communication_controller.h"
 
 int CommunicationController::registerRequest(const std::string& user) {
-    if (!serverConectionIsOk())
-        return -1;
-    
+    if (serverConnection == INVALID_SOCKET) {
+        reconectToServer();
+    }
+        
     PACKAGE_T* pkgRegister = createPackage(REGISTER);
     addItem(pkgRegister, (void*)user.c_str(), user.size() + 1);
     int retVal = sendPackage(logger, serverConnection, pkgRegister);
@@ -11,9 +12,10 @@ int CommunicationController::registerRequest(const std::string& user) {
     if (retVal != 0) {
         Dialog d(
             "ERROR", 
-            QObject::tr("Something went wrong while sending the register request.\nCheck if the configuration is correct")
+            QObject::tr("Something went wrong while sending the register request.")
         );
         d.exec();
+        closeServerConection();
         return -1;
     }
 
@@ -22,6 +24,7 @@ int CommunicationController::registerRequest(const std::string& user) {
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
+        closeServerConection();
         return -1;
     }
 

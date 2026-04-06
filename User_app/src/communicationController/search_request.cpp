@@ -1,6 +1,9 @@
 #include "communication_controller.h"
 
 PROFILE_S* CommunicationController::searchRequest(const std::string& user) {
+    if (serverConnection == INVALID_SOCKET) {
+        reconectToServer();
+    }
     PACKAGE_T* searchPkg = createPackage(SEARCH_PROFILE);
     addItem(searchPkg, (void*)user.c_str(), user.size() + 1);
     int retVal = sendPackage(logger, serverConnection, searchPkg);
@@ -10,6 +13,7 @@ PROFILE_S* CommunicationController::searchRequest(const std::string& user) {
             QObject::tr("Something went wrong while sending the search request.")
         );
         d.exec();
+        closeServerConection();
         return NULL;
     }
 
@@ -18,6 +22,7 @@ PROFILE_S* CommunicationController::searchRequest(const std::string& user) {
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
+        closeServerConection();
         return NULL;
     }
 

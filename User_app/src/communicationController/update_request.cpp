@@ -1,6 +1,9 @@
 #include "communication_controller.h"
 
 void CommunicationController::updateRequest(const std::string& newContent) {
+    if (serverConnection == INVALID_SOCKET) {
+        reconectToServer();
+    }
     PACKAGE_T* updatePkg = createPackage(UPDATE_PROFILE);
     addItem(updatePkg, (void*)username.c_str(), username.size() + 1);
     addItem(updatePkg, (void*)newContent.c_str(), newContent.size() + 1);

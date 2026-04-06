@@ -1,6 +1,9 @@
 #include "communication_controller.h"
 
 std::vector<MESSAGE_ITEM> CommunicationController::messagesRequest() {
+    if (serverConnection == INVALID_SOCKET) {
+        reconectToServer();
+    }
     PACKAGE_T* requestPkg = createPackage(MESSAGES_REQUEST);
     addItem(requestPkg, (void*)username.c_str(), username.size() + 1);
     int retVal = sendPackage(logger, serverConnection, requestPkg);
@@ -12,6 +15,7 @@ std::vector<MESSAGE_ITEM> CommunicationController::messagesRequest() {
             QObject::tr("Something went wrong while sending the messages request.")
         );
         d.exec();
+        closeServerConection();
         return {};
     }
 
@@ -20,6 +24,7 @@ std::vector<MESSAGE_ITEM> CommunicationController::messagesRequest() {
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
+        closeServerConection();
         return {};
     }  
 

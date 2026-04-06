@@ -1,6 +1,9 @@
 #include "communication_controller.h"
 
 void CommunicationController::sendRequest(const std::string& destinatary, const std::string& subject, const std::string& content) {
+    if (serverConnection == INVALID_SOCKET) {
+        reconectToServer();
+    }
 
     std::time_t t = std::time(nullptr);
     std::tm tm{};
@@ -24,6 +27,7 @@ void CommunicationController::sendRequest(const std::string& destinatary, const 
     if (retVal != 0) {
         Dialog d("ERROR", QObject::tr("Something went wrong while sending the message."));
         d.exec();
+        closeServerConection();
         return;
     }
 
@@ -32,6 +36,7 @@ void CommunicationController::sendRequest(const std::string& destinatary, const 
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
+        closeServerConection();
         return;
     }
 

@@ -1,6 +1,9 @@
 #include "communication_controller.h"
 
 int CommunicationController::deleteRequest(uint32_t messageId) {
+    if (serverConnection == INVALID_SOCKET) {
+        reconectToServer();
+    }
     PACKAGE_T* updatePkg = createPackage(DELETE_MESSAGE_REQUEST);
     addItem(updatePkg, (void*)username.c_str(), username.size() + 1);
     addItem(updatePkg, &messageId, sizeof(uint32_t));
@@ -11,7 +14,8 @@ int CommunicationController::deleteRequest(uint32_t messageId) {
             QObject::tr("Something went wrong while sending the delete request.")
         );
         d.exec();
-        return retVal;
+        closeServerConection();
+        return -1;
     }
 
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
@@ -19,6 +23,7 @@ int CommunicationController::deleteRequest(uint32_t messageId) {
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
+        closeServerConection();        
         return -1;
     }
 

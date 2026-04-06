@@ -2,6 +2,8 @@
 
 CommunicationController::CommunicationController(LOG_T& logger, const char* ip, const char* port) : 
     logger(logger),
+    ip(ip),
+    port(port),
     username("")
 {
     serverConnection = connectToServer(logger, ip, port);
@@ -22,6 +24,15 @@ bool CommunicationController::serverConectionIsOk() {
         return false;
     }
     return true;
+}
+
+void CommunicationController::reconectToServer() {
+    serverConnection = connectToServer(logger, ip.c_str(), port.c_str());
+}
+
+void CommunicationController::closeServerConection() {
+    closesocket(serverConnection);
+    serverConnection = INVALID_SOCKET;
 }
 
 PROFILE_S* CommunicationController::myProfileRequest() {
