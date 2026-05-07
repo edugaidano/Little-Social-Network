@@ -9,6 +9,9 @@ int deleteMessage(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket, UserIndex
     if (userId == 0) {
         noProblems = false;
     } else {   
+        auto mutexPtr = messagesMutexManager.getMutex(userId);
+        std::lock_guard<std::mutex> lock(*mutexPtr);
+
         std::vector<MESSAGE_ITEM> buffer;
         std::filesystem::path userMessagesDirPath = storagePath / MESSAGES_DIR / std::to_string(userId);
         

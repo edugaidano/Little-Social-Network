@@ -9,6 +9,9 @@ int updateProfile(LOG_T& logger, PACKAGE_T* updatePkg, SOCKET socket, UserIndex 
     if (userId == 0) {
         noProblems = false;
     } else {    
+        auto mutexPtr = profileMutexManager.getMutex(userId);
+        std::lock_guard<std::mutex> lock(*mutexPtr);
+
         char* newContent = (char*)getItem(updatePkg);
         std::ofstream profile(storagePath / PROFILES_DIR / std::to_string(userId));
         if (profile.is_open()) {

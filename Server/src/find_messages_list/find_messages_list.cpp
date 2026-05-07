@@ -7,8 +7,11 @@ int findMessagesList(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket, UserIn
 
     PACKAGE_T* pkg = createPackage(MESSAGES);
     if (userId != 0) {
+        auto mutexPtr = messagesMutexManager.getMutex(userId);
+        std::lock_guard<std::mutex> lock(*mutexPtr);
+        
         std::ifstream index(storagePath / MESSAGES_DIR / std::to_string(userId) / MESSAGES_INDEX, std::ios::binary);
-       while (true) {
+        while (true) {
             MESSAGE_ITEM item;
             if (!index.read(reinterpret_cast<char*>(&item), sizeof(MESSAGE_ITEM))) break;
             addItem(pkg, &item.id, sizeof(ID_T));

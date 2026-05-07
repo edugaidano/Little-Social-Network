@@ -9,6 +9,9 @@ int findMessage(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket, UserIndex i
 
     PACKAGE_T* pkg = createPackage(MESSAGE);
     if (userId != 0) {
+        auto mutexPtr = messagesMutexManager.getMutex(userId);
+        std::lock_guard<std::mutex> lock(*mutexPtr);
+        
         uint32_t* messageId = (uint32_t*)getItem(requestPkg);
         std::filesystem::path userMessagesDir = storagePath / MESSAGES_DIR / std::to_string(userId);
         std::ifstream message(userMessagesDir / MESSAGES_DIR / std::to_string(*messageId));

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <unordered_map>
+#include <mutex>
 
 constexpr auto PROFILES_DIR = "Profiles";
 constexpr auto MESSAGES_DIR = "Messages";
@@ -26,11 +27,6 @@ typedef struct MESSAGE_ITEM {
     char subject[SUBJECT_SIZE];
 } MESSAGE_ITEM;
 
-extern std::filesystem::path storagePath;
-
-void initStorage(std::filesystem::path path);
-ID_T getNextId(std::filesystem::path dirPath);
-
 //Required to initStorage() or define the storagePath
 class UserIndex {
 private:
@@ -42,5 +38,28 @@ public:
     ID_T findUser(const std::string& username);
     ID_T createUser(const std::string& username);
 };
+
+class FileMutexManager {
+private:
+    std::mutex mapMutex;
+
+    std::unordered_map<ID_T, std::weak_ptr<std::mutex>> mutexes;
+
+public:
+    std::shared_ptr<std::mutex> getMutex(ID_T id);
+};
+
+extern std::filesystem::path storagePath;
+
+extern std::mutex usersIndexMutex;
+extern std::mutex createUserMutex;
+
+extern FileMutexManager profileMutexManager;
+extern FileMutexManager messagesMutexManager;
+
+void initStorage(std::filesystem::path path);
+
+// Remember to use mutex
+ID_T getNextId(std::filesystem::path dirPath);
 
 #endif // SERVER_STORAGE_H

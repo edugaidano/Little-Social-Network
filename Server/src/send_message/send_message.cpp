@@ -8,7 +8,10 @@ int sendMessage(LOG_T& logger, PACKAGE_T* messagePkg, SOCKET socket, UserIndex i
     bool noProblems = true;
     if (destinataryId == 0) {
         noProblems = false;
-    } else {   
+    } else { 
+        auto mutexPtr = messagesMutexManager.getMutex(destinataryId);
+        std::lock_guard<std::mutex> lock(*mutexPtr);
+
         char* date = (char*)getItem(messagePkg);
         char* sender = (char*)getItem(messagePkg);
         char* subject = (char*)getItem(messagePkg);

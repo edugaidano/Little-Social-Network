@@ -2,6 +2,12 @@
 
 std::filesystem::path storagePath;
 
+std::mutex usersIndexMutex;
+std::mutex createUserMutex;
+
+FileMutexManager profileMutexManager;
+FileMutexManager messagesMutexManager;
+
 void initStorage(std::filesystem::path path) {
     std::filesystem::create_directories(path / PROFILES_DIR);
     std::filesystem::create_directories(path / MESSAGES_DIR);
@@ -20,7 +26,6 @@ void initStorage(std::filesystem::path path) {
     storagePath = path;
 }
 
-// Todo: add mutex
 ID_T getNextId(std::filesystem::path dirPath) {
     ID_T id = 0;
 
@@ -38,8 +43,11 @@ ID_T getNextId(std::filesystem::path dirPath) {
 }
 
 ID_T UserIndex::findUserInFile(const std::string& username) {
+    std::lock_guard<std::mutex> lock(usersIndexMutex);
     std::ifstream file(storagePath / USERS_INDEX, std::ios::binary);
-    if (!file.is_open()) return 0;
+    if (!file.is_open()) {
+        return 0;
+    }
 
     while (file) {
         uint8_t size;
@@ -77,15 +85,18 @@ ID_T UserIndex::findUser(const std::string& username) {
 }
 
 void UserIndex::saveUser(const std::string& username, ID_T id) {
+    usersIndexMutex.lock();;
     std::ofstream file(storagePath / USERS_INDEX, std::ios::binary | std::ios::app);
 
     uint8_t size = username.size();
     file.write(reinterpret_cast<const char*>(&size), sizeof(uint8_t));
     file.write(username.data(), size);
     file.write(reinterpret_cast<const char*>(&id), sizeof(id));
+    usersIndexMutex.unlock();
 }
 
 ID_T UserIndex::createUser(const std::string& username) {
+    std::lock_guard<std::mutex> lock(createUserMutex);
     if (findUser(username)) {
         return 0;
     }
@@ -102,4 +113,19 @@ ID_T UserIndex::createUser(const std::string& username) {
     }
 
     return id;
+}
+
+std::shared_ptr<std::mutex> FileMutexManager::getMutex(ID_T id) {
+    std::lock_guard<std::mutex> lock(mapMutex);
+
+    auto& weak = mutexes[id];
+
+    auto shared = weak.lock();
+
+    if (!shared) {
+        shared = std::make_shared<std::mutex>();
+        weak = shared;
+    }
+
+    return shared;
 }
