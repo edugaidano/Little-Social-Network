@@ -11,20 +11,22 @@ qt_add_executable(User_app
     src/appController/app_controller.cpp
     src/appController/app_controller.h
 
-    src/connect_server/connect_server.cpp
-    src/connect_server/connect_server.h
-
-    src/communicationController/communication_controller_general.cpp
-    src/communicationController/login_request.cpp
-    src/communicationController/register_request.cpp
-    src/communicationController/search_request.cpp
-    src/communicationController/update_request.cpp
-    src/communicationController/messages_request.cpp
-    src/communicationController/message_request.cpp
-    src/communicationController/delete_request.cpp
-    src/communicationController/send_request.cpp
     src/communicationController/communication_controller.h
-
+    src/communicationController/constructor.cpp
+    src/communicationController/destructor.cpp
+    src/communicationController/utils/closeServerConnection.cpp
+    src/communicationController/utils/makeConnection.cpp
+    src/communicationController/utils/reconnectToServer.cpp
+    src/communicationController/utils/serverConnectionIsOk.cpp
+    src/communicationController/actions/deleteMessage.cpp
+    src/communicationController/actions/login.cpp
+    src/communicationController/actions/requestMessageContent.cpp
+    src/communicationController/actions/requestMessages.cpp
+    src/communicationController/actions/searchOwnProfile.cpp
+    src/communicationController/actions/searchProfile.cpp
+    src/communicationController/actions/sendMessage.cpp
+    src/communicationController/actions/updateProfile.cpp
+    
     src/dialog/dialog.cpp
     src/dialog/dialog.h
     src/dialog/dialog.ui

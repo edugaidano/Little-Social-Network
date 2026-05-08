@@ -1,18 +1,16 @@
-#include "communication_controller.h"
+#include "../communication_controller.h"
 
-void CommunicationController::updateRequest(const std::string& newContent) {
+void CommunicationController::updateProfile(const std::string& newContent) {
     if (serverConnection == INVALID_SOCKET) {
-        reconectToServer();
+        reconnectToServer();
     }
+
     PACKAGE_T* updatePkg = createPackage(UPDATE_PROFILE);
     addItem(updatePkg, (void*)username.c_str(), username.size() + 1);
     addItem(updatePkg, (void*)newContent.c_str(), newContent.size() + 1);
     int retVal = sendPackage(logger, serverConnection, updatePkg);
     if (retVal != 0) {
-        Dialog d(
-            "ERROR", 
-            QObject::tr("Something went wrong while sending the update request.")
-        );
+        Dialog d("ERROR", QObject::tr("Something went wrong while sending the update request."));
         d.exec();
         return;
     }
@@ -40,12 +38,8 @@ void CommunicationController::updateRequest(const std::string& newContent) {
     if (item == std::string("OK")) {
         LOG_INFO(logger, "Profile updated");
     } else {
-        QString logStr = QObject::tr("Problem during update");
-        if (item == std::string("Not OK")) {
-            logStr.append(QObject::tr(": The profile was not updated"));
-        }
-        LOG_ERROR(logger, logStr.toStdString());
-        Dialog d("ERROR", logStr);
+        LOG_ERROR(logger, "UPDATE_REPLY item diferent to OK");
+        Dialog d("ERROR", QObject::tr("Something went wrong during the update."));
         d.exec();
     }
     free(item);

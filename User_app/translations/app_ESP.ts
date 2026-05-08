@@ -192,62 +192,57 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/communicationController/delete_request.cpp" line="14"/>
+        <location filename="../src/communicationController/actions/deleteMessage.cpp" line="13"/>
         <source>Something went wrong while sending the delete request.</source>
         <translation>Ocurrió un error al enviar la solicitud de eliminación.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/delete_request.cpp" line="22"/>
+        <location filename="../src/communicationController/actions/deleteMessage.cpp" line="20"/>
         <source>Something went wrong while receiving the delete reply.</source>
         <translation>Ocurrió un error al recibir la respuesta de eliminación.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/delete_request.cpp" line="46"/>
-        <source>Problem deleting</source>
-        <translation>Problema al eliminar</translation>
+        <location filename="../src/communicationController/actions/deleteMessage.cpp" line="46"/>
+        <source>Something went wrong at deleting.</source>
+        <translation>Ocurrió un error al eliminar.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/delete_request.cpp" line="48"/>
-        <source>: The message was not deleted</source>
-        <translation>: El mensaje no fue eliminado</translation>
+        <location filename="../src/communicationController/actions/login.cpp" line="6"/>
+        <source>Something went wrong.</source>
+        <translation>Algo salió mal.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/login_request.cpp" line="25"/>
-        <source>Something went wrong while receiving the login reply.</source>
-        <translation>Ocurrió un error al recibir la respuesta de inicio de sesión.</translation>
+        <location filename="../src/communicationController/actions/login.cpp" line="22"/>
+        <source>Something went wrong while sending the request.</source>
+        <translation>Ocurrió un error al enviar el pedido.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/login_request.cpp" line="17"/>
-        <source>Something went wrong while sending the login request.</source>
-        <translation>Ocurrió un error al enviar la solicitud de inicio de sesión.</translation>
+        <location filename="../src/communicationController/actions/login.cpp" line="29"/>
+        <source>Something went wrong while receiving the reply.</source>
+        <translation>Ocurrió un error al recibir la respuesta.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/login_request.cpp" line="51"/>
+        <location filename="../src/communicationController/actions/login.cpp" line="56"/>
         <source>Login refused</source>
         <translation>Inicio de sesión denegado</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/login_request.cpp" line="53"/>
-        <source>: The user does not exist</source>
-        <translation>: El usuario no existe</translation>
-    </message>
-    <message>
-        <location filename="../src/communicationController/message_request.cpp" line="14"/>
+        <location filename="../src/communicationController/actions/requestMessageContent.cpp" line="14"/>
         <source>Something went wrong while sending the message request.</source>
         <translation>Ocurrió un error al enviar la solicitud de mensaje.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/message_request.cpp" line="22"/>
+        <location filename="../src/communicationController/actions/requestMessageContent.cpp" line="22"/>
         <source>Something went wrong while receiving the message reply.</source>
         <translation>Ocurrió un error al recibir la respuesta del mensaje.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/messages_request.cpp" line="15"/>
+        <location filename="../src/communicationController/actions/requestMessages.cpp" line="14"/>
         <source>Something went wrong while sending the messages request.</source>
         <translation>Ocurrió un error al enviar la solicitud de mensajes.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/messages_request.cpp" line="23"/>
+        <location filename="../src/communicationController/actions/requestMessages.cpp" line="21"/>
         <source>Something went wrong while receiving the messages.</source>
         <translation>Ocurrió un error al recibir los mensajes.</translation>
     </message>
@@ -257,89 +252,59 @@
         <translation>No tienes mensajes</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/register_request.cpp" line="15"/>
-        <source>Something went wrong while sending the register request.</source>
-        <translation>Ocurrió un error al enviar la solicitud de registro.</translation>
-    </message>
-    <message>
-        <location filename="../src/communicationController/register_request.cpp" line="23"/>
-        <source>Something went wrong while receiving the register reply.</source>
-        <translation>Ocurrió un error al recibir la respuesta de registro.</translation>
-    </message>
-    <message>
-        <location filename="../src/communicationController/register_request.cpp" line="49"/>
-        <source>Register refused</source>
-        <translation>Registro denegado</translation>
-    </message>
-    <message>
-        <location filename="../src/communicationController/register_request.cpp" line="51"/>
-        <source>: The user already exists</source>
-        <translation>: El usuario ya existe</translation>
-    </message>
-    <message>
-        <location filename="../src/communicationController/search_request.cpp" line="13"/>
+        <location filename="../src/communicationController/actions/searchProfile.cpp" line="12"/>
         <source>Something went wrong while sending the search request.</source>
         <translation>Ocurrió un error al enviar la solicitud de búsqueda.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/search_request.cpp" line="21"/>
+        <location filename="../src/communicationController/actions/searchProfile.cpp" line="19"/>
         <source>Something went wrong while receiving the profile.</source>
         <translation>Ocurrió un error al recibir el perfil.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/search_request.cpp" line="41"/>
+        <location filename="../src/communicationController/actions/searchProfile.cpp" line="40"/>
         <source>The user </source>
         <translation>El usuario </translation>
     </message>
     <message>
-        <location filename="../src/communicationController/search_request.cpp" line="43"/>
+        <location filename="../src/communicationController/actions/searchProfile.cpp" line="40"/>
         <source> does not have a profile</source>
         <translation> no tiene un perfil</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/send_request.cpp" line="28"/>
+        <location filename="../src/communicationController/actions/sendMessage.cpp" line="28"/>
         <source>Something went wrong while sending the message.</source>
         <translation>Ocurrió un error al enviar el mensaje.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/send_request.cpp" line="35"/>
+        <location filename="../src/communicationController/actions/sendMessage.cpp" line="35"/>
         <source>Something went wrong while receiving the send reply.</source>
         <translation>Ocurrió un error al recibir la respuesta de envío.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/send_request.cpp" line="57"/>
+        <location filename="../src/communicationController/actions/sendMessage.cpp" line="57"/>
         <source>Message sent</source>
         <translation>Mensaje enviado</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/send_request.cpp" line="60"/>
-        <source>Problem sending</source>
-        <translation>Problema al enviar</translation>
+        <location filename="../src/communicationController/actions/sendMessage.cpp" line="61"/>
+        <source>Something went wrong at sending.</source>
+        <translation>Ocurrió un error al enviar.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/send_request.cpp" line="62"/>
-        <source>: The message was not sent</source>
-        <translation>: El mensaje no fue enviado</translation>
-    </message>
-    <message>
-        <location filename="../src/communicationController/update_request.cpp" line="14"/>
+        <location filename="../src/communicationController/actions/updateProfile.cpp" line="13"/>
         <source>Something went wrong while sending the update request.</source>
         <translation>Ocurrió un error al enviar la solicitud de actualización.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/update_request.cpp" line="21"/>
+        <location filename="../src/communicationController/actions/updateProfile.cpp" line="19"/>
         <source>Something went wrong while receiving the update reply.</source>
         <translation>Ocurrió un error al recibir la respuesta de actualización.</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/update_request.cpp" line="43"/>
-        <source>Problem during update</source>
-        <translation>Problema durante la actualización</translation>
-    </message>
-    <message>
-        <location filename="../src/communicationController/update_request.cpp" line="45"/>
-        <source>: The profile was not updated</source>
-        <translation>: El perfil no fue actualizado</translation>
+        <location filename="../src/communicationController/actions/updateProfile.cpp" line="42"/>
+        <source>Something went wrong during the update.</source>
+        <translation>Ocurrió un error durante la actualización.</translation>
     </message>
     <message>
         <location filename="../src/login/login_widget.cpp" line="45"/>
@@ -348,7 +313,7 @@
         <translation>El usuario está vacío</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/communication_controller_general.cpp" line="21"/>
+        <location filename="../src/communicationController/utils/serverConnectionIsOk.cpp" line="7"/>
         <source>You do not have communication with the server.
 Check if the configuration is correct</source>
         <translation>No tienes comunicación con el servidor.

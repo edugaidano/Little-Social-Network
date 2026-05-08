@@ -1,8 +1,8 @@
-#include "communication_controller.h"
+#include "../communication_controller.h"
 
-void CommunicationController::sendRequest(const std::string& destinatary, const std::string& subject, const std::string& content) {
+void CommunicationController::sendMessage(const std::string& destinatary, const std::string& subject, const std::string& content) {
     if (serverConnection == INVALID_SOCKET) {
-        reconectToServer();
+        reconnectToServer();
     }
 
     std::time_t t = std::time(nullptr);
@@ -27,7 +27,7 @@ void CommunicationController::sendRequest(const std::string& destinatary, const 
     if (retVal != 0) {
         Dialog d("ERROR", QObject::tr("Something went wrong while sending the message."));
         d.exec();
-        closeServerConection();
+        closeServerConnection();
         return;
     }
 
@@ -36,7 +36,7 @@ void CommunicationController::sendRequest(const std::string& destinatary, const 
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
-        closeServerConection();
+        closeServerConnection();
         return;
     }
 
@@ -57,12 +57,8 @@ void CommunicationController::sendRequest(const std::string& destinatary, const 
         Dialog d("INFO", QObject::tr("Message sent"));
         d.exec();
     } else {
-        QString logStr = QObject::tr("Problem sending");
-        if (item == std::string("Not OK")) {
-            logStr.append(QObject::tr(": The message was not sent"));
-        }
-        LOG_ERROR(logger, logStr.toStdString());
-        Dialog d("ERROR", logStr);
+        LOG_ERROR(logger, "SEND_REPLY item diferent to OK");
+        Dialog d("ERROR", QObject::tr("Something went wrong at sending."));
         d.exec();
     }
     free(item);

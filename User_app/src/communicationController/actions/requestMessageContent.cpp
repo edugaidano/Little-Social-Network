@@ -1,8 +1,8 @@
-#include "communication_controller.h"
+#include "../communication_controller.h"
 
-char* CommunicationController::messageRequest(uint32_t messageId) {
+char* CommunicationController::requestMessageContent(uint32_t messageId) {
     if (serverConnection == INVALID_SOCKET) {
-        reconectToServer();
+        reconnectToServer();
     }
     PACKAGE_T* updatePkg = createPackage(MESSAGE_REQUEST);
     addItem(updatePkg, (void*)username.c_str(), username.size() + 1);
@@ -14,7 +14,7 @@ char* CommunicationController::messageRequest(uint32_t messageId) {
             QObject::tr("Something went wrong while sending the message request.")
         );
         d.exec();
-        closeServerConection();
+        closeServerConnection();
         return NULL;
     }
 
@@ -23,7 +23,7 @@ char* CommunicationController::messageRequest(uint32_t messageId) {
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
-        closeServerConection();
+        closeServerConnection();
         return NULL;
     }
 

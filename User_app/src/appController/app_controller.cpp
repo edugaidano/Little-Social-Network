@@ -41,7 +41,7 @@ void AppController::connectionsForLogin() {
         if (!comController) {
             comController = new CommunicationController(logger, config["SERVER_IP"].c_str(), config["SERVER_PORT"].c_str());
         }
-        if (comController->loginRequest(user.toStdString()) != 0) {
+        if (comController->login(user.toStdString(), LOGIN) != 0) {
             return;
         }        
         stack->setCurrentWidget(mainMenu);
@@ -52,7 +52,7 @@ void AppController::connectionsForLogin() {
         if (!comController) {
             comController = new CommunicationController(logger, config["SERVER_IP"].c_str(), config["SERVER_PORT"].c_str());
         }
-        if (comController->registerRequest(user.toStdString()) != 0) {
+        if (comController->login(user.toStdString(), REGISTER) != 0) {
             return;
         } 
         stack->setCurrentWidget(mainMenu);
@@ -102,7 +102,7 @@ void AppController::connectionsForMainMenu() {
     connect(mainMenu, &MainMenuWidget::viewProfileRequested, this, [this]() {
         LOG_DEBUG(logger, "View profile requested");
 
-        PROFILE_S* p = comController->myProfileRequest();
+        PROFILE_S* p = comController->searchOwnProfile();
         if (p == NULL) 
             return;
         
@@ -142,7 +142,7 @@ void AppController::connectionsForMainMenu() {
         stack->setCurrentWidget(messagesInterface);
         connectionsForMessagesInterface(messagesInterface);
 
-        auto msgs = comController->messagesRequest();
+        auto msgs = comController->requestMessages();
         
         for (MESSAGE_ITEM& msg : msgs) {
             messagesInterface->addMessageItem(msg.id, msg.seen, msg.date, msg.sender, msg.subject);
@@ -174,7 +174,7 @@ void AppController::connectionsForSearch(SearchWidget *search) {
 
     connect(search, &SearchWidget::searchProfile, this, [this, search](QString username) {
         LOG_DEBUG(logger, "Search profile requested for user: " + username.toStdString());
-        PROFILE_S* p = comController->searchRequest(username.toStdString());
+        PROFILE_S* p = comController->searchProfile(username.toStdString());
         if (p == NULL) 
             return;
         
@@ -217,7 +217,7 @@ void AppController::connectionsForProfileEditor(ProfileEditorWidget *editor) {
     connect(editor, &ProfileEditorWidget::saveProfileRequested, this, [this, editor](QString profileContent) {
         LOG_DEBUG(logger, "Save profile requested");
 
-        comController->updateRequest(profileContent.toStdString());
+        comController->updateProfile(profileContent.toStdString());
 
         stack->setCurrentWidget(mainMenu);
         stack->removeWidget(editor);
@@ -236,7 +236,7 @@ void AppController::connectionsForMessagesInterface(MessagesInterfaceWidget *mes
     connect(messagesInterface, &MessagesInterfaceWidget::messageSelected, this, [this, messagesInterface](const uint32_t messageId) {
         LOG_DEBUG(logger, "Message selected");
         MessageItemWidget* item = messagesInterface->findMessageById(messageId);
-        char* content = comController->messageRequest(messageId);
+        char* content = comController->requestMessageContent(messageId);
         if (content != NULL) {
             MessageWidget *messageWidget = new MessageWidget(logger, messageId, item->getDate(), item->getSender(), item->getSubject(), content);
             stack->addWidget(messageWidget);
@@ -258,7 +258,7 @@ void AppController::connectionsForMessage(MessagesInterfaceWidget *messagesInter
 
     connect(message, &MessageWidget::deleteButtonClicked, this, [this, messagesInterface, message](const uint32_t messageId) {
         LOG_DEBUG(logger, "Delete button clicked on message");
-        if (comController->deleteRequest(messageId) == 0) {
+        if (comController->deleteMessage(messageId) == 0) {
             messagesInterface->removeMessage(messageId);
         }
         stack->setCurrentWidget(messagesInterface);
@@ -278,7 +278,7 @@ void AppController::connectionsForSendMessage(SendMessageWidget *sendMessageWidg
     connect(sendMessageWidget, &SendMessageWidget::sendMessage, this, [this, sendMessageWidget](const QString &destinatary, const QString &subject, const QString &content) {
         LOG_DEBUG(logger, "Send message requested");
         
-        comController->sendRequest(destinatary.toStdString(), subject.toStdString(), content.toStdString());
+        comController->sendMessage(destinatary.toStdString(), subject.toStdString(), content.toStdString());
 
         stack->setCurrentWidget(mainMenu);
         stack->removeWidget(sendMessageWidget);

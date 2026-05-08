@@ -1,7 +1,9 @@
 #ifndef COMMUNICATION_CONTROLLER_H
 #define COMMUNICATION_CONTROLLER_H
 
-#include "../connect_server/connect_server.h"
+#include <WinSock2.h>
+#include <WS2tcpip.h>
+
 #include "../dialog/dialog.h"
 
 // on utils folder
@@ -26,21 +28,21 @@ public:
     CommunicationController(LOG_T& logger, const char* ip, const char* port);
     ~CommunicationController();
     
-    int loginRequest(const std::string& user);
-    int registerRequest(const std::string& user);
+    // loginType must be LOGIN or REGISTER, in other case the return value will be -1
+    int login(const std::string& user, const CODE_CONTENT loginType);
 
-    PROFILE_S* searchRequest(const std::string& user);
-    PROFILE_S* myProfileRequest();
+    PROFILE_S* searchProfile(const std::string& user);
+    PROFILE_S* searchOwnProfile();
 
-    void updateRequest(const std::string& newContent);
+    void updateProfile(const std::string& newContent);
 
-    std::vector<MESSAGE_ITEM> messagesRequest();
+    std::vector<MESSAGE_ITEM> requestMessages();
 
-    char* messageRequest(uint32_t messageId);
+    char* requestMessageContent(uint32_t messageId);
 
-    int deleteRequest(uint32_t messageId);
+    int deleteMessage(uint32_t messageId);
 
-    void sendRequest(const std::string& destinatary, const std::string& subject, const std::string& content);
+    void sendMessage(const std::string& destinatary, const std::string& subject, const std::string& content);
     
 private:
     SOCKET serverConnection;
@@ -53,8 +55,9 @@ private:
     
     bool serverConectionIsOk();
 
-    void reconectToServer();
-    void closeServerConection();
+    SOCKET makeConnection(const char *ip,const char *port);
+    void reconnectToServer();
+    void closeServerConnection();
 };
 
 

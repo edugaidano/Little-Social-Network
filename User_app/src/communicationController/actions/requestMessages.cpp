@@ -1,21 +1,19 @@
-#include "communication_controller.h"
+#include "../communication_controller.h"
 
-std::vector<MESSAGE_ITEM> CommunicationController::messagesRequest() {
+std::vector<MESSAGE_ITEM> CommunicationController::requestMessages() {
     if (serverConnection == INVALID_SOCKET) {
-        reconectToServer();
+        reconnectToServer();
     }
+    
     PACKAGE_T* requestPkg = createPackage(MESSAGES_REQUEST);
     addItem(requestPkg, (void*)username.c_str(), username.size() + 1);
     int retVal = sendPackage(logger, serverConnection, requestPkg);
     freePackage(requestPkg);
 
     if (retVal != 0) {
-        Dialog d(
-            "ERROR", 
-            QObject::tr("Something went wrong while sending the messages request.")
-        );
+        Dialog d("ERROR", QObject::tr("Something went wrong while sending the messages request."));
         d.exec();
-        closeServerConection();
+        closeServerConnection();
         return {};
     }
 
@@ -24,7 +22,7 @@ std::vector<MESSAGE_ITEM> CommunicationController::messagesRequest() {
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
-        closeServerConection();
+        closeServerConnection();
         return {};
     }  
 
@@ -38,10 +36,11 @@ std::vector<MESSAGE_ITEM> CommunicationController::messagesRequest() {
 
     LOG_DEBUG(logger, "MESSAGES received");
 
-    // The user don't have messages
-    if (pkg->bufferSize == 0)
+    if (pkg->bufferSize == 0){
+        LOG_INFO(logger, "The user don't have messages");
         return {};
-
+    }
+        
     std::vector<MESSAGE_ITEM> msgs;
     while (pkg->bufferSize != 0) {
         MESSAGE_ITEM msg;

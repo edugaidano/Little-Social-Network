@@ -1,20 +1,18 @@
-#include "communication_controller.h"
+#include "../communication_controller.h"
 
-int CommunicationController::deleteRequest(uint32_t messageId) {
+int CommunicationController::deleteMessage(uint32_t messageId) {
     if (serverConnection == INVALID_SOCKET) {
-        reconectToServer();
+        reconnectToServer();
     }
+
     PACKAGE_T* updatePkg = createPackage(DELETE_MESSAGE_REQUEST);
     addItem(updatePkg, (void*)username.c_str(), username.size() + 1);
     addItem(updatePkg, &messageId, sizeof(uint32_t));
     int retVal = sendPackage(logger, serverConnection, updatePkg);
     if (retVal != 0) {
-        Dialog d(
-            "ERROR", 
-            QObject::tr("Something went wrong while sending the delete request.")
-        );
+        Dialog d("ERROR", QObject::tr("Something went wrong while sending the delete request."));
         d.exec();
-        closeServerConection();
+        closeServerConnection();
         return -1;
     }
 
@@ -23,7 +21,7 @@ int CommunicationController::deleteRequest(uint32_t messageId) {
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
-        closeServerConection();        
+        closeServerConnection();        
         return -1;
     }
 
@@ -41,17 +39,13 @@ int CommunicationController::deleteRequest(uint32_t messageId) {
     freePackage(pkg);
     if (item == std::string("OK")) {
         LOG_INFO(logger, "Message deleted");
-        retVal = 0;
+        free(item); 
+        return 0;
     } else {
-        QString logStr = QObject::tr("Problem deleting");
-        if (item == std::string("Not OK")) {
-            logStr.append(QObject::tr(": The message was not deleted"));
-        }
-        LOG_ERROR(logger, logStr.toStdString());
-        Dialog d("ERROR", logStr);
+        LOG_ERROR(logger, "DELETE_MESSAGE_REPLY item diferent to OK");
+        Dialog d("ERROR", QObject::tr("Something went wrong at deleting."));
         d.exec();
-        retVal = -1;
+        free(item); 
+        return -1;
     }
-    free(item); 
-    return retVal;
 }

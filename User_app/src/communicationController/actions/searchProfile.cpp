@@ -1,19 +1,17 @@
-#include "communication_controller.h"
+#include "../communication_controller.h"
 
-PROFILE_S* CommunicationController::searchRequest(const std::string& user) {
+PROFILE_S* CommunicationController::searchProfile(const std::string& user) {
     if (serverConnection == INVALID_SOCKET) {
-        reconectToServer();
+        reconnectToServer();
     }
+    
     PACKAGE_T* searchPkg = createPackage(SEARCH_PROFILE);
     addItem(searchPkg, (void*)user.c_str(), user.size() + 1);
     int retVal = sendPackage(logger, serverConnection, searchPkg);
     if (retVal != 0) {
-        Dialog d(
-            "ERROR", 
-            QObject::tr("Something went wrong while sending the search request.")
-        );
+        Dialog d("ERROR",  QObject::tr("Something went wrong while sending the search request."));
         d.exec();
-        closeServerConection();
+        closeServerConnection();
         return NULL;
     }
 
@@ -22,7 +20,7 @@ PROFILE_S* CommunicationController::searchRequest(const std::string& user) {
     if (pkg == NULL) {
         Dialog d("ERROR", recvErr);
         d.exec();
-        closeServerConection();
+        closeServerConnection();
         return NULL;
     }
 
@@ -37,12 +35,9 @@ PROFILE_S* CommunicationController::searchRequest(const std::string& user) {
     LOG_DEBUG(logger, "PROFILE received");
     char* p_username = (char*)getItem(pkg);
     if (p_username == NULL) {
+        LOG_WARNING(logger, "The user " + user + " does not have a profile");
         freePackage(pkg);
-        QString warningLog = QObject::tr("The user ");
-        warningLog.append(user);
-        warningLog.append(QObject::tr(" does not have a profile"));
-        LOG_WARNING(logger, warningLog.toStdString());
-        Dialog d("WARNING", warningLog);
+        Dialog d("WARNING",  QObject::tr("The user ").append(user).append(QObject::tr(" does not have a profile")));
         d.exec();
         return NULL;
     }
