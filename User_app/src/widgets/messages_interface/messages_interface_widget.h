@@ -4,7 +4,7 @@
 #include <QWidget>
 
 #include "../message_item/message_item_widget.h"
-#include "../dialog/dialog.h"
+#include "../../dialog/dialog.h"
 
 #include "logs/logs.h" // on utils folder
 

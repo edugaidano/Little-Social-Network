@@ -7,15 +7,15 @@
 #include <QStackedWidget>
 
 // Widgets
-#include "../login/login_widget.h"
-#include "../main_menu/main_menu_widget.h"
-#include "../profile/profile_widget.h"
-#include "../profile_editor/profile_editor_widget.h"
-#include "../search/search_widget.h"
-#include "../messages_interface/messages_interface_widget.h"
-#include "../message/message_widget.h"
-#include "../send_message/send_message_widget.h"
-#include "../config/config_widget.h"
+#include "../widgets/login/login_widget.h"
+#include "../widgets/main_menu/main_menu_widget.h"
+#include "../widgets/profile/profile_widget.h"
+#include "../widgets/profile_editor/profile_editor_widget.h"
+#include "../widgets/search/search_widget.h"
+#include "../widgets/messages_interface/messages_interface_widget.h"
+#include "../widgets/message/message_widget.h"
+#include "../widgets/send_message/send_message_widget.h"
+#include "../widgets/config/config_widget.h"
 
 // Comunication
 #include "../communicationController/communication_controller.h"

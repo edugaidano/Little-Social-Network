@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "../dialog/dialog.h"
+#include "../../dialog/dialog.h"
 
 // on utils folder
 #include "logs/logs.h"

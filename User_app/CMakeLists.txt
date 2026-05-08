@@ -31,45 +31,45 @@ qt_add_executable(User_app
     src/dialog/dialog.h
     src/dialog/dialog.ui
 
-    src/login/login_widget.cpp
-    src/login/login_widget.h
-    src/login/login_widget.ui
+    src/widgets/login/login_widget.cpp
+    src/widgets/login/login_widget.h
+    src/widgets/login/login_widget.ui
 
-    src/main_menu/main_menu_widget.cpp
-    src/main_menu/main_menu_widget.h
-    src/main_menu/main_menu_widget.ui
+    src/widgets/main_menu/main_menu_widget.cpp
+    src/widgets/main_menu/main_menu_widget.h
+    src/widgets/main_menu/main_menu_widget.ui
 
-    src/profile/profile_widget.cpp
-    src/profile/profile_widget.h
-    src/profile/profile_widget.ui
+    src/widgets/profile/profile_widget.cpp
+    src/widgets/profile/profile_widget.h
+    src/widgets/profile/profile_widget.ui
 
-    src/profile_editor/profile_editor_widget.cpp
-    src/profile_editor/profile_editor_widget.h
-    src/profile_editor/profile_editor_widget.ui
+    src/widgets/profile_editor/profile_editor_widget.cpp
+    src/widgets/profile_editor/profile_editor_widget.h
+    src/widgets/profile_editor/profile_editor_widget.ui
 
-    src/search/search_widget.cpp
-    src/search/search_widget.h
-    src/search/search_widget.ui
+    src/widgets/search/search_widget.cpp
+    src/widgets/search/search_widget.h
+    src/widgets/search/search_widget.ui
 
-    src/messages_interface/messages_interface_widget.cpp
-    src/messages_interface/messages_interface_widget.h
-    src/messages_interface/messages_interface_widget.ui
+    src/widgets/messages_interface/messages_interface_widget.cpp
+    src/widgets/messages_interface/messages_interface_widget.h
+    src/widgets/messages_interface/messages_interface_widget.ui
 
-    src/message_item/message_item_widget.cpp
-    src/message_item/message_item_widget.h
-    src/message_item/message_item_widget.ui
+    src/widgets/message_item/message_item_widget.cpp
+    src/widgets/message_item/message_item_widget.h
+    src/widgets/message_item/message_item_widget.ui
 
-    src/message/message_widget.cpp
-    src/message/message_widget.h
-    src/message/message_widget.ui
+    src/widgets/message/message_widget.cpp
+    src/widgets/message/message_widget.h
+    src/widgets/message/message_widget.ui
 
-    src/send_message/send_message_widget.cpp
-    src/send_message/send_message_widget.h
-    src/send_message/send_message_widget.ui
+    src/widgets/send_message/send_message_widget.cpp
+    src/widgets/send_message/send_message_widget.h
+    src/widgets/send_message/send_message_widget.ui
 
-    src/config/config_widget.cpp
-    src/config/config_widget.h
-    src/config/config_widget.ui
+    src/widgets/config/config_widget.cpp
+    src/widgets/config/config_widget.h
+    src/widgets/config/config_widget.ui
 )
 
 set(TS_FILES
