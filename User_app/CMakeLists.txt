@@ -8,8 +8,16 @@ qt_add_executable(User_app
     WIN32
     src/main.cpp
     
-    src/appController/app_controller.cpp
-    src/appController/app_controller.h
+    src/ApplicationCoordinator/ApplicationCoordinator.h
+    src/ApplicationCoordinator/ApplicationCoordinator.cpp
+    src/ApplicationCoordinator/connections.cpp
+    src/ApplicationCoordinator/core.cpp
+    src/ApplicationCoordinator/flows/login_flow.cpp
+    src/ApplicationCoordinator/flows/main_menu_flow.cpp
+    src/ApplicationCoordinator/flows/search_flow.cpp
+    src/ApplicationCoordinator/flows/messages_flow.cpp
+    src/ApplicationCoordinator/flows/profile_flow.cpp
+    src/ApplicationCoordinator/flows/send_message_flow.cpp
 
     src/communicationController/communication_controller.h
     src/communicationController/constructor.cpp

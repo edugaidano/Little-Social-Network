@@ -1,6 +1,6 @@
 #include <QApplication>
 
-#include "appController/app_controller.h"
+#include "ApplicationCoordinator/ApplicationCoordinator.h"
 // on utils folder
 #include "logs/logs.h"
 #include "config/config.h"
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     
     QApplication a(argc, argv);
     
-    AppController app(logger, config, a);
+    ApplicationCoordinator app(logger, config, a);
 
     app.show();
 
