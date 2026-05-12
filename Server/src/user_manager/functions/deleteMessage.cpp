@@ -1,8 +1,9 @@
-#include "delete_message.h"
+#include "../user_manager.h"
+#include <vector>
 
-int deleteMessage(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket, UserIndex index) {
-    char* username = (char*)getItem(requestPkg);
-    ID_T userId = index.findUser(username);
+int deleteMessage(ThreadData* data, PACKAGE_T* pkg) {
+    char* username = (char*)getItem(pkg);
+    ID_T userId = data->index->findUser(username);
     free(username);
 
     bool noProblems = true;
@@ -15,7 +16,7 @@ int deleteMessage(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket, UserIndex
         std::vector<MESSAGE_ITEM> buffer;
         std::filesystem::path userMessagesDirPath = storagePath / MESSAGES_DIR / std::to_string(userId);
         
-        uint32_t* messageId = (uint32_t*)getItem(requestPkg);
+        uint32_t* messageId = (uint32_t*)getItem(pkg);
         std::ifstream inFile(userMessagesDirPath / MESSAGES_INDEX, std::ios::binary);
         MESSAGE_ITEM temp;
         while (inFile.read(reinterpret_cast<char*>(&temp), sizeof(MESSAGE_ITEM))) {
@@ -34,13 +35,13 @@ int deleteMessage(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket, UserIndex
         outFile.close();
     }
 
-    PACKAGE_T* pkg = createPackage(DELETE_MESSAGE_REPLY);
+    PACKAGE_T* pkgReply = createPackage(DELETE_MESSAGE_REPLY);
     if (noProblems) {
-        addItem(pkg, (void*)"OK", 3);
+        addItem(pkgReply, (void*)"OK", 3);
     } else {
-        addItem(pkg, (void*)"Not OK", 7);
+        addItem(pkgReply, (void*)"Not OK", 7);
     }
-    int retVal = sendPackage(logger, socket, pkg);
-    freePackage(pkg);
+    int retVal = sendPackage(*data->logger, data->clientSocket, pkgReply);
+    freePackage(pkgReply);
     return retVal;
 }

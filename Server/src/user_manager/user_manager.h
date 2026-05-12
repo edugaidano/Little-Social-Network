@@ -1,16 +1,6 @@
 #ifndef USER_MANAGER_H
 #define USER_MANAGER_H
 
-#include "../check_login_register/check_login_register.h"
-#include "../search_profile/search_profile.h"
-#include "../update_profile/update_profile.h"
-#include "../find_messages_list/find_messages_list.h"
-#include "../find_message/find_message.h"
-#include "../delete_message/delete_message.h"
-#include "../send_message/send_message.h"
-
-#include "../user_manager/user_manager.h"
-
 #include "../server_storage/server_storage.h"
 
 // on utils folder
@@ -23,5 +13,14 @@ struct ThreadData {
 };
 
 void* userManager(void* usrSock);
+
+int makeLogin(ThreadData* data, PACKAGE_T* pkg);
+int makeRegistration(ThreadData* data, PACKAGE_T* pkg);
+int updateProfile(ThreadData* data, PACKAGE_T* pkg);
+int sendMessage(ThreadData* data, PACKAGE_T* pkg);
+int searchProfile(ThreadData* data, PACKAGE_T* pkg);
+int findMessagesList(ThreadData* data, PACKAGE_T* pkg);
+int findMessage(ThreadData* data, PACKAGE_T* pkg);
+int deleteMessage(ThreadData* data, PACKAGE_T* pkg);
 
 #endif

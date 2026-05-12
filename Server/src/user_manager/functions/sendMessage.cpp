@@ -1,8 +1,8 @@
-#include "send_message.h"
+#include "../user_manager.h"
 
-int sendMessage(LOG_T& logger, PACKAGE_T* messagePkg, SOCKET socket, UserIndex index) {
-    char* destinatary = (char*)getItem(messagePkg);
-    ID_T destinataryId = index.findUser(destinatary);
+int sendMessage(ThreadData* data, PACKAGE_T* pkg) {
+    char* destinatary = (char*)getItem(pkg);
+    ID_T destinataryId = data->index->findUser(destinatary);
     free(destinatary);
 
     bool noProblems = true;
@@ -12,10 +12,10 @@ int sendMessage(LOG_T& logger, PACKAGE_T* messagePkg, SOCKET socket, UserIndex i
         auto mutexPtr = messagesMutexManager.getMutex(destinataryId);
         std::lock_guard<std::mutex> lock(*mutexPtr);
 
-        char* date = (char*)getItem(messagePkg);
-        char* sender = (char*)getItem(messagePkg);
-        char* subject = (char*)getItem(messagePkg);
-        char* content = (char*)getItem(messagePkg);
+        char* date = (char*)getItem(pkg);
+        char* sender = (char*)getItem(pkg);
+        char* subject = (char*)getItem(pkg);
+        char* content = (char*)getItem(pkg);
         std::ofstream messageIndex(storagePath / MESSAGES_DIR / std::to_string(destinataryId) / MESSAGES_INDEX, std::ios::binary | std::ios::app);
         ID_T messageId = getNextId(storagePath / MESSAGES_DIR / std::to_string(destinataryId));
 
@@ -24,11 +24,8 @@ int sendMessage(LOG_T& logger, PACKAGE_T* messagePkg, SOCKET socket, UserIndex i
 
             uint8_t seen = 0;
             messageIndex.write(reinterpret_cast<char*>(&seen), sizeof(uint8_t));
-
             messageIndex.write(date, DATE_SIZE);
-
             messageIndex.write(sender, SENDER_SIZE);
-
             messageIndex.write(subject, SUBJECT_SIZE);
 
             std::ofstream newMessage(storagePath / MESSAGES_DIR / std::to_string(destinataryId) / MESSAGES_DIR / std::to_string(messageId));
@@ -42,13 +39,13 @@ int sendMessage(LOG_T& logger, PACKAGE_T* messagePkg, SOCKET socket, UserIndex i
         free(content);        
     }
     
-    PACKAGE_T* pkg = createPackage(SEND_REPLY);
+    PACKAGE_T* pkgReply = createPackage(SEND_REPLY);
     if (noProblems) {
-        addItem(pkg, (void*)"OK", 3);
+        addItem(pkgReply, (void*)"OK", 3);
     } else {
-        addItem(pkg, (void*)"Not OK", 7);
+        addItem(pkgReply, (void*)"Not OK", 7);
     }
-    int retVal = sendPackage(logger, socket, pkg);
-    freePackage(pkg);
+    int retVal = sendPackage(*data->logger, data->clientSocket, pkgReply);
+    freePackage(pkgReply);
     return retVal;
 }

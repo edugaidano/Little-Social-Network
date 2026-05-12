@@ -1,44 +1,35 @@
 #include "user_manager.h"
 
+const std::unordered_map<CODE_CONTENT, int(*)(ThreadData* data, PACKAGE_T* pkg)> funcions = {
+    { LOGIN, makeLogin },
+    { REGISTER, makeRegistration },
+    { SEARCH_PROFILE, searchProfile },
+    { UPDATE_PROFILE, updateProfile },
+    { MESSAGES_REQUEST, findMessagesList },
+    { MESSAGE_REQUEST, findMessage },
+    { DELETE_MESSAGE_REQUEST, deleteMessage },
+    { SEND_MESSAGE, sendMessage }
+};
+
 void* userManager(void* threadData) {
     ThreadData* data = (ThreadData*)threadData;
 
     int lastOpRet = 0;
     while (lastOpRet == 0) {
         PACKAGE_T* pkg = recvPackage(*data->logger, data->clientSocket);
+
         if (pkg == NULL)
             break;
-        
-        switch (pkg->code) {
-        case LOGIN:
-            lastOpRet = checkLogin(*data->logger, pkg, data->clientSocket, *data->index);
-            break;
-        case REGISTER:
-            lastOpRet = checkRegister(*data->logger, pkg, data->clientSocket, *data->index);
-            break;
-        case SEARCH_PROFILE:
-            lastOpRet = searchProfile(*data->logger, pkg, data->clientSocket, *data->index);
-            break;
-        case UPDATE_PROFILE:
-            lastOpRet = updateProfile(*data->logger, pkg, data->clientSocket, *data->index);
-            break;
-        case MESSAGES_REQUEST:
-            lastOpRet = findMessagesList(*data->logger, pkg, data->clientSocket, *data->index);
-            break;
-        case MESSAGE_REQUEST:
-            lastOpRet = findMessage(*data->logger, pkg, data->clientSocket, *data->index);
-            break;
-        case DELETE_MESSAGE_REQUEST:
-            lastOpRet = deleteMessage(*data->logger, pkg, data->clientSocket, *data->index);
-            break;
-        case SEND_MESSAGE:
-            lastOpRet = sendMessage(*data->logger, pkg, data->clientSocket, *data->index);
-            break;
-        default:
+
+        auto it = funcions.find(pkg->code);
+
+        if (it != funcions.end()) {
+            lastOpRet = it->second(data, pkg);
+        } else {
             LOG_ERROR(*data->logger, "The pkg code is not defined");
             lastOpRet = -1;
-            break;
-        } 
+        }
+
         freePackage(pkg);
     }
 

@@ -1,8 +1,8 @@
-#include "search_profile.h"
+#include "../user_manager.h"
 
-int searchProfile(LOG_T& logger, PACKAGE_T* searchPkg, SOCKET socket, UserIndex index) {
-    char* username = (char*)getItem(searchPkg);
-    ID_T userId = index.findUser(username);
+int searchProfile(ThreadData* data, PACKAGE_T* pkg) {
+    char* username = (char*)getItem(pkg);
+    ID_T userId = data->index->findUser(username);
     PACKAGE_T* profilePkg = createPackage(PROFILE);
     if (userId != 0) {
         auto mutexPtr = profileMutexManager.getMutex(userId);
@@ -18,7 +18,7 @@ int searchProfile(LOG_T& logger, PACKAGE_T* searchPkg, SOCKET socket, UserIndex 
             addItem(profilePkg, (void*)content.str().c_str(), content.str().size() + 1);
         }
     }
-    int retVal = sendPackage(logger, socket, profilePkg);
+    int retVal = sendPackage(*data->logger, data->clientSocket, profilePkg);
     freePackage(profilePkg);
     return retVal;
 }

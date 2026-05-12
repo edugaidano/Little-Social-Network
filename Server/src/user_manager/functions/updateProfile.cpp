@@ -1,8 +1,8 @@
-#include "update_profile.h"
+#include "../user_manager.h"
 
-int updateProfile(LOG_T& logger, PACKAGE_T* updatePkg, SOCKET socket, UserIndex index) {
-    char* username = (char*)getItem(updatePkg);
-    ID_T userId = index.findUser(username);
+int updateProfile(ThreadData* data, PACKAGE_T* pkg) {
+    char* username = (char*)getItem(pkg);
+    ID_T userId = data->index->findUser(username);
     free(username);
 
     bool noProblems = true;
@@ -12,7 +12,7 @@ int updateProfile(LOG_T& logger, PACKAGE_T* updatePkg, SOCKET socket, UserIndex 
         auto mutexPtr = profileMutexManager.getMutex(userId);
         std::lock_guard<std::mutex> lock(*mutexPtr);
 
-        char* newContent = (char*)getItem(updatePkg);
+        char* newContent = (char*)getItem(pkg);
         std::ofstream profile(storagePath / PROFILES_DIR / std::to_string(userId));
         if (profile.is_open()) {
             profile << newContent;
@@ -20,13 +20,13 @@ int updateProfile(LOG_T& logger, PACKAGE_T* updatePkg, SOCKET socket, UserIndex 
         free(newContent);
     }
 
-    PACKAGE_T* pkg = createPackage(UPDATE_REPLY);
+    PACKAGE_T* pkgReply = createPackage(UPDATE_REPLY);
     if (noProblems) {
-        addItem(pkg, (void*)"OK", 3);
+        addItem(pkgReply, (void*)"OK", 3);
     } else {
-        addItem(pkg, (void*)"Not OK", 7);
+        addItem(pkgReply, (void*)"Not OK", 7);
     }
-    int retVal = sendPackage(logger, socket, pkg);
-    freePackage(pkg);
+    int retVal = sendPackage(*data->logger, data->clientSocket, pkgReply);
+    freePackage(pkgReply);
     return retVal;
 }

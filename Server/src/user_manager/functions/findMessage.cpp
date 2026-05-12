@@ -1,18 +1,18 @@
-#include "find_message.h"
+#include "../user_manager.h"
 
 void markMessageAsSeen(std::filesystem::path path, ID_T targetId);
 
-int findMessage(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket, UserIndex index) {
-    char* username = (char*)getItem(requestPkg);
-    ID_T userId = index.findUser(username);
+int findMessage(ThreadData* data, PACKAGE_T* pkg) {
+    char* username = (char*)getItem(pkg);
+    ID_T userId = data->index->findUser(username);
     free(username);
 
-    PACKAGE_T* pkg = createPackage(MESSAGE);
+    PACKAGE_T* pkgMessage = createPackage(MESSAGE);
     if (userId != 0) {
         auto mutexPtr = messagesMutexManager.getMutex(userId);
         std::lock_guard<std::mutex> lock(*mutexPtr);
         
-        uint32_t* messageId = (uint32_t*)getItem(requestPkg);
+        uint32_t* messageId = (uint32_t*)getItem(pkg);
         std::filesystem::path userMessagesDir = storagePath / MESSAGES_DIR / std::to_string(userId);
         std::ifstream message(userMessagesDir / MESSAGES_DIR / std::to_string(*messageId));
         free(messageId);
@@ -20,12 +20,12 @@ int findMessage(LOG_T& logger, PACKAGE_T* requestPkg, SOCKET socket, UserIndex i
             std::stringstream content;
             content << message.rdbuf();
             message.close();
-            addItem(pkg, (void*)content.str().c_str(), content.str().size() + 1);
+            addItem(pkgMessage, (void*)content.str().c_str(), content.str().size() + 1);
         }
         markMessageAsSeen(userMessagesDir / MESSAGES_INDEX, *messageId);
     }
-    int retVal = sendPackage(logger, socket, pkg);
-    freePackage(pkg);
+    int retVal = sendPackage(*data->logger, data->clientSocket, pkgMessage);
+    freePackage(pkgMessage);
     return retVal;
 }
 

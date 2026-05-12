@@ -31,7 +31,7 @@ int CommunicationController::login(const std::string& user, const CODE_CONTENT l
         return -1;
     }  
 
-    if (pkg->code != LOGIN_REPLY)  {
+    if (pkg->code != LOGIN_REPLY && pkg->code != REGISTER_REPLY) {
         freePackage(pkg);
         LOG_ERROR(logger, "Package received different to corresponding reply.");
         DIALOG_ERROR(nullptr, recvErr);

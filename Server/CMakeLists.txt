@@ -8,14 +8,14 @@ set(SOURCES
     src/start_server/start_server.cpp
 
     src/user_manager/user_manager.cpp
-
-    src/check_login_register/check_login_register.cpp
-    src/search_profile/search_profile.cpp
-    src/update_profile/update_profile.cpp
-    src/find_messages_list/find_messages_list.cpp
-    src/find_message/find_message.cpp
-    src/delete_message/delete_message.cpp
-    src/send_message/send_message.cpp
+    src/user_manager/functions/makeLogin.cpp
+    src/user_manager/functions/makeRegistration.cpp
+    src/user_manager/functions/deleteMessage.cpp
+    src/user_manager/functions/findMessage.cpp
+    src/user_manager/functions/findMessagesList.cpp
+    src/user_manager/functions/searchProfile.cpp
+    src/user_manager/functions/sendMessage.cpp
+    src/user_manager/functions/updateProfile.cpp
 )
 
 add_executable(Server ${SOURCES})
