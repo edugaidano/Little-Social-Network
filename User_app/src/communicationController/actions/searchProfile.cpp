@@ -9,8 +9,7 @@ PROFILE_S* CommunicationController::searchProfile(const std::string& user) {
     addItem(searchPkg, (void*)user.c_str(), user.size() + 1);
     int retVal = sendPackage(logger, serverConnection, searchPkg);
     if (retVal != 0) {
-        Dialog d("ERROR",  QObject::tr("Something went wrong while sending the search request."));
-        d.exec();
+        DIALOG_ERROR(nullptr, QObject::tr("Something went wrong while sending the search request."));
         closeServerConnection();
         return NULL;
     }
@@ -18,8 +17,7 @@ PROFILE_S* CommunicationController::searchProfile(const std::string& user) {
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
     QString recvErr = QObject::tr("Something went wrong while receiving the profile.");
     if (pkg == NULL) {
-        Dialog d("ERROR", recvErr);
-        d.exec();
+        DIALOG_ERROR(nullptr, recvErr);
         closeServerConnection();
         return NULL;
     }
@@ -27,26 +25,23 @@ PROFILE_S* CommunicationController::searchProfile(const std::string& user) {
     if (pkg->code != PROFILE)  {
         freePackage(pkg);
         LOG_ERROR(logger, "Package received different to PROFILE");
-        Dialog d("ERROR", recvErr);
-        d.exec();
+        DIALOG_ERROR(nullptr, recvErr);
         return NULL;
     }
 
     LOG_DEBUG(logger, "PROFILE received");
     char* p_username = (char*)getItem(pkg);
     if (p_username == NULL) {
-        LOG_WARNING(logger, "The user " + user + " does not have a profile");
+        LOG_INFO(logger, "The user " + user + " does not have a profile");
         freePackage(pkg);
-        Dialog d("WARNING",  QObject::tr("The user ").append(user).append(QObject::tr(" does not have a profile")));
-        d.exec();
+        DIALOG_INFO(nullptr, QObject::tr("The user ").append(user).append(QObject::tr(" does not have a profile")));
         return NULL;
     }
 
     if (p_username != user) {
         freePackage(pkg);
         LOG_ERROR(logger, "The profile received is different to the requested profile");
-        Dialog d("ERROR", recvErr);
-        d.exec();
+        DIALOG_ERROR(nullptr, recvErr);
         return NULL;
     }
     

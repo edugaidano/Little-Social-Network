@@ -3,8 +3,7 @@
 int CommunicationController::login(const std::string& user, const CODE_CONTENT loginType) {
     if (loginType != LOGIN && loginType != REGISTER) {
         LOG_ERROR(logger, "loginType is diferent to LOGIN or REGISTER");
-        Dialog d("ERROR", QObject::tr("Something went wrong."));
-        d.exec();
+        DIALOG_ERROR(nullptr, QObject::tr("Something went wrong."));
         return -1;
     }
 
@@ -19,8 +18,7 @@ int CommunicationController::login(const std::string& user, const CODE_CONTENT l
     int retVal = sendPackage(logger, serverConnection, pkgLogin);
     freePackage(pkgLogin);
     if (retVal != 0) {
-        Dialog d("ERROR", QObject::tr("Something went wrong while sending the request."));
-        d.exec();
+        DIALOG_ERROR(nullptr, QObject::tr("Something went wrong while sending the request."));
         closeServerConnection();
         return -1;
     }
@@ -28,8 +26,7 @@ int CommunicationController::login(const std::string& user, const CODE_CONTENT l
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
     QString recvErr = QObject::tr("Something went wrong while receiving the reply.");
     if (pkg == NULL) {
-        Dialog d("ERROR", recvErr);
-        d.exec();
+        DIALOG_ERROR(nullptr, recvErr);
         closeServerConnection();
         return -1;
     }  
@@ -37,8 +34,7 @@ int CommunicationController::login(const std::string& user, const CODE_CONTENT l
     if (pkg->code != LOGIN_REPLY)  {
         freePackage(pkg);
         LOG_ERROR(logger, "Package received different to corresponding reply.");
-        Dialog d("ERROR", recvErr);
-        d.exec();
+        DIALOG_ERROR(nullptr, recvErr);
         return -1;
     }
 
@@ -55,8 +51,7 @@ int CommunicationController::login(const std::string& user, const CODE_CONTENT l
         LOG_ERROR(logger, "Login refused");
         QString logStr = QObject::tr("Login refused");
         // TODO: explain why
-        Dialog d("ERROR", logStr);
-        d.exec();
+        DIALOG_ERROR(nullptr, logStr);
         free(item);
         return -1;
     }

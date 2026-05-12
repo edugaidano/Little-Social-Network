@@ -35,9 +35,7 @@ qt_add_executable(User_app
     src/communicationController/actions/sendMessage.cpp
     src/communicationController/actions/updateProfile.cpp
     
-    src/dialog/dialog.cpp
     src/dialog/dialog.h
-    src/dialog/dialog.ui
 
     src/widgets/login/login_widget.cpp
     src/widgets/login/login_widget.h

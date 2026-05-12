@@ -61,8 +61,7 @@ void MessagesInterfaceWidget::removeMessage(uint32_t id) {
 void MessagesInterfaceWidget::checkMessagesToDisplay() {
     if (messageMap.empty()) {
         LOG_INFO(logger, "No messages to display");
-        Dialog d("INFO", QObject::tr("You do not have messages"));
-        d.exec();
+        DIALOG_INFO(this, QObject::tr("You do not have messages"));
         emit backToMainMenu();
     }
 }

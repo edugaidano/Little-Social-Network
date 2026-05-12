@@ -42,8 +42,7 @@ void LoginWidget::onMainButtonClicked() {
     QString user = ui->lineEdit->text();
     if (user.isEmpty()) {
         LOG_WARNING(logger, "User is empty");
-        Dialog d("WARNING", QObject::tr("User is empty"));
-        d.exec();
+        DIALOG_WARNING(this, QObject::tr("User is empty"));
         return;
     }
       

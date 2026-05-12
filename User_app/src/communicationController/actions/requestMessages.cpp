@@ -11,8 +11,7 @@ std::vector<MESSAGE_ITEM> CommunicationController::requestMessages() {
     freePackage(requestPkg);
 
     if (retVal != 0) {
-        Dialog d("ERROR", QObject::tr("Something went wrong while sending the messages request."));
-        d.exec();
+        DIALOG_ERROR(nullptr, QObject::tr("Something went wrong while sending the messages request."));
         closeServerConnection();
         return {};
     }
@@ -20,8 +19,7 @@ std::vector<MESSAGE_ITEM> CommunicationController::requestMessages() {
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
     QString recvErr = QObject::tr("Something went wrong while receiving the messages.");
     if (pkg == NULL) {
-        Dialog d("ERROR", recvErr);
-        d.exec();
+        DIALOG_ERROR(nullptr, recvErr);
         closeServerConnection();
         return {};
     }  
@@ -29,8 +27,7 @@ std::vector<MESSAGE_ITEM> CommunicationController::requestMessages() {
     if (pkg->code != MESSAGES)  {
         freePackage(pkg);
         LOG_ERROR(logger, "Package received different to MESSAGES");
-        Dialog d("ERROR", recvErr);
-        d.exec();
+        DIALOG_ERROR(nullptr, recvErr);
         return {};
     }
 

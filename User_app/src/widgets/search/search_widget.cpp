@@ -24,8 +24,7 @@ void SearchWidget::onSearchButtonClicked() {
 
     if (username.isEmpty()) {
         LOG_WARNING(logger, "User is empty");
-        Dialog d("WARNING", QObject::tr("User is empty"));
-        d.exec();
+        DIALOG_WARNING(this, QObject::tr("User is empty"));
         return;
     }
 

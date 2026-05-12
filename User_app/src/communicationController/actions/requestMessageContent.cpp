@@ -9,11 +9,7 @@ char* CommunicationController::requestMessageContent(uint32_t messageId) {
     addItem(updatePkg, &messageId, sizeof(uint32_t));
     int retVal = sendPackage(logger, serverConnection, updatePkg);
     if (retVal != 0) {
-        Dialog d(
-            "ERROR", 
-            QObject::tr("Something went wrong while sending the message request.")
-        );
-        d.exec();
+        DIALOG_ERROR(nullptr, QObject::tr("Something went wrong while sending the message request."));
         closeServerConnection();
         return NULL;
     }
@@ -21,8 +17,7 @@ char* CommunicationController::requestMessageContent(uint32_t messageId) {
     PACKAGE_T* pkg = recvPackage(logger, serverConnection);
     QString recvErr = QObject::tr("Something went wrong while receiving the message reply.");
     if (pkg == NULL) {
-        Dialog d("ERROR", recvErr);
-        d.exec();
+        DIALOG_ERROR(nullptr, recvErr);
         closeServerConnection();
         return NULL;
     }
@@ -30,8 +25,7 @@ char* CommunicationController::requestMessageContent(uint32_t messageId) {
     if (pkg->code != MESSAGE)  {
         freePackage(pkg);
         LOG_ERROR(logger, "Package received different to MESSAGE");
-        Dialog d("ERROR", recvErr);
-        d.exec();
+        DIALOG_ERROR(nullptr, recvErr);
         return NULL;
     }
 
@@ -42,8 +36,7 @@ char* CommunicationController::requestMessageContent(uint32_t messageId) {
 
     if (!item) {
         LOG_ERROR(logger, "No message content received");
-        Dialog d("ERROR", recvErr);
-        d.exec(); 
+        DIALOG_ERROR(nullptr, recvErr);
     }
     
     return item;
