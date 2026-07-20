@@ -308,7 +308,7 @@
     </message>
     <message>
         <location filename="../src/widgets/login/LoginWidget.cpp" line="45"/>
-        <location filename="../src/widgets/search/SearchWidget.cpp" line="27"/>
+        <location filename="../src/widgets/search/SearchProfileWidget.cpp" line="27"/>
         <source>User is empty</source>
         <translation>El usuario está vacío</translation>
     </message>
@@ -326,19 +326,19 @@ Verifica si la configuración es correcta</translation>
     </message>
 </context>
 <context>
-    <name>SearchWidget</name>
+    <name>SearchProfileWidget</name>
     <message>
-        <location filename="../src/widgets/search/SearchWidget.ui" line="107"/>
+        <location filename="../src/widgets/search/SearchProfileWidget.ui" line="107"/>
         <source>username to search</source>
         <translation>Nombre de usuario a buscar</translation>
     </message>
     <message>
-        <location filename="../src/widgets/search/SearchWidget.ui" line="127"/>
+        <location filename="../src/widgets/search/SearchProfileWidget.ui" line="127"/>
         <source>Search</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../src/widgets/search/SearchWidget.ui" line="63"/>
+        <location filename="../src/widgets/search/SearchProfileWidget.ui" line="63"/>
         <source>Back</source>
         <translation>Regresar</translation>
     </message>

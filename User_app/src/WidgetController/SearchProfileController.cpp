@@ -4,7 +4,7 @@
 SearchProfileController::SearchProfileController(LOG_T& logger, AppController& appController, QWidget* previousWidget) 
     : WidgetController(logger, appController, previousWidget)
 {
-    widget = new SearchWidget(logger, previousWidget);
+    widget = new SearchProfileWidget(logger, previousWidget);
     setupConnections();
     appController.setCurrentWidget(widget);
 }
@@ -14,8 +14,8 @@ SearchProfileController::~SearchProfileController() {
 }
 
 void SearchProfileController::setupConnections() {
-    connect((SearchWidget*)widget, &SearchWidget::backToMainMenu, this, &SearchProfileController::onBackRequested);
-    connect((SearchWidget*)widget, &SearchWidget::searchProfile, this, &SearchProfileController::onSearchRequested);
+    connect((SearchProfileWidget*)widget, &SearchProfileWidget::backToMainMenu, this, &SearchProfileController::onBackRequested);
+    connect((SearchProfileWidget*)widget, &SearchProfileWidget::searchProfile, this, &SearchProfileController::onSearchRequested);
 }
 
 void SearchProfileController::onBackRequested() {

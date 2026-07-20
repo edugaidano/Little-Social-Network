@@ -30,7 +30,7 @@ set(SOURCES
     src/Widget/InboxWidget.cpp
     src/Widget/ProfileEditorWidget.cpp
     src/Widget/ProfileWidget.cpp
-    src/Widget/SearchWidget.cpp
+    src/Widget/SearchProfileWidget.cpp
     src/Widget/MessageEditorWidget.cpp
 )
 
@@ -61,7 +61,7 @@ set(HEADER_FILES
     include/Widget/InboxWidget.h
     include/Widget/ProfileEditorWidget.h
     include/Widget/ProfileWidget.h
-    include/Widget/SearchWidget.h
+    include/Widget/SearchProfileWidget.h
     include/Widget/MessageEditorWidget.h
 )
 
@@ -74,7 +74,7 @@ set(UI_FILES
     ui/InboxWidget.ui
     ui/ProfileEditorWidget.ui
     ui/ProfileWidget.ui
-    ui/SearchWidget.ui
+    ui/SearchProfileWidget.ui
     ui/MessageEditorWidget.ui
 )
 
