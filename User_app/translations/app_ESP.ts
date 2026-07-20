@@ -320,7 +320,7 @@ Check if the configuration is correct</source>
 Verifica si la configuración es correcta</translation>
     </message>
     <message>
-        <location filename="../src/widgets/send_message/SendMessageWidget.cpp" line="25"/>
+        <location filename="../src/widgets/send_message/MessageEditorWidget.cpp" line="25"/>
         <source>Destinatary is empty</source>
         <translation>El destinatario está vacío</translation>
     </message>
@@ -344,29 +344,29 @@ Verifica si la configuración es correcta</translation>
     </message>
 </context>
 <context>
-    <name>SendMessageWidget</name>
+    <name>MessageEditorWidget</name>
     <message>
-        <location filename="../src/widgets/send_message/SendMessageWidget.ui" line="101"/>
+        <location filename="../src/widgets/send_message/MessageEditorWidget.ui" line="101"/>
         <source>Destinatary:</source>
         <translation>Destinatario:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/send_message/SendMessageWidget.ui" line="133"/>
+        <location filename="../src/widgets/send_message/MessageEditorWidget.ui" line="133"/>
         <source>Subject:</source>
         <translation>Asunto:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/send_message/SendMessageWidget.ui" line="164"/>
+        <location filename="../src/widgets/send_message/MessageEditorWidget.ui" line="164"/>
         <source>Message:</source>
         <translation>Mensaje:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/send_message/SendMessageWidget.ui" line="63"/>
+        <location filename="../src/widgets/send_message/MessageEditorWidget.ui" line="63"/>
         <source>Send</source>
         <translation>Enviar</translation>
     </message>
     <message>
-        <location filename="../src/widgets/send_message/SendMessageWidget.ui" line="83"/>
+        <location filename="../src/widgets/send_message/MessageEditorWidget.ui" line="83"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>

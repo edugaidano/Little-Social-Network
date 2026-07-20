@@ -9,7 +9,7 @@ MessageEditorController::MessageEditorController(
     : WidgetController(logger, appController, previousWidget),
     username(username)
 {
-    widget = new SendMessageWidget(logger, previousWidget);
+    widget = new MessageEditorWidget(logger, previousWidget);
     setupConnections();
     appController.setCurrentWidget(widget);
 }
@@ -21,8 +21,8 @@ MessageEditorController::~MessageEditorController() {
 }
 
 void MessageEditorController::setupConnections() {
-    connect((SendMessageWidget*)widget, &SendMessageWidget::cancelMessage, this, &MessageEditorController::onBackRequested);
-    connect((SendMessageWidget*)widget, &SendMessageWidget::sendMessage, this, &MessageEditorController::onSendRequested);
+    connect((MessageEditorWidget*)widget, &MessageEditorWidget::backRequested, this, &MessageEditorController::onBackRequested);
+    connect((MessageEditorWidget*)widget, &MessageEditorWidget::sendMessage, this, &MessageEditorController::onSendRequested);
 }
 
 void MessageEditorController::onBackRequested() {

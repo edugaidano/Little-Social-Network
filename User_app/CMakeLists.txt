@@ -31,7 +31,7 @@ set(SOURCES
     src/Widget/ProfileEditorWidget.cpp
     src/Widget/ProfileWidget.cpp
     src/Widget/SearchWidget.cpp
-    src/Widget/SendMessageWidget.cpp
+    src/Widget/MessageEditorWidget.cpp
 )
 
 set(HEADER_FILES
@@ -62,7 +62,7 @@ set(HEADER_FILES
     include/Widget/ProfileEditorWidget.h
     include/Widget/ProfileWidget.h
     include/Widget/SearchWidget.h
-    include/Widget/SendMessageWidget.h
+    include/Widget/MessageEditorWidget.h
 )
 
 set(UI_FILES
@@ -75,7 +75,7 @@ set(UI_FILES
     ui/ProfileEditorWidget.ui
     ui/ProfileWidget.ui
     ui/SearchWidget.ui
-    ui/SendMessageWidget.ui
+    ui/MessageEditorWidget.ui
 )
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS

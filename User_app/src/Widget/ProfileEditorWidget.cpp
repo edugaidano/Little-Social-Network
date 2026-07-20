@@ -12,7 +12,7 @@ ProfileEditorWidget::ProfileEditorWidget(LOG_T &logger, const QString &username,
     ui->profileContentPlain->setPlainText(profileContent);
 
     connect(ui->saveButton, &QPushButton::clicked, this, &ProfileEditorWidget::onSaveButtonClicked);
-    connect(ui->cancelButton, &QPushButton::clicked, this, &ProfileEditorWidget::onBackButtonClicked);
+    connect(ui->backButton, &QPushButton::clicked, this, &ProfileEditorWidget::onBackButtonClicked);
 
     LOG_DEBUG(logger, "ProfileEditorWidget initialized for user");
 }
