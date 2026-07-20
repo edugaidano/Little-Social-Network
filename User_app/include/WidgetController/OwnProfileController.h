@@ -2,7 +2,7 @@
 #define OWN_PROFILE_CONTROLLER_H
 
 #include "WidgetController.h"
-#include "Widget/profile_widget.h"
+#include "Widget/ProfileWidget.h"
 
 class OwnProfileController : public WidgetController {
 private:

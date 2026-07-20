@@ -1,5 +1,5 @@
-#include "Widget/send_message_widget.h"
-#include "ui_send_message_widget.h"
+#include "Widget/SendMessageWidget.h"
+#include "ui_SendMessageWidget.h"
 
 SendMessageWidget::SendMessageWidget(LOG_T &logger, QWidget *parent) :
     QWidget(parent),

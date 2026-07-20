@@ -4,7 +4,7 @@
 #include <string>
 #include "WidgetController.h"
 #include "SearchProfileController.h"
-#include "Widget/profile_widget.h"
+#include "Widget/ProfileWidget.h"
 
 class ProfileSearchedController : public WidgetController {
 private:

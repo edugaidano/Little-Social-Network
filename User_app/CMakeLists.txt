@@ -22,16 +22,16 @@ set(SOURCES
     src/WidgetController/InboxController.cpp
     src/WidgetController/MessageEditorController.cpp
 
-    src/Widget/config_widget.cpp
-    src/Widget/login_widget.cpp
-    src/Widget/main_menu_widget.cpp
-    src/Widget/message_item_widget.cpp
-    src/Widget/message_widget.cpp
-    src/Widget/messages_interface_widget.cpp
-    src/Widget/profile_editor_widget.cpp
-    src/Widget/profile_widget.cpp
-    src/Widget/search_widget.cpp
-    src/Widget/send_message_widget.cpp
+    src/Widget/ConfigWidget.cpp
+    src/Widget/LoginWidget.cpp
+    src/Widget/MainMenuWidget.cpp
+    src/Widget/MessageItemWidget.cpp
+    src/Widget/MessageWidget.cpp
+    src/Widget/MessagesInterfaceWidget.cpp
+    src/Widget/ProfileEditorWidget.cpp
+    src/Widget/ProfileWidget.cpp
+    src/Widget/SearchWidget.cpp
+    src/Widget/SendMessageWidget.cpp
 )
 
 set(HEADER_FILES
@@ -53,29 +53,29 @@ set(HEADER_FILES
     include/WidgetController/InboxController.h
     include/WidgetController/MessageEditorController.h
 
-    include/Widget/config_widget.h
-    include/Widget/login_widget.h
-    include/Widget/main_menu_widget.h
-    include/Widget/message_item_widget.h
-    include/Widget/message_widget.h
-    include/Widget/messages_interface_widget.h
-    include/Widget/profile_editor_widget.h
-    include/Widget/profile_widget.h
-    include/Widget/search_widget.h
-    include/Widget/send_message_widget.h
+    include/Widget/ConfigWidget.h
+    include/Widget/LoginWidget.h
+    include/Widget/MainMenuWidget.h
+    include/Widget/MessageItemWidget.h
+    include/Widget/MessageWidget.h
+    include/Widget/MessagesInterfaceWidget.h
+    include/Widget/ProfileEditorWidget.h
+    include/Widget/ProfileWidget.h
+    include/Widget/SearchWidget.h
+    include/Widget/SendMessageWidget.h
 )
 
 set(UI_FILES
-    ui/config_widget.ui
-    ui/login_widget.ui
-    ui/main_menu_widget.ui
-    ui/message_item_widget.ui
-    ui/message_widget.ui
-    ui/messages_interface_widget.ui
-    ui/profile_editor_widget.ui
-    ui/profile_widget.ui
-    ui/search_widget.ui
-    ui/send_message_widget.ui
+    ui/ConfigWidget.ui
+    ui/LoginWidget.ui
+    ui/MainMenuWidget.ui
+    ui/MessageItemWidget.ui
+    ui/MessageWidget.ui
+    ui/MessagesInterfaceWidget.ui
+    ui/ProfileEditorWidget.ui
+    ui/ProfileWidget.ui
+    ui/SearchWidget.ui
+    ui/SendMessageWidget.ui
 )
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS

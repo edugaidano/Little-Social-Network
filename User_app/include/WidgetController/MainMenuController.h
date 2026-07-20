@@ -7,7 +7,7 @@
 #include "OwnProfileController.h"
 #include "InboxController.h"
 #include "MessageEditorController.h"
-#include "Widget/main_menu_widget.h"
+#include "Widget/MainMenuWidget.h"
 
 class MainMenuController : public WidgetController {
 private:

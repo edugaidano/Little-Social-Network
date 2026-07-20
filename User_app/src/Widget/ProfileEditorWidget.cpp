@@ -1,5 +1,5 @@
-#include "Widget/profile_editor_widget.h"
-#include "ui_profile_editor_widget.h"
+#include "Widget/ProfileEditorWidget.h"
+#include "ui_ProfileEditorWidget.h"
 
 ProfileEditorWidget::ProfileEditorWidget(LOG_T &logger, const QString &username, const QString &profileContent, QWidget *parent) :
     QWidget(parent),

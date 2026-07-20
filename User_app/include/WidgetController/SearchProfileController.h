@@ -2,7 +2,7 @@
 #define SEARCH_PROFILE_CONTROLLER_H
 
 #include "WidgetController.h"
-#include "Widget/search_widget.h"
+#include "Widget/SearchWidget.h"
 
 class SearchProfileController : public WidgetController {
 private:

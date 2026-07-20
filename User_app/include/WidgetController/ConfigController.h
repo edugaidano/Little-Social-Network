@@ -2,7 +2,7 @@
 #define CONFIG_CONTROLLER_H
 
 #include "WidgetController.h"
-#include "Widget/config_widget.h"
+#include "Widget/ConfigWidget.h"
 
 class ConfigController : public WidgetController {
 private:

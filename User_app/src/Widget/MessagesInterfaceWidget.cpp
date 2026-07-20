@@ -1,5 +1,5 @@
-#include "Widget/messages_interface_widget.h"
-#include "ui_messages_interface_widget.h"
+#include "Widget/MessagesInterfaceWidget.h"
+#include "ui_MessagesInterfaceWidget.h"
 
 MessagesInterfaceWidget::MessagesInterfaceWidget(LOG_T &logger, QWidget *parent) :
     QWidget(parent),

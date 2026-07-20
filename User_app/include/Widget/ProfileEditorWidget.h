@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "Widget/profile_widget.h"
+#include "Widget/ProfileWidget.h"
 
 #include "logs/logs.h" // on utils folder
 

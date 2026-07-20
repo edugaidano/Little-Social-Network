@@ -1,5 +1,5 @@
-#include "Widget/login_widget.h"
-#include "ui_login_widget.h"
+#include "Widget/LoginWidget.h"
+#include "ui_LoginWidget.h"
 
 LoginWidget::LoginWidget(LOG_T &logger, QWidget *parent) :
     QWidget(parent),
@@ -42,7 +42,7 @@ void LoginWidget::onMainButtonClicked() {
     QString user = ui->lineEdit->text();
     if (user.isEmpty()) {
         LOG_WARNING(logger, "User is empty");
-        DIALOG_WARNING(this, QObject::tr("User is empty"));
+        DIALOG_WARNING(this, tr("User is empty"));
         return;
     }
       

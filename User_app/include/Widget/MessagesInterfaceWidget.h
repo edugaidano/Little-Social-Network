@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "message_item_widget.h"
+#include "MessageItemWidget.h"
 #include "dialog.h"
 
 #include "logs/logs.h" // on utils folder

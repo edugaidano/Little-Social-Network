@@ -4,7 +4,7 @@
 #include <string>
 #include "WidgetController.h"
 #include "OwnProfileController.h"
-#include "Widget/profile_editor_widget.h"
+#include "Widget/ProfileEditorWidget.h"
 
 class EditorController : public WidgetController {
 private:

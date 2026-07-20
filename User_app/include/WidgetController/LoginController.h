@@ -3,7 +3,7 @@
 
 #include "WidgetController.h"
 #include "ConfigController.h"
-#include "Widget/login_widget.h"
+#include "Widget/LoginWidget.h"
 #include "MainMenuController.h"
 
 

@@ -1,5 +1,5 @@
-#include "Widget/message_item_widget.h"
-#include "ui_message_item_widget.h"
+#include "Widget/MessageItemWidget.h"
+#include "ui_MessageItemWidget.h"
 
 MessageItemWidget::MessageItemWidget(LOG_T &logger, bool seen, const uint32_t messageId, const QString &date, const QString &sender, const QString &subject, QWidget *parent) :
     QWidget(parent),

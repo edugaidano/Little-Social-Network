@@ -1,5 +1,5 @@
-#include "Widget/config_widget.h"
-#include "ui_config_widget.h"
+#include "Widget/ConfigWidget.h"
+#include "ui_ConfigWidget.h"
 
 ConfigWidget::ConfigWidget(LOG_T &logger, CONFIG_D &config, QWidget *parent) : 
     QWidget(parent), 

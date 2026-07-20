@@ -1,5 +1,5 @@
-#include "Widget/main_menu_widget.h"
-#include "ui_main_menu_widget.h"
+#include "Widget/MainMenuWidget.h"
+#include "ui_MainMenuWidget.h"
 
 MainMenuWidget::MainMenuWidget(LOG_T &logger, QWidget *parent) :
     QWidget(parent),

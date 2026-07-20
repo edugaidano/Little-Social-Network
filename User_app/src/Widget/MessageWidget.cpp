@@ -1,5 +1,5 @@
-#include "Widget/message_widget.h"
-#include "ui_message_widget.h"
+#include "Widget/MessageWidget.h"
+#include "ui_MessageWidget.h"
 
 MessageWidget::MessageWidget (
     LOG_T &logger,

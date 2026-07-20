@@ -1,5 +1,5 @@
-#include "Widget/search_widget.h"
-#include "ui_search_widget.h"
+#include "Widget/SearchWidget.h"
+#include "ui_SearchWidget.h"
 
 SearchWidget::SearchWidget(LOG_T &logger, QWidget *parent) :
     QWidget(parent),

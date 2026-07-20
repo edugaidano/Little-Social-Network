@@ -2,7 +2,7 @@
 #define MESSAGE_EDITOR_CONTROLLER_H
 
 #include "WidgetController.h"
-#include "Widget/send_message_widget.h"
+#include "Widget/SendMessageWidget.h"
 
 class MessageEditorController : public WidgetController {
 private:

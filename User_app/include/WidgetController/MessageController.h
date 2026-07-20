@@ -3,7 +3,7 @@
 
 #include "WidgetController.h"
 #include "InboxController.h"
-#include "Widget/message_widget.h"
+#include "Widget/MessageWidget.h"
 
 class MessageController : public WidgetController {
 private:
