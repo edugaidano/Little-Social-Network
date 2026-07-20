@@ -10,7 +10,7 @@ MainMenuWidget::MainMenuWidget(LOG_T &logger, QWidget *parent) :
 
     connect(ui->viewProfileButton, &QPushButton::clicked, this, &MainMenuWidget::onViewProfileButtonClicked);
     connect(ui->searchProfilebutton, &QPushButton::clicked, this, &MainMenuWidget::onSearchProfileButtonClicked);
-    connect(ui->viewMessagesButton, &QPushButton::clicked, this, &MainMenuWidget::onViewMessagesButtonClicked);
+    connect(ui->viewInboxButton, &QPushButton::clicked, this, &MainMenuWidget::onViewInboxButtonClicked);
     connect(ui->sendMessageButton, &QPushButton::clicked, this, &MainMenuWidget::onSendMessageButtonClicked);
     connect(ui->logOutButton, &QPushButton::clicked, this, &MainMenuWidget::onLogoutButtonClicked);
 
@@ -39,9 +39,9 @@ void MainMenuWidget::onSearchProfileButtonClicked() {
     emit searchProfileRequested();
 }
 
-void MainMenuWidget::onViewMessagesButtonClicked() {
-    LOG_INFO(logger, "View Messages button clicked");
-    emit viewMessagesRequested();
+void MainMenuWidget::onViewInboxButtonClicked() {
+    LOG_INFO(logger, "View Inbox button clicked");
+    emit viewInboxRequested();
 }
 
 void MainMenuWidget::onSendMessageButtonClicked() {

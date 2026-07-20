@@ -2,7 +2,7 @@
 #define INBOX_CONTROLLER_H
 
 #include "WidgetController.h"
-#include "Widget/MessagesInterfaceWidget.h"
+#include "Widget/InboxWidget.h"
 
 class InboxController : public WidgetController {
 private:

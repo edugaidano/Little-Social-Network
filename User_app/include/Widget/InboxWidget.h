@@ -1,5 +1,5 @@
-#ifndef MESSAGES_INTERFACE_WIDGET_H
-#define MESSAGES_INTERFACE_WIDGET_H
+#ifndef INBOX_WIDGET_H
+#define INBOX_WIDGET_H
 
 #include <QWidget>
 
@@ -9,16 +9,16 @@
 #include "logs/logs.h" // on utils folder
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MessagesInterfaceWidget; }
+namespace Ui { class InboxWidget; }
 QT_END_NAMESPACE
 
-class MessagesInterfaceWidget : public QWidget
+class InboxWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit MessagesInterfaceWidget(LOG_T &logger, QWidget *parent = nullptr);
-    ~MessagesInterfaceWidget();
+    explicit InboxWidget(LOG_T &logger, QWidget *parent = nullptr);
+    ~InboxWidget();
     void addMessageItem(const uint32_t messageId, bool seen, const QString &date, const QString &sender, const QString &subject);
     MessageItemWidget* findMessageById(uint32_t id);
     void removeMessage(uint32_t id);
@@ -35,7 +35,7 @@ private slots:
 private:
     LOG_T &logger;
     std::unordered_map<uint32_t, MessageItemWidget*> messageMap;
-    Ui::MessagesInterfaceWidget *ui;
+    Ui::InboxWidget *ui;
 };
 
-#endif // MESSAGES_INTERFACE_WIDGET_H
+#endif // INBOX_WIDGET_H

@@ -10,11 +10,11 @@ InboxController::InboxController(
     : WidgetController(logger, appController, previousWidget),
     username(username)
 {
-    widget = new MessagesInterfaceWidget(logger, previousWidget);
+    widget = new InboxWidget(logger, previousWidget);
     requestMessageItems();
     setupConnections();
     appController.setCurrentWidget(widget);
-    MessagesInterfaceWidget* w = (MessagesInterfaceWidget*)widget;
+    InboxWidget* w = (InboxWidget*)widget;
     w->checkMessagesToDisplay();
 }
 
@@ -25,8 +25,8 @@ InboxController::~InboxController() {
 }
 
 void InboxController::setupConnections() {
-    connect((MessagesInterfaceWidget*)widget, &MessagesInterfaceWidget::backToMainMenu, this, &InboxController::onBackRequested);
-    connect((MessagesInterfaceWidget*)widget, &MessagesInterfaceWidget::messageSelected, this, &InboxController::onMessageSelected);
+    connect((InboxWidget*)widget, &InboxWidget::backToMainMenu, this, &InboxController::onBackRequested);
+    connect((InboxWidget*)widget, &InboxWidget::messageSelected, this, &InboxController::onMessageSelected);
 }
 
 void InboxController::requestMessageItems() {
@@ -38,7 +38,7 @@ void InboxController::requestMessageItems() {
     if (!recvdPkg)
         return;
         
-    MessagesInterfaceWidget* w = (MessagesInterfaceWidget*)widget;
+    InboxWidget* w = (InboxWidget*)widget;
     while (recvdPkg->bufferSize != 0) {
         uint32_t* idPtr = (uint32_t*)getItem(recvdPkg);
         uint8_t* seenPtr = (uint8_t*)getItem(recvdPkg);
@@ -65,7 +65,7 @@ void InboxController::onBackRequested() {
 
 void InboxController::onMessageSelected(uint32_t id) {
     LOG_INFO(logger, "Message selected");
-    MessagesInterfaceWidget* w = (MessagesInterfaceWidget*)widget;
+    InboxWidget* w = (InboxWidget*)widget;
     MessageItemWidget* item = w->findMessageById(id);
     
     new MessageController(
@@ -82,12 +82,12 @@ void InboxController::onMessageSelected(uint32_t id) {
 }
 
 void InboxController::markMessageAsSeen(uint32_t id) {
-    MessagesInterfaceWidget* w = (MessagesInterfaceWidget*)widget;
+    InboxWidget* w = (InboxWidget*)widget;
     MessageItemWidget* item = w->findMessageById(id);
     item->markAsSeen();
 }
 
 void InboxController::removeMessage(uint32_t id) {
-    MessagesInterfaceWidget* w = (MessagesInterfaceWidget*)widget;
+    InboxWidget* w = (InboxWidget*)widget;
     w->removeMessage(id);
 }

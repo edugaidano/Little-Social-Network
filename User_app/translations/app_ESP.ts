@@ -156,9 +156,9 @@
     </message>
 </context>
 <context>
-    <name>MessagesInterfaceWidget</name>
+    <name>InboxWidget</name>
     <message>
-        <location filename="../src/widgets/messages_interface/MessagesInterfaceWidget.ui" line="66"/>
+        <location filename="../src/widgets/messages_interface/InboxWidget.ui" line="66"/>
         <source>Back</source>
         <translation>Regresar</translation>
     </message>
@@ -247,7 +247,7 @@
         <translation>Ocurrió un error al recibir los mensajes.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/messages_interface/MessagesInterfaceWidget.cpp" line="64"/>
+        <location filename="../src/widgets/messages_interface/InboxWidget.cpp" line="64"/>
         <source>You do not have messages</source>
         <translation>No tienes mensajes</translation>
     </message>

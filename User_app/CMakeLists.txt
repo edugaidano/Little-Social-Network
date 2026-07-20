@@ -27,7 +27,7 @@ set(SOURCES
     src/Widget/MainMenuWidget.cpp
     src/Widget/MessageItemWidget.cpp
     src/Widget/MessageWidget.cpp
-    src/Widget/MessagesInterfaceWidget.cpp
+    src/Widget/InboxWidget.cpp
     src/Widget/ProfileEditorWidget.cpp
     src/Widget/ProfileWidget.cpp
     src/Widget/SearchWidget.cpp
@@ -58,7 +58,7 @@ set(HEADER_FILES
     include/Widget/MainMenuWidget.h
     include/Widget/MessageItemWidget.h
     include/Widget/MessageWidget.h
-    include/Widget/MessagesInterfaceWidget.h
+    include/Widget/InboxWidget.h
     include/Widget/ProfileEditorWidget.h
     include/Widget/ProfileWidget.h
     include/Widget/SearchWidget.h
@@ -71,7 +71,7 @@ set(UI_FILES
     ui/MainMenuWidget.ui
     ui/MessageItemWidget.ui
     ui/MessageWidget.ui
-    ui/MessagesInterfaceWidget.ui
+    ui/InboxWidget.ui
     ui/ProfileEditorWidget.ui
     ui/ProfileWidget.ui
     ui/SearchWidget.ui

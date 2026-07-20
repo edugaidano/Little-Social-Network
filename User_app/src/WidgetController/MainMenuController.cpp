@@ -23,7 +23,7 @@ void MainMenuController::setupConnections() {
     connect((MainMenuWidget*)widget, &MainMenuWidget::logoutRequested, this, &MainMenuController::onLogoutRequested);
     connect((MainMenuWidget*)widget, &MainMenuWidget::viewProfileRequested, this, &MainMenuController::onViewProfileRequested);
     connect((MainMenuWidget*)widget, &MainMenuWidget::searchProfileRequested, this, &MainMenuController::onSearchProfileRequested);
-    connect((MainMenuWidget*)widget, &MainMenuWidget::viewMessagesRequested, this, &MainMenuController::onViewInboxRequested);
+    connect((MainMenuWidget*)widget, &MainMenuWidget::viewInboxRequested, this, &MainMenuController::onViewInboxRequested);
     connect((MainMenuWidget*)widget, &MainMenuWidget::sendMessageRequested, this, &MainMenuController::onSendMessageRequested);
 }
 

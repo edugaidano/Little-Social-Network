@@ -152,7 +152,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QPushButton" name="viewMessagesButton">
+         <widget class="QPushButton" name="viewInboxButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -173,7 +173,7 @@
            </font>
           </property>
           <property name="text">
-           <string>View Messages</string>
+           <string>View Inbox</string>
           </property>
          </widget>
         </item>

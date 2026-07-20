@@ -20,14 +20,14 @@ public:
 signals:
     void viewProfileRequested();
     void searchProfileRequested();
-    void viewMessagesRequested();
+    void viewInboxRequested();
     void sendMessageRequested();
     void logoutRequested();    
 
 private slots:
     void onViewProfileButtonClicked();
     void onSearchProfileButtonClicked();
-    void onViewMessagesButtonClicked();
+    void onViewInboxButtonClicked();
     void onSendMessageButtonClicked();
     void onLogoutButtonClicked();
 

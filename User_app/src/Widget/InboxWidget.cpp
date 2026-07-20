@@ -1,42 +1,42 @@
-#include "Widget/MessagesInterfaceWidget.h"
-#include "ui_MessagesInterfaceWidget.h"
+#include "Widget/InboxWidget.h"
+#include "ui_InboxWidget.h"
 
-MessagesInterfaceWidget::MessagesInterfaceWidget(LOG_T &logger, QWidget *parent) :
+InboxWidget::InboxWidget(LOG_T &logger, QWidget *parent) :
     QWidget(parent),
     logger(logger),
-    ui(new Ui::MessagesInterfaceWidget)
+    ui(new Ui::InboxWidget)
 {
     ui->setupUi(this);
 
-    connect(ui->backButton, &QPushButton::clicked, this, &MessagesInterfaceWidget::onBackButtonClicked);
+    connect(ui->backButton, &QPushButton::clicked, this, &InboxWidget::onBackButtonClicked);
 
-    LOG_DEBUG(logger, "MessagesInterfaceWidget initialized");
+    LOG_DEBUG(logger, "InboxWidget initialized");
 }
 
-MessagesInterfaceWidget::~MessagesInterfaceWidget() {
+InboxWidget::~InboxWidget() {
     delete ui;
 }
 
-void MessagesInterfaceWidget::onBackButtonClicked() {
+void InboxWidget::onBackButtonClicked() {
     LOG_INFO(logger, "Back to main menu button clicked");
     emit backToMainMenu();
 }
 
-void MessagesInterfaceWidget::onMessageItemClicked(const uint32_t messageId) {
+void InboxWidget::onMessageItemClicked(const uint32_t messageId) {
     LOG_INFO(logger, "Message item clicked with ID: " + std::to_string(messageId));
     emit messageSelected(messageId);
 }
 
-void MessagesInterfaceWidget::addMessageItem(const uint32_t messageId, bool seen, const QString &date, const QString &sender, const QString &subject) {
+void InboxWidget::addMessageItem(const uint32_t messageId, bool seen, const QString &date, const QString &sender, const QString &subject) {
     MessageItemWidget *item = new MessageItemWidget(logger, seen, messageId, date, sender, subject);
     ui->messageAreaLayout->addWidget(item);
     ui->messageArea->adjustSize();
     messageMap[messageId] = item;
     
-    connect(item, &MessageItemWidget::clicked, this, &MessagesInterfaceWidget::onMessageItemClicked);
+    connect(item, &MessageItemWidget::clicked, this, &InboxWidget::onMessageItemClicked);
 }
 
-MessageItemWidget* MessagesInterfaceWidget::findMessageById(uint32_t id) {
+MessageItemWidget* InboxWidget::findMessageById(uint32_t id) {
     auto it = messageMap.find(id);
     if (it != messageMap.end()) {
         return it->second;
@@ -44,7 +44,7 @@ MessageItemWidget* MessagesInterfaceWidget::findMessageById(uint32_t id) {
     return nullptr;
 }
 
-void MessagesInterfaceWidget::removeMessage(uint32_t id) {
+void InboxWidget::removeMessage(uint32_t id) {
     auto it = messageMap.find(id);
     if (it != messageMap.end()) {
         MessageItemWidget *item = it->second;
@@ -58,7 +58,7 @@ void MessagesInterfaceWidget::removeMessage(uint32_t id) {
     }
 }
 
-void MessagesInterfaceWidget::checkMessagesToDisplay() {
+void InboxWidget::checkMessagesToDisplay() {
     if (messageMap.empty()) {
         LOG_INFO(logger, "No messages to display");
         DIALOG_INFO(this, QObject::tr("You do not have messages"));
