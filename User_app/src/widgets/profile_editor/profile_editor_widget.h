@@ -26,7 +26,7 @@ public:
 
 signals:
     void backToMenuRequested();
-    void saveProfileRequested(const QString &profileContent);
+    void saveProfileRequested(QString profileContent);
 
 private slots:
     void onBackButtonClicked();

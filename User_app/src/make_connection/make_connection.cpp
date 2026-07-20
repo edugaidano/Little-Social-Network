@@ -1,6 +1,6 @@
-#include "../communication_controller.h"
+#include "make_connection.h"
 
-SOCKET CommunicationController::makeConnection(const char *ip, const char *port) {
+SOCKET make_connection(LOG_T& logger, const char *ip, const char *port) {
 	WSADATA wsa;
 	int iResult = WSAStartup(MAKEWORD(2, 2), &wsa);
 	if (iResult != 0) {

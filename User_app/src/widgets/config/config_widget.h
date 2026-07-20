@@ -21,6 +21,7 @@ public:
 
 signals:
     void backRequested();
+    void saveRequested(CONFIG_D config);
 
 private slots:
     void onSaveButtonClicked();
@@ -28,7 +29,6 @@ private slots:
 
 private:
     LOG_T &logger;
-    CONFIG_D &config;
     Ui::ConfigWidget *ui;
 };
 

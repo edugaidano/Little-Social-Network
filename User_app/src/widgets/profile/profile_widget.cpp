@@ -1,7 +1,7 @@
 #include "profile_widget.h"
 #include "ui_profile_widget.h"
 
-ProfileWidget::ProfileWidget(LOG_T &logger, const QString &username, const QString &profileContent, const QString &extraAction, QWidget *parent) :
+ProfileWidget::ProfileWidget(LOG_T &logger, QString username, QString profileContent, QString extraAction, QWidget *parent) :
     QWidget(parent),
     logger(logger),
     username(username),
@@ -22,6 +22,10 @@ ProfileWidget::ProfileWidget(LOG_T &logger, const QString &username, const QStri
 
 ProfileWidget::~ProfileWidget() {
     delete ui;
+}
+
+void ProfileWidget::reloadContent(std::string content) {
+    ui->profileContent->setPlainText(content.c_str());
 }
 
 void ProfileWidget::onBackButtonClicked() {

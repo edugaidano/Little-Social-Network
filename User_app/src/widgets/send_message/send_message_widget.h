@@ -20,7 +20,7 @@ public:
     ~SendMessageWidget();
 
 signals:
-    void sendMessage(const QString &destinatary, const QString &subject, const QString &content);
+    void sendMessage(std::string destinatary, std::string subject, std::string content);
     void cancelMessage();
 
 private slots:

@@ -16,15 +16,16 @@ class ProfileWidget : public QWidget
 public:
     explicit ProfileWidget(
         LOG_T &logger,
-        const QString &username, 
-        const QString &profileContent, 
-        const QString &extraAction, 
+        QString username, 
+        QString profileContent, 
+        QString extraAction, 
         QWidget *parent = nullptr
     );
     ~ProfileWidget();
-    const QString &username;
-    const QString &profileContent;
-    const QString &extraAction;
+    void reloadContent(std::string content);
+    QString username;
+    QString profileContent;
+    QString extraAction;
     
 signals:
     void backToMenuRequested();

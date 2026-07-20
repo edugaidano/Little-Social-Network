@@ -25,7 +25,7 @@ void SendMessageWidget::onSendButtonClicked() {
         DIALOG_WARNING(this, QObject::tr("Destinatary is empty"));
         return;
     }
-    emit sendMessage(ui->destinataryLineEdit->text(), ui->subjectLineEdit->text(), ui->messageTextEdit->toPlainText());
+    emit sendMessage(ui->destinataryLineEdit->text().toStdString(), ui->subjectLineEdit->text().toStdString(), ui->messageTextEdit->toPlainText().toStdString());
 }
 
 void SendMessageWidget::onCancelButtonClicked() {

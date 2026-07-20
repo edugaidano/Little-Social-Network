@@ -1,7 +1,15 @@
 #include "message_widget.h"
 #include "ui_message_widget.h"
 
-MessageWidget::MessageWidget(LOG_T &logger, const uint32_t id, const QString &date, const QString &sender, const QString &subject, const QString &content, QWidget *parent) :
+MessageWidget::MessageWidget (
+    LOG_T &logger,
+    uint32_t id, 
+    QString date,
+    QString sender,
+    QString subject, 
+    QString content, 
+    QWidget *parent
+) :
     QWidget(parent),
     logger(logger),
     ui(new Ui::MessageWidget),

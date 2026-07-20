@@ -16,18 +16,18 @@ class MessageWidget : public QWidget
 public:
     explicit MessageWidget(
         LOG_T &logger,
-        const uint32_t id, 
-        const QString &date,
-        const QString &sender,
-        const QString &subject, 
-        const QString &content, 
+        uint32_t id, 
+        QString date,
+        QString sender,
+        QString subject, 
+        QString content, 
         QWidget *parent = nullptr
     );
     ~MessageWidget();
 
 signals:
     void backButtonClicked();
-    void deleteButtonClicked(const uint32_t id);
+    void deleteButtonClicked(uint32_t id);
 
 private slots:
     void onBackButtonClicked();
@@ -36,7 +36,7 @@ private slots:
 private:
     LOG_T &logger;
     Ui::MessageWidget *ui;
-    const uint32_t messageId;
+    uint32_t messageId;
 };
 
 #endif // MESSAGE_WIDGET_H

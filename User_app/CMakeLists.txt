@@ -7,34 +7,7 @@ qt_standard_project_setup()
 qt_add_executable(User_app
     WIN32
     src/main.cpp
-    
-    src/ApplicationCoordinator/ApplicationCoordinator.h
-    src/ApplicationCoordinator/ApplicationCoordinator.cpp
-    src/ApplicationCoordinator/connections.cpp
-    src/ApplicationCoordinator/core.cpp
-    src/ApplicationCoordinator/flows/login_flow.cpp
-    src/ApplicationCoordinator/flows/main_menu_flow.cpp
-    src/ApplicationCoordinator/flows/search_flow.cpp
-    src/ApplicationCoordinator/flows/messages_flow.cpp
-    src/ApplicationCoordinator/flows/profile_flow.cpp
-    src/ApplicationCoordinator/flows/send_message_flow.cpp
 
-    src/communicationController/communication_controller.h
-    src/communicationController/constructor.cpp
-    src/communicationController/destructor.cpp
-    src/communicationController/utils/closeServerConnection.cpp
-    src/communicationController/utils/makeConnection.cpp
-    src/communicationController/utils/reconnectToServer.cpp
-    src/communicationController/utils/serverConnectionIsOk.cpp
-    src/communicationController/actions/deleteMessage.cpp
-    src/communicationController/actions/login.cpp
-    src/communicationController/actions/requestMessageContent.cpp
-    src/communicationController/actions/requestMessages.cpp
-    src/communicationController/actions/searchOwnProfile.cpp
-    src/communicationController/actions/searchProfile.cpp
-    src/communicationController/actions/sendMessage.cpp
-    src/communicationController/actions/updateProfile.cpp
-    
     src/dialog/dialog.h
 
     src/widgets/login/login_widget.cpp
@@ -76,6 +49,34 @@ qt_add_executable(User_app
     src/widgets/config/config_widget.cpp
     src/widgets/config/config_widget.h
     src/widgets/config/config_widget.ui
+
+    src/AppController/AppController.h
+    src/AppController/AppController.cpp
+    src/WidgetController/WidgetController.h
+    src/WidgetController/ConfigController.cpp
+    src/WidgetController/ConfigController.h
+    src/WidgetController/LoginController.h
+    src/WidgetController/LoginController.cpp
+    src/WidgetController/MainMenuController.h
+    src/WidgetController/MainMenuController.cpp
+    src/Communicator/Communicator.h
+    src/Communicator/Communicator.cpp
+    src/make_connection/make_connection.h
+    src/make_connection/make_connection.cpp
+    src/WidgetController/SearchProfileController.h
+    src/WidgetController/SearchProfileController.cpp
+    src/WidgetController/ProfileSearchedController.h
+    src/WidgetController/ProfileSearchedController.cpp
+    src/WidgetController/OwnProfileController.h
+    src/WidgetController/OwnProfileController.cpp
+    src/WidgetController/EditorController.h
+    src/WidgetController/EditorController.cpp
+    src/WidgetController/MessageController.h
+    src/WidgetController/MessageController.cpp
+    src/WidgetController/InboxController.h
+    src/WidgetController/InboxController.cpp
+    src/WidgetController/MessageEditorController.h
+    src/WidgetController/MessageEditorController.cpp
 )
 
 set(TS_FILES

@@ -26,7 +26,7 @@ public:
 
 signals:
     void backToMainMenu();
-    void messageSelected(const uint32_t messageId);
+    void messageSelected(uint32_t messageId);
 
 private slots:
     void onBackButtonClicked();

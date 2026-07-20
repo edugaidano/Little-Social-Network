@@ -20,7 +20,7 @@ public:
     ~SearchWidget();
 
 signals:
-    void searchProfile(const QString &username);
+    void searchProfile(QString username);
     void backToMainMenu();
 
 private slots:

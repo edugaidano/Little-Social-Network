@@ -24,16 +24,16 @@ void MessageItemWidget::mousePressEvent(QMouseEvent *event) {
     emit clicked(messageId);
 }
 
-const QString MessageItemWidget::getDate() {
-    return ui->dateLabel->text();
+std::string MessageItemWidget::getDate() {
+    return ui->dateLabel->text().toStdString();
 }
 
-const QString MessageItemWidget::getSender() {
-    return ui->senderLabel->text();
+std::string MessageItemWidget::getSender() {
+    return ui->senderLabel->text().toStdString();
 }
 
-const QString MessageItemWidget::getSubject() {
-    return ui->subjectLabel->text();
+std::string MessageItemWidget::getSubject() {
+    return ui->subjectLabel->text().toStdString();
 }
 
 void MessageItemWidget::markAsSeen() {

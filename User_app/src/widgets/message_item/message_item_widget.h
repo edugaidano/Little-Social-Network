@@ -29,9 +29,9 @@ public:
 
     void mousePressEvent(QMouseEvent *event) override;
 
-    const QString getDate();
-    const QString getSender();
-    const QString getSubject();
+    std::string getDate();
+    std::string getSender();
+    std::string getSubject();
 
     void markAsSeen();
 

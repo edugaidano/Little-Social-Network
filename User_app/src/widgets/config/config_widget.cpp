@@ -4,7 +4,6 @@
 ConfigWidget::ConfigWidget(LOG_T &logger, CONFIG_D &config, QWidget *parent) : 
     QWidget(parent), 
     logger(logger), 
-    config(config), 
     ui(new Ui::ConfigWidget)
 {
     ui->setupUi(this);
@@ -28,31 +27,30 @@ void ConfigWidget::onCancelButtonClicked() {
 
 void ConfigWidget::onSaveButtonClicked() {
     LOG_INFO(logger, "Save button clicked");
-    bool edited = false;
-    if (!ui->ipLineEdit->text().isEmpty()) {   
-        config["SERVER_IP"] = ui->ipLineEdit->text().toStdString();
-        edited = true;
-    }
-    if (!ui->portLineEdit->text().isEmpty()) {   
-        config["SERVER_PORT"] = ui->portLineEdit->text().toStdString();
-        edited = true;
-    }
-    if (!ui->logLevelLineEdit->text().isEmpty()) {   
-        config["LOG_LEVEL"] = ui->logLevelLineEdit->text().toStdString();
-        logger.level = level_from_string(config["LOG_LEVEL"]);
-        edited = true;
-    }
-    if (!ui->languageLineEdit->text().isEmpty()) {   
-        config["LANGUAGE"] = ui->languageLineEdit->text().toStdString();
-        edited = true;
+
+    CONFIG_D newConf;
+
+    if (!ui->ipLineEdit->text().isEmpty()) {
+        newConf["SERVER_IP"] = ui->ipLineEdit->text().toStdString();
     }
 
-    if (edited) {
-        update_config_dictionary("config_file.conf", config);
-        LOG_INFO(logger, "Configuration updated");
-    } else {
+    if (!ui->portLineEdit->text().isEmpty()) {
+        newConf["SERVER_PORT"] = ui->portLineEdit->text().toStdString();
+    }
+
+    if (!ui->logLevelLineEdit->text().isEmpty()) {
+        newConf["LOG_LEVEL"] = ui->logLevelLineEdit->text().toStdString();
+    }
+
+    if (!ui->languageLineEdit->text().isEmpty()) {
+        newConf["LANGUAGE"] = ui->languageLineEdit->text().toStdString();
+    }
+
+    if (newConf.empty()) {
         LOG_INFO(logger, "No changes made to configuration");
+        emit backRequested();
+    } else {   
+        LOG_INFO(logger, "Configuration changes requested");
+        emit saveRequested(newConf);
     }
-
-    emit backRequested();
 }
