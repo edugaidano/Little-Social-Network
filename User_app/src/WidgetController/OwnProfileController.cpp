@@ -1,5 +1,5 @@
 #include "WidgetController/OwnProfileController.h"
-#include "WidgetController/EditorController.h"
+#include "WidgetController/ProfileEditorController.h"
 
 OwnProfileController::OwnProfileController(
     LOG_T& logger,
@@ -89,5 +89,5 @@ void OwnProfileController::onBackRequested() {
 
 void OwnProfileController::onEditRequested() {
     LOG_INFO(logger, "Edit profile requested from own profile");
-    new EditorController(logger, appController, *this, username, content, widget);
+    new ProfileEditorController(logger, appController, *this, username, content, widget);
 }

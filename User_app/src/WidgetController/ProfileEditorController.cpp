@@ -1,6 +1,6 @@
-#include "WidgetController/EditorController.h"
+#include "WidgetController/ProfileEditorController.h"
 
-EditorController::EditorController(
+ProfileEditorController::ProfileEditorController(
     LOG_T& logger,
     AppController& appController,
     OwnProfileController& profileController,
@@ -17,24 +17,24 @@ EditorController::EditorController(
     appController.setCurrentWidget(widget);   
 }
 
-EditorController::~EditorController() {
-    LOG_DEBUG(logger, "Deleting EditorController");
+ProfileEditorController::~ProfileEditorController() {
+    LOG_DEBUG(logger, "Deleting ProfileEditorController");
     appController.removeWidget(widget);
     widget->deleteLater();
 }
 
-void EditorController::setupConnections() {
-    connect((ProfileEditorWidget*)widget, &ProfileEditorWidget::backToMenuRequested, this, &EditorController::onBackRequested);
-    connect((ProfileEditorWidget*)widget, &ProfileEditorWidget::saveProfileRequested, this, &EditorController::onSaveRequested);
+void ProfileEditorController::setupConnections() {
+    connect((ProfileEditorWidget*)widget, &ProfileEditorWidget::backToMenuRequested, this, &ProfileEditorController::onBackRequested);
+    connect((ProfileEditorWidget*)widget, &ProfileEditorWidget::saveProfileRequested, this, &ProfileEditorController::onSaveRequested);
 }
 
-void EditorController::onBackRequested() {
+void ProfileEditorController::onBackRequested() {
     LOG_INFO(logger, "Back requested");
     appController.setCurrentWidget(previousWidget);
     this->deleteLater();
 }
 
-void EditorController::onSaveRequested(QString profileContent) {
+void ProfileEditorController::onSaveRequested(QString profileContent) {
     LOG_INFO(logger, "Save requested");
 
     PACKAGE_T* updatePkg = createPackage(UPDATE_PROFILE);

@@ -1,12 +1,12 @@
-#ifndef EDITOR_CONTROLLER_H
-#define EDITOR_CONTROLLER_H
+#ifndef PROFILE_EDITOR_CONTROLLER_H
+#define PROFILE_EDITOR_CONTROLLER_H
 
 #include <string>
 #include "WidgetController.h"
 #include "OwnProfileController.h"
 #include "Widget/ProfileEditorWidget.h"
 
-class EditorController : public WidgetController {
+class ProfileEditorController : public WidgetController {
 private:
     std::string username;
     OwnProfileController& profileController;
@@ -17,7 +17,7 @@ private:
     void onSaveRequested(QString profileContent);
 
 public:
-    EditorController(
+    ProfileEditorController(
         LOG_T& logger,
         AppController& appController,
         OwnProfileController& profileController,
@@ -25,7 +25,7 @@ public:
         std::string content,
         QWidget* previousWidget
     );
-    ~EditorController();
+    ~ProfileEditorController();
 };
 
 #endif

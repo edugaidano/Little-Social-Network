@@ -17,7 +17,7 @@ set(SOURCES
     src/WidgetController/SearchProfileController.cpp
     src/WidgetController/ProfileSearchedController.cpp
     src/WidgetController/OwnProfileController.cpp
-    src/WidgetController/EditorController.cpp
+    src/WidgetController/ProfileEditorController.cpp
     src/WidgetController/MessageController.cpp
     src/WidgetController/InboxController.cpp
     src/WidgetController/MessageEditorController.cpp
@@ -48,7 +48,7 @@ set(HEADER_FILES
     include/WidgetController/SearchProfileController.h
     include/WidgetController/ProfileSearchedController.h
     include/WidgetController/OwnProfileController.h
-    include/WidgetController/EditorController.h
+    include/WidgetController/ProfileEditorController.h
     include/WidgetController/MessageController.h
     include/WidgetController/InboxController.h
     include/WidgetController/MessageEditorController.h
