@@ -1,4 +1,4 @@
-#include "ProfileSearchedController.h"
+#include "WidgetController/ProfileSearchedController.h"
 
 ProfileSearchedController::ProfileSearchedController(
     LOG_T& logger,

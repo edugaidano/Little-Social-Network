@@ -1,4 +1,4 @@
-#include "ConfigController.h"
+#include "WidgetController/ConfigController.h"
 
 ConfigController::ConfigController (
     LOG_T& logger,

@@ -1,4 +1,4 @@
-#include "EditorController.h"
+#include "WidgetController/EditorController.h"
 
 EditorController::EditorController(
     LOG_T& logger,

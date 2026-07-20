@@ -1,4 +1,4 @@
-#include "AppController/AppController.h"
+#include "AppController.h"
 
 int main(int argc, char *argv[]) {    
     QApplication a(argc, argv);

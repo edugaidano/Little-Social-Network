@@ -1,5 +1,5 @@
-#include "OwnProfileController.h"
-#include "EditorController.h"
+#include "WidgetController/OwnProfileController.h"
+#include "WidgetController/EditorController.h"
 
 OwnProfileController::OwnProfileController(
     LOG_T& logger,

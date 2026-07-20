@@ -1,5 +1,5 @@
-#include "SearchProfileController.h"
-#include "ProfileSearchedController.h"
+#include "WidgetController/SearchProfileController.h"
+#include "WidgetController/ProfileSearchedController.h"
 
 SearchProfileController::SearchProfileController(LOG_T& logger, AppController& appController, QWidget* previousWidget) 
     : WidgetController(logger, appController, previousWidget)

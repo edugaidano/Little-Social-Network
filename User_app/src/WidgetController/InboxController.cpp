@@ -1,5 +1,5 @@
-#include "InboxController.h"
-#include "MessageController.h"
+#include "WidgetController/InboxController.h"
+#include "WidgetController/MessageController.h"
 
 InboxController::InboxController(
     LOG_T& logger,

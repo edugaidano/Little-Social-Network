@@ -1,4 +1,4 @@
-#include "MainMenuController.h"
+#include "WidgetController/MainMenuController.h"
 
 MainMenuController::MainMenuController (
     LOG_T& logger,

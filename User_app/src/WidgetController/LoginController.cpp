@@ -1,5 +1,5 @@
-#include "LoginController.h"
-#include "../dialog/dialog.h"
+#include "WidgetController/LoginController.h"
+#include "dialog.h"
 
 LoginController::LoginController(
     LOG_T& logger,

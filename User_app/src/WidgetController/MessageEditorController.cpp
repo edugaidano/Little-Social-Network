@@ -1,4 +1,4 @@
-#include "MessageEditorController.h"
+#include "WidgetController/MessageEditorController.h"
 
 MessageEditorController::MessageEditorController(
     LOG_T& logger,
