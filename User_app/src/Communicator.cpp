@@ -55,19 +55,15 @@ PACKAGE_T* Communicator::requestToServer(PACKAGE_T* requestPkg, CODE_CONTENT rep
     int sendRet = this->send(requestPkg); 
     if (sendRet == -1) {
         throw NetworkException(NetworkError::SendError, "Error sending request.");
-        //tr("Something went wrong while sending the request to the server.")
     } else if (sendRet == -2) { 
         throw NetworkException(NetworkError::ConnectionError, "Error connecting to server.");
-        //tr("Error at make connection with the server,\n check if the configuration is correct.")
     }
     
     PACKAGE_T* replyPkg = this->recv();
     if (replyPkg == NULL) {
         throw NetworkException(NetworkError::ReceiveError, "Error receiving the reply.");
-        //tr("Something went wrong while receiving the reply from the server.")
     } else if (replyPkg->code != replyCode)  {
         freePackage(replyPkg);
-        //tr("The package received is different from what was expected.")
         throw NetworkException(NetworkError::UnexpectedPackage, "Package received is different.");
     }
     
