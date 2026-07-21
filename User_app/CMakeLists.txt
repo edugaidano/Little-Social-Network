@@ -8,6 +8,14 @@ set(SOURCES
     src/main.cpp
     src/AppController.cpp
     src/Communicator.cpp
+    
+    src/Protocol/delete_message.cpp
+    src/Protocol/login.cpp
+    src/Protocol/request_inbox.cpp
+    src/Protocol/request_message.cpp
+    src/Protocol/request_profile.cpp
+    src/Protocol/send_message.cpp
+    src/Protocol/update_profile.cpp
 
     src/make_connection/make_connection.cpp
 
@@ -38,6 +46,23 @@ set(HEADER_FILES
     include/dialog.h
     include/AppController.h
     include/Communicator.h
+
+    include/NetworkException/NetworkException.h
+    include/NetworkException/NetworkError.h
+
+    include/ProtocolResult/ProtocolResult.h
+    include/ProtocolResult/ProtocolNetworkResult.h
+    include/ProtocolResult/ProtocolInboxResult.h
+    include/ProtocolResult/ProtocolContentResult.h
+    include/ProtocolResult/ResultCode.h
+
+    include/Protocol/delete_message.h
+    include/Protocol/login.h
+    include/Protocol/request_inbox.h
+    include/Protocol/request_message.h
+    include/Protocol/request_profile.h
+    include/Protocol/send_message.h
+    include/Protocol/update_profile.h
 
     src/make_connection/make_connection.h
 

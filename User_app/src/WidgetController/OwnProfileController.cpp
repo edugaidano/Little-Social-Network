@@ -1,5 +1,8 @@
 #include "WidgetController/OwnProfileController.h"
 #include "WidgetController/ProfileEditorController.h"
+#include "Protocol/request_profile.h"
+#include "ProtocolResult/ProtocolNetworkResult.h"
+#include "ProtocolResult/ProtocolContentResult.h"
 
 OwnProfileController::OwnProfileController(
     LOG_T& logger,
@@ -32,44 +35,18 @@ void OwnProfileController::setupConnections() {
 }
 
 std::optional<std::string> OwnProfileController::getContent() {
-    PACKAGE_T* requestPkg = createPackage(SEARCH_PROFILE);
-    addItem(requestPkg, (void*)username.c_str(), username.size() + 1);
-    PACKAGE_T* replyPkg = appController.doRequestToServer(requestPkg, PROFILE);
-    freePackage(requestPkg);
-
-    if (!replyPkg) {
+    std::unique_ptr<ProtocolResult> result = requestProfileProtocol(logger, appController.getCommunicator(), username);
+    if (auto* networkResult = dynamic_cast<ProtocolNetworkResult*>(result.get())) {
+        this->ShowError(networkResult->getError());
         return std::nullopt;
     }
     
-    char* usr = (char*)getItem(replyPkg);
-
-    if (usr == NULL) {
-        LOG_INFO(logger, "The user " + username + " does not have a profile");
-        freePackage(replyPkg);
-        DIALOG_WARNING(
-            previousWidget, 
-            tr("The user ").append(username).append(tr(" does not have a profile"))
-        );
-        return std::nullopt;
+    if (auto* contentResult = dynamic_cast<ProtocolContentResult*>(result.get())) {
+        return contentResult->getContent();
     }
 
-    if (usr != username) {
-        LOG_ERROR(logger, "The profile received is different to the requested profile");
-        free(usr);
-        freePackage(replyPkg);
-        DIALOG_ERROR(
-            previousWidget, 
-            tr("Something went wrong while receiving the profile.")
-        );
-        return std::nullopt;
-    }
-
-    free(usr);
-    char* c = (char*)getItem(replyPkg);
-    freePackage(replyPkg);
-    std::string content(c);
-    free(c);
-    return content;
+    DIALOG_ERROR(previousWidget, tr("Something went wrong."));
+    return std::nullopt;
 }
 
 void OwnProfileController::reloadUI() {

@@ -53,41 +53,6 @@ void AppController::removeWidget(QWidget* w) {
     stack->removeWidget(w);
 }
 
-PACKAGE_T* AppController::doRequestToServer(PACKAGE_T* pkgRequest, CODE_CONTENT codeReply) {
-    int sendRet = communicator->send(pkgRequest); 
-    if (sendRet == -1) {
-        DIALOG_ERROR(
-            this, 
-            tr("Something went wrong while sending the request to the server.")
-        );
-        return NULL;
-    } else if (sendRet == -2) {
-        DIALOG_ERROR(
-            this, 
-            tr("Error at make connection with the server,\n check if the configuration is correct.")
-        );
-        return NULL;
-    }
-    
-    PACKAGE_T* pkgReply = communicator->recv();
-    if (pkgReply == NULL) {
-        DIALOG_ERROR(
-            this,
-            tr("Something went wrong while receiving the reply from the server.")
-        );
-        return NULL;
-    } else if (pkgReply->code != codeReply)  {
-        freePackage(pkgReply);
-        DIALOG_ERROR(
-            this,
-            tr("The package received is different from what was expected.")
-        );
-        return NULL;
-    }
-    
-    return pkgReply;
-}
-
 void AppController::setConfig(CONFIG_D& newConfig) {
     for (const auto& [key, value] : newConfig) {
         config[key] = value;

@@ -1,4 +1,6 @@
 #include "WidgetController/LoginController.h"
+#include "Protocol/login.h"
+#include "ProtocolResult/ProtocolNetworkResult.h"
 #include "dialog.h"
 
 LoginController::LoginController(
@@ -40,41 +42,22 @@ void LoginController::onConfigRequested() {
 }
 
 void LoginController::loginProcess(std::string username, CODE_CONTENT typeLogin) { 
-    CODE_CONTENT replyCode;
-    switch (typeLogin) {
-    case LOGIN:
-        replyCode = LOGIN_REPLY;
-        break;
-    case REGISTER:
-        replyCode = REGISTER_REPLY;
-        break;
-    default:
-        LOG_ERROR(logger, "typeLogin must be LOGIN or REGISTER");
-        return;
-    }
-       
     appController.startCommunicator();
-
-    PACKAGE_T* pkgLogin = createPackage(typeLogin);
-    addItem(pkgLogin, (void*)username.c_str(), username.size() + 1);
-    PACKAGE_T* pkgReply = appController.doRequestToServer(pkgLogin, replyCode);
-    freePackage(pkgLogin);
-
-    if (pkgReply == NULL)
-        return;
-    
-    char* item = (char*)getItem(pkgReply);
-    freePackage(pkgReply);
-    if (item != std::string("OK")) {
-        LOG_ERROR(logger, "Login refused");
-        // TODO: explain why
-        DIALOG_ERROR(widget, tr("Login refused"));
-        free(item);
+    std::unique_ptr<ProtocolResult> result = loginProtocol(logger, appController.getCommunicator(), username, typeLogin);
+    if (auto* networkResult = dynamic_cast<ProtocolNetworkResult*>(result.get())) {
+        this->ShowError(networkResult->getError());
         return;
     }
-
-    LOG_INFO(logger, "Login verified");
-    free(item);
-    new MainMenuController(logger, appController, username); 
-    this->deleteLater();
+    switch (result->getCode()) {
+        case ResultCode::OK :
+            new MainMenuController(logger, appController, username); 
+            this->deleteLater();
+            break;
+        case ResultCode::REFUSED :
+            DIALOG_ERROR(widget, tr("Login refused."));
+            break;
+        default:
+            DIALOG_ERROR(widget, tr("Something went wrong."));
+            break;
+    }
 } 

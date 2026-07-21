@@ -1,4 +1,6 @@
 #include "WidgetController/ProfileEditorController.h"
+#include "Protocol/update_profile.h"
+#include "ProtocolResult/ProtocolNetworkResult.h"
 
 ProfileEditorController::ProfileEditorController(
     LOG_T& logger,
@@ -37,26 +39,20 @@ void ProfileEditorController::onBackRequested() {
 void ProfileEditorController::onSaveRequested(QString profileContent) {
     LOG_INFO(logger, "Save requested");
 
-    PACKAGE_T* updatePkg = createPackage(UPDATE_PROFILE);
-    addItem(updatePkg, (void*)username.c_str(), username.size() + 1);
-    addItem(updatePkg, (void*)profileContent.toStdString().c_str(), profileContent.size() + 1);
-    PACKAGE_T* replyPkg = appController.doRequestToServer(updatePkg, UPDATE_REPLY);
-    freePackage(updatePkg);
-
-    if (replyPkg == NULL)
+    std::string content(profileContent.toStdString());
+    std::unique_ptr<ProtocolResult> result = updateProfileProtocol(logger, appController.getCommunicator(), username, content);
+    if (auto* networkResult = dynamic_cast<ProtocolNetworkResult*>(result.get())) {
+        this->ShowError(networkResult->getError());
         return;
-
-    QString recvErr = tr("Something went wrong while receiving the update reply.");
-
-    char* item = (char*)getItem(replyPkg);
-    freePackage(replyPkg);
-    if (item == std::string("OK")) {
-        LOG_INFO(logger, "Profile updated");
-    } else {
-        LOG_ERROR(logger, "UPDATE_REPLY item diferent to OK");
-        DIALOG_ERROR(nullptr, tr("Something went wrong during the update."));
     }
-    free(item);
+    switch (result->getCode()) {
+        case ResultCode::OK :
+            DIALOG_INFO(widget, tr("Profile updated"));
+            break;
+        default:
+            DIALOG_ERROR(widget, tr("Something went wrong."));
+            break;
+    }   
     
     profileController.reloadUI();
     appController.setCurrentWidget(previousWidget);

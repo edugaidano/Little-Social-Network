@@ -35,13 +35,17 @@ public:
     void addWidget(QWidget* w);
     void setCurrentWidget(QWidget* w);
     void removeWidget(QWidget* w);
-
-    PACKAGE_T* doRequestToServer(PACKAGE_T* pkgRequest, CODE_CONTENT codeReply);
-
-    CONFIG_D& getConfig() {return config;}
+    
     void setConfig(CONFIG_D& newConfig);
-
     void setLogLevel(LOG_LEVEL level);
+
+    CONFIG_D& getConfig() {
+        return config;
+    }
+
+    Communicator& getCommunicator() {
+        return *communicator;
+    }
 };
 
 #endif

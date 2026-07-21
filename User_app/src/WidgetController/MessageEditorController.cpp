@@ -1,4 +1,6 @@
 #include "WidgetController/MessageEditorController.h"
+#include "Protocol/send_message.h"
+#include "ProtocolResult/ProtocolNetworkResult.h"
 
 MessageEditorController::MessageEditorController(
     LOG_T& logger,
@@ -33,42 +35,19 @@ void MessageEditorController::onBackRequested() {
 
 void MessageEditorController::onSendRequested(std::string destinatary, std::string subject, std::string content) {
     LOG_INFO(logger, "Send requested from message editor");
-
-    std::time_t t = std::time(nullptr);
-    std::tm tm{};
-
-#ifdef _WIN32
-    localtime_s(&tm, &t);
-#else
-    localtime_r(&t, &tm);
-#endif
-
-    std::ostringstream oss;
-    oss << std::put_time(&tm, "%d - %m - %Y");
-
-    PACKAGE_T* messagePkg = createPackage(SEND_MESSAGE);
-    addItem(messagePkg, (void*)destinatary.c_str(), destinatary.size() + 1);
-    addItem(messagePkg, (void*)oss.str().c_str(), oss.str().size() + 1);
-    addItem(messagePkg, (void*)username.c_str(), username.size() + 1);
-    addItem(messagePkg, (void*)subject.c_str(), subject.size() + 1);
-    addItem(messagePkg, (void*)content.c_str(), content.size() + 1);
-    PACKAGE_T* recvdPkg = appController.doRequestToServer(messagePkg, SEND_REPLY);
-    freePackage(messagePkg);
-    
-    if (!recvdPkg)
+    std::unique_ptr<ProtocolResult> result = sendMessageProtocol(logger, appController.getCommunicator(), username, destinatary, subject, content);
+    if (auto* networkResult = dynamic_cast<ProtocolNetworkResult*>(result.get())) {
+        this->ShowError(networkResult->getError());
         return;
-
-    char* item = (char*)getItem(recvdPkg);
-    freePackage(recvdPkg);
-    if (item == std::string("OK")) {
-        LOG_INFO(logger, "Message sended");
-        DIALOG_INFO(nullptr, tr("Message sent"));
-    } else {
-        LOG_ERROR(logger, "SEND_REPLY item diferent to OK");
-        DIALOG_ERROR(nullptr, tr("Something went wrong at sending."));
     }
-    free(item);
-    
-    appController.setCurrentWidget(previousWidget);
-    this->deleteLater();
+    switch (result->getCode()) {
+        case ResultCode::OK :
+            DIALOG_INFO(widget, tr("Message sent"));
+            appController.setCurrentWidget(previousWidget);
+            this->deleteLater();
+            break;
+        default:
+            DIALOG_ERROR(widget, tr("Something went wrong."));
+            break;
+    }    
 }

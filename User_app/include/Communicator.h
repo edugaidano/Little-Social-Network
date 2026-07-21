@@ -19,6 +19,9 @@ public:
 
     int send(PACKAGE_T* pkg);
     PACKAGE_T* recv();
+
+    //remind to use try-catch
+    PACKAGE_T* requestToServer(PACKAGE_T* requestPkg, CODE_CONTENT replyCode);
 };
 
 #endif

@@ -1,5 +1,8 @@
 #include "WidgetController/InboxController.h"
 #include "WidgetController/MessageController.h"
+#include "Protocol/request_inbox.h"
+#include "ProtocolResult/ProtocolNetworkResult.h"
+#include "ProtocolResult/ProtocolInboxResult.h"
 
 InboxController::InboxController(
     LOG_T& logger,
@@ -30,32 +33,20 @@ void InboxController::setupConnections() {
 }
 
 void InboxController::requestMessageItems() {
-    PACKAGE_T* requestPkg = createPackage(MESSAGES_REQUEST);
-    addItem(requestPkg, (void*)username.c_str(), username.size() + 1);
-    PACKAGE_T* recvdPkg = appController.doRequestToServer(requestPkg, MESSAGES);
-    freePackage(requestPkg);
-
-    if (!recvdPkg)
+    std::unique_ptr<ProtocolResult> result = requestInboxProtocol(logger, appController.getCommunicator(), username);
+    if (auto* networkResult = dynamic_cast<ProtocolNetworkResult*>(result.get())) {
+        this->ShowError(networkResult->getError());
         return;
-        
-    InboxWidget* w = (InboxWidget*)widget;
-    while (recvdPkg->bufferSize != 0) {
-        uint32_t* idPtr = (uint32_t*)getItem(recvdPkg);
-        uint8_t* seenPtr = (uint8_t*)getItem(recvdPkg);
-        char* date = (char*)getItem(recvdPkg);
-        char* sender = (char*)getItem(recvdPkg);
-        char* subject = (char*)getItem(recvdPkg);
-        
-        w->addMessageItem(*idPtr, *seenPtr, date, sender, subject);
-        
-        free(idPtr);
-        free(seenPtr);
-        free(date);
-        free(sender);
-        free(subject);
     }
-
-    freePackage(recvdPkg);
+    if (auto* inboxResult = dynamic_cast<ProtocolInboxResult*>(result.get())) {
+        auto items = inboxResult->getItems();
+        InboxWidget* w = (InboxWidget*)widget;
+        for (auto item : items) {
+            w->addMessageItem(item.id, item.seen, item.date.c_str(), item.sender.c_str(), item.subject.c_str());
+        }
+    } else {
+        DIALOG_ERROR(widget, tr("Something went wrong."));
+    }
 }
 
 void InboxController::onBackRequested() {
