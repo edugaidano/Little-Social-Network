@@ -1,4 +1,4 @@
-#include "../user_manager.h"
+#include "user_manager.h"
 
 int searchProfile(ThreadData* data, PACKAGE_T* pkg) {
     char* username = (char*)getItem(pkg);

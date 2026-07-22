@@ -1,7 +1,7 @@
 #ifndef USER_MANAGER_H
 #define USER_MANAGER_H
 
-#include "../server_storage/server_storage.h"
+#include "server_storage.h"
 
 // on Global folder
 #include "communication/communication.h"

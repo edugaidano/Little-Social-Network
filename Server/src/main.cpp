@@ -1,6 +1,6 @@
-#include "start_server/start_server.h"
-#include "user_manager/user_manager.h"
-#include "server_storage/server_storage.h"
+#include "start_server.h"
+#include "server_storage.h"
+#include "user_manager.h"
 
 // on Global folder
 #include "config/config.h"

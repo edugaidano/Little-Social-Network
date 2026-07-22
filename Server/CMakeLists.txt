@@ -3,9 +3,9 @@ project(Server)
 set(SOURCES
     src/main.cpp
 
-    src/server_storage/server_storage.cpp
+    src/server_storage.cpp
 
-    src/start_server/start_server.cpp
+    src/start_server.cpp
 
     src/user_manager/user_manager.cpp
     src/user_manager/functions/makeLogin.cpp
@@ -22,7 +22,7 @@ add_executable(Server ${SOURCES})
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE
-        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 target_link_libraries(Server

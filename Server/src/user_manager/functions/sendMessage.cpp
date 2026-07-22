@@ -1,4 +1,4 @@
-#include "../user_manager.h"
+#include "user_manager.h"
 
 int sendMessage(ThreadData* data, PACKAGE_T* pkg) {
     char* destinatary = (char*)getItem(pkg);

@@ -1,4 +1,4 @@
-#include "../user_manager.h"
+#include "user_manager.h"
 #include <vector>
 
 int deleteMessage(ThreadData* data, PACKAGE_T* pkg) {
