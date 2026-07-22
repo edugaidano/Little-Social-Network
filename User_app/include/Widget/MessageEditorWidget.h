@@ -5,7 +5,7 @@
 
 #include "dialog.h"
 
-#include "logs/logs.h" // on utils folder
+#include "logs/logs.h" // on Global folder
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MessageEditorWidget; }

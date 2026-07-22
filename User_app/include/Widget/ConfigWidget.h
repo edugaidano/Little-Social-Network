@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-// on utils folder
+// on Global folder
 #include "logs/logs.h" 
 #include "config/config.h"
 

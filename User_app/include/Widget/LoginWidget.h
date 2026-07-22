@@ -5,7 +5,7 @@
 
 #include "dialog.h"
 
-// on utils folder
+// on Global folder
 #include "logs/logs.h"
 
 QT_BEGIN_NAMESPACE

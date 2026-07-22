@@ -132,20 +132,20 @@ target_link_libraries(User_app
     PRIVATE
         Qt::Core
         Qt::Widgets
-        utils
+        Global
         ws2_32
 )
 
 include(GNUInstallDirs)
 
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../utils/config/User.conf
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Global/config/User.conf
     ${CMAKE_CURRENT_BINARY_DIR}/User.conf
     COPYONLY
 )
 
 install(FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/../utils/config/User.conf
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Global/config/User.conf
     DESTINATION .
 )
 

@@ -12,7 +12,7 @@
 
 #pragma comment (lib, "Ws2_32.lib")
 
-// on utils folder
+// on Global folder
 #include "logs/logs.h"
 
 SOCKET startServer(LOG_T &logs, std::string& port);

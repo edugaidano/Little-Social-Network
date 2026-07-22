@@ -9,5 +9,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(Server)
 add_subdirectory(User_app)
-add_subdirectory(Utils)
+add_subdirectory(Global)
 

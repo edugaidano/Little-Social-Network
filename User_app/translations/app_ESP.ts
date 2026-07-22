@@ -313,7 +313,7 @@
         <translation>El usuario está vacío</translation>
     </message>
     <message>
-        <location filename="../src/communicationController/utils/serverConnectionIsOk.cpp" line="5"/>
+        <location filename="../src/communicationController/Global/serverConnectionIsOk.cpp" line="5"/>
         <source>You do not have communication with the server.
 Check if the configuration is correct</source>
         <translation>No tienes comunicación con el servidor.

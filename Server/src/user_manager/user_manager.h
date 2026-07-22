@@ -3,7 +3,7 @@
 
 #include "../server_storage/server_storage.h"
 
-// on utils folder
+// on Global folder
 #include "communication/communication.h"
 
 struct ThreadData {

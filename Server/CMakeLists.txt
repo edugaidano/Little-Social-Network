@@ -26,7 +26,7 @@ target_include_directories(${PROJECT_NAME}
 )
 
 target_link_libraries(Server
-    utils
+    Global
     ws2_32
     -static
     -static-libgcc
@@ -34,12 +34,12 @@ target_link_libraries(Server
 )
 
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../utils/config/Server.conf
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Global/config/Server.conf
     ${CMAKE_CURRENT_BINARY_DIR}/Server.conf
     COPYONLY
 )
 
 install(FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/../utils/config/Server.conf
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Global/config/Server.conf
     DESTINATION .
 )

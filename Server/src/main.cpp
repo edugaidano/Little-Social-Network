@@ -2,7 +2,7 @@
 #include "user_manager/user_manager.h"
 #include "server_storage/server_storage.h"
 
-// on utils folder
+// on Global folder
 #include "config/config.h"
 
 int main (int argc, char *argv[]) {
