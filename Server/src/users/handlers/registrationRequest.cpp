@@ -1,8 +1,9 @@
-#include "user_manager.h"
+#include "users/handlers.h"
 
-int makeRegistration(ThreadData* data, PACKAGE_T* pkg) {
+int handlerRegistrationRequest(LOG_T& logger, StorageController& storage, SOCKET_T& sock, PACKAGE_T* pkg) {
+    LOG_DEBUG(logger, "Start handlerRegistrationRequest");
     char* username = (char*)getItem(pkg);
-    ID_T userId = data->index->createUser(username);
+    ID_T userId = storage.registUser(username);
     free(username);
     PACKAGE_T* pkgReply = createPackage(REGISTER_REPLY);
     if (userId != 0) {
@@ -10,7 +11,7 @@ int makeRegistration(ThreadData* data, PACKAGE_T* pkg) {
     } else {
         addItem(pkgReply, (void*)"Not OK", 7);
     }
-    int retVal = sendPackage(*data->logger, data->clientSocket, pkgReply);
+    int retVal = sendPackage(logger, sock, pkgReply);
     freePackage(pkgReply);
     return retVal;
 }

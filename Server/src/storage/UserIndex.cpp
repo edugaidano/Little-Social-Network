@@ -1,46 +1,5 @@
-#include "server_storage.h"
-
-std::filesystem::path storagePath;
-
-std::mutex usersIndexMutex;
-std::mutex createUserMutex;
-
-FileMutexManager profileMutexManager;
-FileMutexManager messagesMutexManager;
-
-void initStorage(std::filesystem::path path) {
-    std::filesystem::create_directories(path / PROFILES_DIR);
-    std::filesystem::create_directories(path / MESSAGES_DIR);
-
-    std::filesystem::path indexPath = path / USERS_INDEX;
-    if (!std::filesystem::exists(indexPath)) {
-        std::ofstream index(indexPath);
-    }
-
-    std::filesystem::path nextIdPath = path / NEXT_ID;
-    if (!std::filesystem::exists(nextIdPath)) {
-        std::ofstream index(nextIdPath);
-        index << (ID_T)1;
-    }
-
-    storagePath = path;
-}
-
-ID_T getNextId(std::filesystem::path dirPath) {
-    ID_T id = 0;
-
-    std::ifstream inFile(dirPath / NEXT_ID);
-    if (inFile.is_open()) {
-        inFile >> id;
-        inFile.close();
-    }
-
-    std::ofstream outFile(dirPath / NEXT_ID, std::ios::trunc);
-    outFile << (id + 1);
-    outFile.close();
-
-    return id;
-}
+#include "storage/UserIndex.h"
+#include <fstream>
 
 ID_T UserIndex::findUserInFile(const std::string& username) {
     std::lock_guard<std::mutex> lock(usersIndexMutex);
@@ -85,14 +44,13 @@ ID_T UserIndex::findUser(const std::string& username) {
 }
 
 void UserIndex::saveUser(const std::string& username, ID_T id) {
-    usersIndexMutex.lock();;
+    std::lock_guard<std::mutex> lock(usersIndexMutex);
     std::ofstream file(storagePath / USERS_INDEX, std::ios::binary | std::ios::app);
 
     uint8_t size = username.size();
     file.write(reinterpret_cast<const char*>(&size), sizeof(uint8_t));
     file.write(username.data(), size);
     file.write(reinterpret_cast<const char*>(&id), sizeof(id));
-    usersIndexMutex.unlock();
 }
 
 ID_T UserIndex::createUser(const std::string& username) {
@@ -101,7 +59,7 @@ ID_T UserIndex::createUser(const std::string& username) {
         return 0;
     }
 
-    ID_T id = getNextId(storagePath);
+    ID_T id = getNextId();
     if (id != 0) {
         std::ofstream userProfile (storagePath / PROFILES_DIR / std::to_string(id));
         std::filesystem::create_directories(storagePath / MESSAGES_DIR / std::to_string(id) / MESSAGES_DIR);
@@ -115,17 +73,18 @@ ID_T UserIndex::createUser(const std::string& username) {
     return id;
 }
 
-std::shared_ptr<std::mutex> FileMutexManager::getMutex(ID_T id) {
-    std::lock_guard<std::mutex> lock(mapMutex);
+ID_T UserIndex::getNextId() {
+    ID_T id = 0;
 
-    auto& weak = mutexes[id];
-
-    auto shared = weak.lock();
-
-    if (!shared) {
-        shared = std::make_shared<std::mutex>();
-        weak = shared;
+    std::ifstream inFile(storagePath / NEXT_ID);
+    if (inFile.is_open()) {
+        inFile >> id;
+        inFile.close();
     }
 
-    return shared;
+    std::ofstream outFile(storagePath / NEXT_ID, std::ios::trunc);
+    outFile << (id + 1);
+    outFile.close();
+
+    return id;
 }

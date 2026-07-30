@@ -3,22 +3,49 @@ project(Server)
 set(SOURCES
     src/main.cpp
 
-    src/server_storage.cpp
+    src/server/start_server.cpp
+    src/server/ServerController.cpp
+    
+    src/users/UserManager.cpp
 
-    src/start_server.cpp
+    src/users/handlers/loginRequest.cpp
+    src/users/handlers/registrationRequest.cpp
+    src/users/handlers/updateProfileRequest.cpp
+    src/users/handlers/sendMessageRequest.cpp
+    src/users/handlers/searchProfileRequest.cpp
+    src/users/handlers/getIndexRequest.cpp
+    src/users/handlers/getMessageRequest.cpp
+    src/users/handlers/deleteMessageRequest.cpp
+    
+    src/storage/UserIndex.cpp
+    src/storage/StorageController.cpp
 
-    src/user_manager/user_manager.cpp
-    src/user_manager/functions/makeLogin.cpp
-    src/user_manager/functions/makeRegistration.cpp
-    src/user_manager/functions/deleteMessage.cpp
-    src/user_manager/functions/findMessage.cpp
-    src/user_manager/functions/findMessagesList.cpp
-    src/user_manager/functions/searchProfile.cpp
-    src/user_manager/functions/sendMessage.cpp
-    src/user_manager/functions/updateProfile.cpp
+    src/storage/FilesManager/FilesManager.cpp
+    src/storage/FilesManager/MessagesManager.cpp
+    src/storage/FilesManager/ProfilesManager.cpp
 )
 
-add_executable(Server ${SOURCES})
+set(INCLUDE_FILES
+
+    includes/server/start_server.h
+    include/server/ServerController.h
+
+    include/users/UserManager.h
+    include/users/handlers.h
+
+    include/storage/storage_values.h
+    include/storage/StorageController.h
+    include/storage/UserIndex.h
+    
+    include/storage/FilesManager/FilesManager.h
+    include/storage/FilesManager/MessagesManager.h
+    include/storage/FilesManager/ProfilesManager.h
+)
+
+add_executable(Server 
+    ${SOURCES}
+    ${INCLUDES_FILES}
+)
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE

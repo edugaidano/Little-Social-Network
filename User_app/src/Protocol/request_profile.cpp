@@ -34,6 +34,11 @@ std::unique_ptr<ProtocolResult> requestProfileProtocol(LOG_T& logger, Communicat
     free(usr);
     char* c = (char*)getItem(recvdPkg);
     freePackage(recvdPkg);
+
+    if (!c) {
+        return std::make_unique<ProtocolResult>(ResultCode::ERROR_EXTERNAL);
+    }
+
     std::string content(c);
     free(c);
     return std::make_unique<ProtocolContentResult>(ResultCode::OK, content);
